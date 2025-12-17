@@ -1,0 +1,37 @@
+<?php
+return [
+    'site_name' => 'swdefef',
+    'site_content' => 'Ən wwefregeg naliyyətiniz bizimlə qazan!',
+    'site_post' => 'Ən gözəl postlarımız',
+    'main' => 'Əsas',
+    'about_us' => 'Haqqımızda',
+    'services' => 'Xidmətlər',
+    'contact' => 'Əlaqə',
+    'contact_us' => 'Bizimlə Əlaqə',
+    'subjects' => 'Fənnlər',
+    'categories' => 'Kateqoryalar',
+    'classes' => 'Siniflər',
+    'exams' => 'İmtahanlar',
+    'blogs' => 'Yeniliklər',
+    'achievements' => 'Nailiyyətlərimiz',
+    'faqs' => 'Tez-tez verilən suallar',
+    'terms_conditions' => 'Şərtlər və qaydalar',
+    'privacy_policy' => 'Məxfilik siyasəti',
+    'roadmap' => 'Sayt üzrə xəritə',
+    'login' => 'Daxil ol',
+    'register' => 'Qeydiyyat',
+    'forgot_password' => 'Şifrəni unutdum',
+    //dashboard
+    'account' => 'Hesabım',
+    'settings' => 'Ayarlar',
+    'my_exams' => 'İmtahanlarım',
+    'payment' => 'Ödəniş',
+    'results' => 'Nəticələr',
+    //content
+    'parent' => 'Valdeyin',
+    'children' => 'Uşaqlar',
+    'student' => 'Şagird',
+    'search_exam' => 'İstədiyin sınağı axtar',
+    'start_search' => 'Axtarış et',
+    'search' => 'Axtarış'
+];
