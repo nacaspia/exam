@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\CmsUser;
 use App\Models\CmsUserRole;
+use App\Models\Language;
 use App\Models\Permission;
 use App\Models\PermissionLabel;
 use App\Models\Role;
@@ -82,6 +83,20 @@ class CmsUserSeeder extends Seeder
                     []
                 );
             }
+        }
+
+        $languages = [
+            'az' => 'Azərbaycan',
+            'en' => 'English',
+            'rus' => 'Russian',
+        ];
+        foreach ($languages as $langCode => $langName) {
+            $isDefault = false;
+            if ($langCode == 'az') {$isDefault = true;}
+            Language::updateOrCreate(
+                ['code' => $langCode],
+                ['name' => $langName, 'code' => $langCode, 'status' => true, 'is_default' => $isDefault]
+            );
         }
     }
 }

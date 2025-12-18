@@ -1,12 +1,15 @@
 <?php
 
-use App\Http\Controllers\RolesController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QrController;
 use App\Http\Controllers\CmsUsersController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\SchoolClassController;
+use App\Http\Controllers\SubjectController;
 
 use App\Http\Controllers\Web\SiteController;
 use App\Http\Controllers\Web\User\AccountController;
@@ -46,6 +49,8 @@ Route::prefix('/admin')->middleware('check.ip')->group( function () {
         Route::resource('roles',RolesController::class);
         Route::resource('cms-users',CmsUsersController::class);
         Route::resource('languages',LanguageController::class);
+        Route::resource('school-classes',SchoolClassController::class);
+        Route::resource('subjects',SubjectController::class);
     });
 });
 
