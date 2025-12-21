@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     @yield('site.meta')
     <!--====== Title ======-->
-    <title>{{ __('site.site_name') }} - @yield('site.title')</title>
-    <link rel="shortcut icon" href="{{ asset('site/assets/images/favicon.ico') }}" type="image/png">
+    <title>{{settings()['title'][language()] ?? null}} - @yield('site.title')</title>
+    <link rel="shortcut icon" href="{{ asset('storage/' . settings()['logo']['favicon']) }}" type="image/png">
     @yield('site.css')
     <style>
         .language-switcher select {
@@ -64,7 +64,7 @@
                     <div class="header-logo d-flex align-items-center justify-content-center justify-content-sm-start">
                         <div class="logo">
                             <a href="{{ route('site.index', ['locale' => app()->getLocale()]) }}">
-                                <img src="{{ asset('site/assets/images/logo.png') }}" alt="{{ __('site.site_name') }}">
+                                <img src="{{ asset('storage/' . settings()['logo']['header_logo']) }}" alt="{{settings()['title'][language()] ?? null}}">
                             </a>
                         </div>
                         <form class="d-none d-md-inline-block" action="#">
@@ -114,12 +114,12 @@
                                     <li class="nav-item">
                                         <a class="page-scroll" href="{{ route('site.classes', ['locale' => app()->getLocale()]) }}">{{ __('site.classes') }}</a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{--<li class="nav-item">
                                         <a class="page-scroll" href="{{ route('site.achievements', ['locale' => app()->getLocale()]) }}">{{ __('site.achievements') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="page-scroll" href="{{ route('site.blogs', ['locale' => app()->getLocale()]) }}">{{ __('site.blogs') }}</a>
-                                    </li>
+                                    </li>--}}
                                 </ul>
                             </div>
 
@@ -136,10 +136,10 @@
                             <div class="navbar-item d-flex align-items-center">
                                 <div class="menu-icon d-none d-lg-block">
                                     <ul>
-                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-telegram"></i></a></li>
-                                        <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                                        <li><a href="{{settings()['contact']['facebook'] ?? null}}"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a href="{{settings()['contact']['instagram'] ?? null}}"><i class="fab fa-instagram"></i></a></li>
+                                        <li><a href="{{settings()['contact']['telegram'] ?? null}}"><i class="fab fa-telegram"></i></a></li>
+                                        <li><a href="{{settings()['contact']['linkedin'] ?? null}}"><i class="fab fa-linkedin"></i></a></li>
                                     </ul>
                                 </div>
                             </div>

@@ -10,12 +10,17 @@ class SchoolClass extends Model
     use SeoTrait;
     protected $table = 'school_classes';
     protected $fillable = [
-        'title', 'slug', 'text', 'image', 'status'
+        'name', 'slug', 'text', 'image', 'status'
     ];
 
     protected $casts = [
-        'title' => 'array',
+        'name' => 'array',
         'slug' => 'array',
         'text' => 'array'
     ];
+
+    public function seo()
+    {
+        return $this->morphOne(Seo::class, 'seoable');
+    }
 }

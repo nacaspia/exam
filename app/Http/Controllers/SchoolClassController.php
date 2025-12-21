@@ -48,6 +48,7 @@ class SchoolClassController extends Controller
             $this->schoolClassService->create($data);
             return redirect()->route('school-classes.index')->with('success', 'Yeni sinif yaradıldı');
         } catch (\Throwable $e) {
+            dd($e);
             return back()->withErrors( 'Xəta baş verdi: ' . $e->getMessage());
         }
     }
@@ -80,6 +81,7 @@ class SchoolClassController extends Controller
             $this->schoolClassService->update($id,$data);
             return redirect()->route('school-classes.index')->with('success', 'Sinif düzənləndi');
         } catch (\Throwable $e) {
+            dd($e);
             return back()->withErrors( 'Xəta baş verdi: ' . $e->getMessage());
         }
     }
@@ -93,6 +95,7 @@ class SchoolClassController extends Controller
             $this->schoolClassService->delete($id);
             return redirect()->route('school-classes.index')->with('success', 'Sinif ləvğ edildi!');
         } catch (\Throwable $e) {
+            dd($e);
             return back()->withErrors( 'Xəta baş verdi: ' . $e->getMessage());
         }
     }

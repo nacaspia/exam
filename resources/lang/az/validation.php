@@ -19,7 +19,9 @@ return [
     'max.file' => ':attribute maksimum :max KB ola bilər.',
     'regex' => ':attribute formatı düzgün deyil.',
     'unique' => ':attribute artıq vardır.',
-
+    'json' => ':attribute json olmali.',
+    'url' => ':attribute url olmali.',
+    'dimensions' => 'The :attribute has invalid image dimensions',
     // Attribute names
     'attributes' => [
         'name' => 'Ad',
@@ -36,7 +38,14 @@ return [
         'pin' => 'PIN kodu',
         'birthday' => 'Doğum tarixi',
         'image' => 'Şəkil',
-        'status' => 'Status'
+        'header_logo' => 'Header Logo',
+        'footer_logo' => 'Footer Logo',
+        'favicon' => 'Favicon',
+        'status' => 'Status',
+        'facebook' => 'Facebook',
+        'instagram' => 'Instagram',
+        'linkedin' => 'Linkedin',
+        'telegram' => 'Telegram'
     ],
 
 ];

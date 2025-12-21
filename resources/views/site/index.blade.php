@@ -25,8 +25,8 @@
                     <span>eDus Digital Institute</span>
                     <h1 class="title">The New Way To Learn.</h1>
                     <ul>
-                        <li><a class="main-btn" href="#"><span>+</span> Our Course</a></li>
-                        <li><a class="main-btn-2 main-btn" href="#"><span>+</span> Learn More</a></li>
+                        <li><a class="main-btn" href="{{ route('site.auth.login') }}"><span>+</span> {{ __('site.login') }}</a></li>
+                        <li><a class="main-btn-2 main-btn" href="{{ route('site.contact') }}"><span>+</span>{{ __('site.contact_us') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -51,26 +51,26 @@
                         <div class="dream-course-search d-flex">
                             <div class="input-box">
                                 <i class="fal fa-search"></i>
-                                <input type="text" placeholder="{{ __('site.search') }}">
+                                <input type="text" name="search" placeholder="{{ __('site.search') }}">
                             </div>
                             <div class="dream-course-category d-none d-lg-inline-block">
-                                <select>
+                                <select name="class_id">
                                     <option data-display="{{ __('site.classes') }}">{{ __('site.classes') }}</option>
-                                    <option value="1">Web Developemtn</option>
-                                    <option value="2">Web Design</option>
-                                    <option value="4">UI/UX Design</option>
-                                    <option value="5">Digital Marketing</option>
-                                    <option value="6">Game Design</option>
+                                    @if(!empty($classes))
+                                        @foreach($classes as $class)
+                                            <option value="{{$class['id']}}">{{$class['name'][language()]}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                             <div class="dream-course-category  d-none d-lg-inline-block">
-                                <select>
+                                <select name="subject_id">
                                     <option data-display="{{ __('site.subjects') }}">{{ __('site.subjects') }}</option>
-                                    <option value="1">99$</option>
-                                    <option value="2">199$</option>
-                                    <option value="4">399$</option>
-                                    <option value="5">349$</option>
-                                    <option value="6">599$</option>
+                                    @if(!empty($subjects))
+                                        @foreach($subjects as $subject)
+                                            <option value="{{$subject['id']}}">{{$subject['name'][language()]}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                             <div class="dream-course-btn">
@@ -83,7 +83,7 @@
         </div>
     </div>
 </div>
-<section class="services-area pb-120">
+{{--<section class="services-area pb-120">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-11">
@@ -145,7 +145,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>--}}
 <section class="offer-area bg_cover pt-110 pb-120" style="background-image: url({{ asset('site/assets/images/offer-bg.jpg') }})">
     <div class="container">
         <div class="row justify-content-center">

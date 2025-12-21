@@ -25,6 +25,9 @@ class Seo extends Model
         'meta_text' => 'array',
         'meta_slug' => 'array',
         'meta_keywords' => 'array',
+        'og_title' => 'array',
+        'og_slug' => 'array',
+        'og_text' => 'array',
     ];
 
     public function seoable()

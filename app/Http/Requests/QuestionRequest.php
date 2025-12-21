@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SchoolClassRequest extends FormRequest
+class QuestionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,6 +30,8 @@ class SchoolClassRequest extends FormRequest
                 'max:2048', // fayl ölçüsü KB ilə
                 'dimensions:max_width=270,max_height=230', // tam ölçü
             ],
+            'subject_id' => 'required|integer|exists:subjects,id',
+            'class_id' => 'required|integer|exists:school_classes,id',
             'title' => 'required|array',
             'title.*' => 'required|string|max:200',
 //            'text' => 'array|min:100',

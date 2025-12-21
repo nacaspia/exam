@@ -16,6 +16,7 @@ class AuthController extends Controller
     }
 
     public function login() {
+
         if ($this->currentCmsUser) {
             return redirect(route('home'));
         }

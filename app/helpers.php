@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Setting;
+
 function language()
 {
     return app()->getLocale();
@@ -20,3 +22,7 @@ function time_now()
     return date('Y-m-d H:i:s');
 }
 
+function settings()
+{
+    return Setting::first()?->toArray() ?? null;
+}

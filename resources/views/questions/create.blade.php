@@ -32,13 +32,13 @@
         <div class="dashboard-breadcrumb mb-25">
             <h2>{{ __('content.new') }}</h2>
             <div class="btn-box">
-                <a href="{{ route('school-classes.index') }}" class="btn btn-sm btn-primary"> {{ __('content.school_classes') }}</a>
+                <a href="{{ route('questions.index') }}" class="btn btn-sm btn-primary"> {{ __('content.questions') }}</a>
             </div>
         </div>
         @include('errors.messages')
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('school-classes.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('questions.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="panel">
                         <div class="panel-body">
@@ -71,6 +71,14 @@
                                                     <input type="text" class="form-control js-title" name="title[{{$lang['code']}}]" data-lang="{{$lang['code']}}">
                                                 </div>
 
+
+                                                <div class="col-12">
+                                                    <label class="form-label">Sual mətni ({{$lang['code']}})</label>
+                                                    <textarea
+                                                        class="form-control"
+                                                        name="text[{{$lang['code']}}]"
+                                                        rows="3"></textarea>
+                                                </div>
                                                 {{-- SEO TITLE --}}
                                                 <div class="col-12">
                                                     <label class="form-label">
@@ -131,6 +139,89 @@
                                 @endif
                                 <div class="tab-pane" id="other" role="tabpanel">
                                     <div class="row g-3">
+
+                                        {{-- CLASS --}}
+                                        <div class="col-md-12">
+                                            <label class="form-label">Sinif</label>
+                                            <select name="class_id" class="form-select" required>
+                                                @foreach($schoolClasses as $class)
+                                                    <option value="{{ $class['id'] }}">{{ $class['name'][language()] }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        {{-- SUBJECT --}}
+                                        <div class="col-md-12">
+                                            <label class="form-label">Fənn</label>
+                                            <select name="subject_id" class="form-select" required>
+                                                @foreach($subjects as $subject)
+                                                    <option value="{{ $subject['id'] }}">{{ $subject['name'][language()] }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        {{-- TYPE --}}
+                                        <div class="col-md-12">
+                                            <label class="form-label">Sual növü</label>
+                                            <select name="type" id="questionType" class="form-select" required>
+                                                <option value="">Seçin</option>
+                                                <option value="multiple_choice">Variantlı</option>
+                                                <option value="short_text">Qısa yazı</option>
+                                                <option value="open_text">Açıq sual</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-12" id="multipleChoiceBlock" style="display:none">
+                                            <hr>
+                                            <h5>Variantlar</h5>
+
+                                            <div id="optionsWrapper"></div>
+
+                                            <button type="button" class="btn btn-sm btn-success mt-2" id="addOption">
+                                                + Variant əlavə et
+                                            </button>
+                                        </div>
+
+                                        <div class="col-md-12" id="shortTextBlock" style="display:none">
+                                            <label class="form-label">Doğru cavab</label>
+                                            <input type="text" name="correct_answer" class="form-control">
+                                        </div>
+                                        {{-- CANONICAL --}}
+                                        <div class="col-12">
+                                            <label class="form-label">Canonical URL</label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   name="canonical_url"
+                                                   placeholder="https://site.az/az/questions">
+                                        </div>
+
+                                        {{-- INDEX --}}
+                                        <div class="col-12">
+                                            <input type="hidden" name="index" value="0">
+                                            <div class="form-check">
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="index"
+                                                       value="1"
+                                                       checked>
+                                                <label class="form-check-label">
+                                                    Index
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        {{-- FOLLOW --}}
+                                        <div class="col-12">
+                                            <input type="hidden" name="follow" value="0">
+                                            <div class="form-check">
+                                                <input class="form-check-input"
+                                                       type="checkbox"
+                                                       name="follow"
+                                                       value="1"
+                                                       checked>
+                                                <label class="form-check-label">
+                                                    Follow
+                                                </label>
+                                            </div>
+                                        </div>
                                         <div class="col-sm-12">
                                             <div class="col-lg-8 col-md-7">
                                                 <div class="card component-jquery-uploader">
@@ -139,44 +230,7 @@
                                                     </div>
                                                     <div class="card-body">
                                                         <div class="row">
-                                                            {{-- CANONICAL --}}
-                                                            <div class="col-12">
-                                                                <label class="form-label">Canonical URL</label>
-                                                                <input type="text"
-                                                                       class="form-control"
-                                                                       name="canonical_url"
-                                                                       placeholder="https://site.az/az/school-classes">
-                                                            </div>
 
-                                                            {{-- INDEX --}}
-                                                            <div class="col-12">
-                                                                <input type="hidden" name="index" value="0">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input"
-                                                                           type="checkbox"
-                                                                           name="index"
-                                                                           value="1"
-                                                                           checked>
-                                                                    <label class="form-check-label">
-                                                                        Index
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-
-                                                            {{-- FOLLOW --}}
-                                                            <div class="col-12">
-                                                                <input type="hidden" name="follow" value="0">
-                                                                <div class="form-check">
-                                                                    <input class="form-check-input"
-                                                                           type="checkbox"
-                                                                           name="follow"
-                                                                           value="1"
-                                                                           checked>
-                                                                    <label class="form-check-label">
-                                                                        Follow
-                                                                    </label>
-                                                                </div>
-                                                            </div>
 
                                                             <div class="col-xxl-9 col-sm-8">
                                                                 <label class="form-label">@lang('validation.attributes.image')</label>
@@ -188,11 +242,12 @@
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-sm btn-primary">@lang('admin.save')</button>
+                            <button type="submit" class="btn btn-sm btn-primary">@lang('content.save')</button>
                         </div>
                     </div>
                 </form>
@@ -209,6 +264,51 @@
     <script src="{{ asset('assets/vendor/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/select2-init.js') }}"></script>
+    <script>
+        let optionIndex = 0;
+
+        const MAX_OPTIONS = 5;
+        document.getElementById('questionType').addEventListener('change', function () {
+            document.getElementById('multipleChoiceBlock').style.display =
+                this.value === 'multiple_choice' ? 'block' : 'none';
+        });
+
+        document.getElementById('addOption').addEventListener('click', function () {
+            if (optionIndex >= MAX_OPTIONS) {
+                alert('Maksimum 5 variant əlavə edə bilərsiniz.');
+                return;
+            }
+            let html = `
+    <div class="card mt-2 p-3">
+        <div class="row">
+            @foreach(languages() as $lang)
+            <div class="col-md-4">
+                <input type="text"
+                    name="options[${optionIndex}][{{$lang['code']}}]"
+                        class="form-control"
+                        placeholder="Variant ({{$lang['code']}})">
+                </div>
+            @endforeach
+            <div class="col-md-2">
+                <input type="radio" name="correct_option" value="${optionIndex}">
+                Doğru
+            </div>
+        </div>
+    </div>`;
+            document.getElementById('optionsWrapper').insertAdjacentHTML('beforeend', html);
+            optionIndex++;
+            // 5-ə çatanda düyməni deaktiv et
+            if (optionIndex >= MAX_OPTIONS) {
+                this.disabled = true;
+            }
+        });
+        document.getElementById('questionType').addEventListener('change', function () {
+            document.getElementById('shortTextBlock').style.display =
+                this.value === 'short_text' ? 'block' : 'none';
+        });
+
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 

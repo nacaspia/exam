@@ -15,6 +15,9 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next)
     {
+        if ($request->is('admin/*')) {
+            return $next($request);
+        }
         $locale = $request->route('locale');
 
         // URL-də locale varsa

@@ -3,7 +3,7 @@
 
 @endsection
 @section('site.title')
-    {{ __('site.main') }}
+    {{ __('site.exams') }}
 @endsection
 @section('site.css')
     <link rel="stylesheet" href="{{ asset('site/assets/css/animate.min.css') }}">
@@ -23,134 +23,103 @@
                 <div class="col-lg-9">
                     <div class="course-grid mt-30">
                         <div class="course-grid-top d-sm-flex d-block justify-content-between align-items-center">
+                            <form method="GET" action="">
                             <div class="course-filter d-block align-items-center d-sm-flex">
-                                <select>
-                                    <option data-display="{{ __('site.classes') }}">{{ __('site.classes') }}</option>
-                                    <option value="1">Filter 2</option>
-                                    <option value="2">Filter 3</option>
-                                    <option value="3">Filter 4</option>
-                                    <option value="4">Filter 5</option>
+                                <select name="class_id" onchange="this.form.submit()">
+                                    <option value="" @if(empty($_GET['class_id']))  selected @endif >{{ __('site.classes') }}</option>
+                                    @if(!empty($classes))
+                                        @foreach($classes as $class)
+                                            <option value="{{$class['id']}}" @if(!empty($_GET['class_id']) && $_GET['class_id']==$class['id'])  selected @endif>{{$class['name'][language()]}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
-                                <select>
-                                    <option data-display="{{ __('site.subjects') }}">{{ __('site.subjects') }}</option>
-                                    <option value="1">Filter 2</option>
-                                    <option value="2">Filter 3</option>
-                                    <option value="3">Filter 4</option>
-                                    <option value="4">Filter 5</option>
+                                <select name="subject_id" onchange="this.form.submit()">
+                                    <option value="" @if(empty($_GET['subject_id']))  selected @endif>{{ __('site.subjects') }}</option>
+                                    @if(!empty($subjects))
+                                        @foreach($subjects as $subject)
+                                            <option value="{{$subject['id']}}" @if(!empty($_GET['subject_id']) && $_GET['subject_id']==$subject['id'])  selected @endif>{{$subject['name'][language()]}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
+                            </form>
                         </div>
                     </div>
                     <div class="row mt-10 justify-content-center">
-                        <div class="col-lg-4 col-md-6 col-sm-8">
-                            <div class="single-courses mt-30">
-                                <div class="courses-thumb">
-                                    <img src="{{ asset('site/assets/images/courses-grid-1.jpg') }}" alt="courses">
-                                    <div class="courses-review">
-                                        <span><i class="fas fa-star"></i>5.6</span>
-                                    </div>
-                                    <div class="corses-thumb-title">
-                                        <span>Games, Art</span>
-                                    </div>
-                                </div>
-                                <div class="courses-content">
-                                    <a href="#">
-                                        <h4 class="title">Discover industry leading E Learning Tools</h4>
-                                    </a>
-                                    <div class="courses-info d-flex justify-content-between">
-                                        <div class="item">
-                                            <p>By Rosalina D.</p>
+                        @forelse($questions as $question)
+                            <div class="col-lg-4 col-md-6 col-sm-8">
+                                <div class="single-courses mt-30">
+                                    <div class="courses-thumb">
+                                        <img src="{{ $question->image? asset('storage/'.$question->image) : asset('site/assets/images/courses-grid-1.jpg') }}">
+                                       {{-- <div class="courses-review">
+                                            <span><i class="fas fa-star"></i>5.6</span>
+                                        </div>--}}
+                                        <div class="corses-thumb-title">
+                                            <span>{{ $question->class->name[language()] ?? '' }}</span>
                                         </div>
-                                        <span>$46</span>
                                     </div>
-                                    <ul>
-                                        <li><i class="fal fa-users"></i> 23</li>
-                                        <li><i class="fal fa-clock"></i> 10 Hr</li>
-                                        <li><i class="fal fa-comments"></i> 143</li>
-                                    </ul>
+                                    <div class="courses-content">
+                                        <a href="{{ route('site.examDetails',['locale' => app()->getLocale(),'slug' => $question->slug[language()], 'id' => $question->id]) }}">
+                                            <h4 class="title">{{ $question->title[language()] }}</h4>
+                                        </a>
+                                        <div class="courses-info d-flex justify-content-between">
+                                            <div class="item">
+                                                <p>{{ $question->subject->name[language()] ?? '' }}</p>
+                                            </div>
+                                            @if($question->is_paid)
+                                                <span>{{ $question->price }} ₼</span>
+                                            @else
+                                                <span>Pulsuz</span>
+                                            @endif
+                                        </div>
+                                        {{--<ul>
+                                            <li><i class="fal fa-users"></i> 23</li>
+                                            <li><i class="fal fa-clock"></i> 10 Hr</li>
+                                            <li><i class="fal fa-comments"></i> 143</li>
+                                        </ul>--}}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-8">
-                            <div class="single-courses mt-30">
-                                <div class="courses-thumb">
-                                    <img src="{{ asset('site/assets/images/courses-grid-1.jpg') }}" alt="courses">
-                                    <div class="courses-review">
-                                        <span><i class="fas fa-star"></i>5.6</span>
-                                    </div>
-                                    <div class="corses-thumb-title">
-                                        <span>Games, Art</span>
-                                    </div>
-                                </div>
-                                <div class="courses-content">
-                                    <a href="#">
-                                        <h4 class="title">Discover industry leading E Learning Tools</h4>
-                                    </a>
-                                    <div class="courses-info d-flex justify-content-between">
-                                        <div class="item">
-                                            <p>By Rosalina D.</p>
-                                        </div>
-                                        <span>$46</span>
-                                    </div>
-                                    <ul>
-                                        <li><i class="fal fa-users"></i> 23</li>
-                                        <li><i class="fal fa-clock"></i> 10 Hr</li>
-                                        <li><i class="fal fa-comments"></i> 143</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-8">
-                            <div class="single-courses mt-30">
-                                <div class="courses-thumb">
-                                    <img src="{{ asset('site/assets/images/courses-grid-1.jpg') }}" alt="courses">
-                                    <div class="courses-review">
-                                        <span><i class="fas fa-star"></i>5.6</span>
-                                    </div>
-                                    <div class="corses-thumb-title">
-                                        <span>Games, Art</span>
-                                    </div>
-                                </div>
-                                <div class="courses-content">
-                                    <a href="#">
-                                        <h4 class="title">Discover industry leading E Learning Tools</h4>
-                                    </a>
-                                    <div class="courses-info d-flex justify-content-between">
-                                        <div class="item">
-                                            <p>By Rosalina D.</p>
-                                        </div>
-                                        <span>$46</span>
-                                    </div>
-                                    <ul>
-                                        <li><i class="fal fa-users"></i> 23</li>
-                                        <li><i class="fal fa-clock"></i> 10 Hr</li>
-                                        <li><i class="fal fa-comments"></i> 143</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
+                        @empty
+                            <p class="text-center">Nəticə tapılmadı</p>
+                        @endforelse
                         <div class="col-lg-12">
                             <div class="pagination-item d-flex justify-content-center mt-50">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true"><i class="fal fa-arrow-left"></i></span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">01</a></li>
-                                        <li class="page-item"><a class="page-link active" href="#">02</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">03</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">10</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true"><i class="fal fa-arrow-right"></i></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                @if ($questions->hasPages())
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination">
+                                            {{-- Previous --}}
+                                            <li class="page-item {{ $questions->onFirstPage() ? 'disabled' : '' }}">
+                                                <a class="page-link" href="{{ $questions->previousPageUrl() }}" aria-label="Previous">
+                                                    <span aria-hidden="true">
+                                                        <i class="fal fa-arrow-left"></i>
+                                                    </span>
+                                                </a>
+                                            </li>
+
+                                            {{-- Pages --}}
+                                            @foreach ($questions->links()->elements[0] as $page => $url)
+                                                <li class="page-item {{ $page == $questions->currentPage() ? 'active' : '' }}">
+                                                    <a class="page-link" href="{{ $url }}">
+                                                        {{ str_pad($page, 2, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+
+                                            {{-- Next --}}
+                                            <li class="page-item {{ $questions->hasMorePages() ? '' : 'disabled' }}">
+                                                <a class="page-link" href="{{ $questions->nextPageUrl() }}" aria-label="Next">
+                                                    <span aria-hidden="true">
+                                                        <i class="fal fa-arrow-right"></i>
+                                                    </span>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </nav>
+                                @endif
+
+
                             </div>
                         </div>
                     </div>

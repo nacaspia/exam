@@ -17,17 +17,18 @@ trait SeoTrait
     {
         $languages = Language::where('status', 1)->get();
 
-        $metaTitle = [];
-        $metaDesc  = [];
-        $metaSlug   = [];
-        $metaKey   = [];
-
+        $metaTitle = []; $metaDesc  = []; $metaSlug   = []; $metaKey   = [];
+        $og_title = []; $og_slug = []; $og_description = [];
         foreach ($languages as $lang) {
             $langCode = isset($lang['code']) ? $lang['code'] : app()->getLocale();
-            $metaTitle[$langCode] = $data['meta_title'][$langCode] ?? null;
-            $metaSlug[$langCode] = Str::slug(trim($data['meta_title'][$langCode]));
-            $metaDesc[$langCode]  = $data['meta_text'][$langCode] ?? null;
-            $metaKey[$langCode]   = $data['meta_keywords'][$langCode] ?? null;
+            $metaTitle[$langCode] = $data['meta_title'][$langCode] ?? [];
+            $metaSlug[$langCode] = !empty($data['meta_title'][$langCode])? Str::slug(trim($data['meta_title'][$langCode])) : [];
+            $metaDesc[$langCode]  = $data['meta_text'][$langCode] ?? [];
+            $metaKey[$langCode]   = $data['meta_keywords'][$langCode] ?? [];
+
+            $og_title[$langCode]   = $data['og_title'][$langCode] ?? [];
+            $og_slug[$langCode]   = !empty($data['og_title'][$langCode])? Str::slug(trim($data['og_title'][$langCode])) : [];
+            $og_description[$langCode]   = $data['og_text'][$langCode] ?? [];
         }
 
         $seoData = [
@@ -38,9 +39,9 @@ trait SeoTrait
             'canonical_url'    => $data['canonical_url'] ?? null,
             'index'            => $data['index'] ?? true,
             'follow'           => $data['follow'] ?? true,
-            'og_title'         => $data['og_title'] ?? null,
-            'og_slug'         => $data['og_slug'] ?? null,
-            'og_text'   => $data['og_text'] ?? null,
+            'og_title'         => $og_title ?? null,
+            'og_slug'         => $og_slug ?? null,
+            'og_text'   => $og_description ?? null,
         ];
 
         if ($this->seo) {

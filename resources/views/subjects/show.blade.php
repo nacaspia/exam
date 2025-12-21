@@ -32,7 +32,7 @@
         <div class="dashboard-breadcrumb mb-25">
             <h2>{{ __('content.show') }}</h2>
             <div class="btn-box">
-                <a href="{{ route('school-classes.index') }}" class="btn btn-sm btn-primary"> {{ __('content.school_classes') }}</a>
+                <a href="{{ route('subjects.index') }}" class="btn btn-sm btn-primary"> {{ __('content.subjects') }}</a>
             </div>
         </div>
         @include('errors.messages')
@@ -66,7 +66,7 @@
                                             <div class="row g-3">
                                                 <div class="col-12">
                                                     <label class="form-label">@lang('validation.attributes.title') - {{$lang['code']}}</label>
-                                                    <input type="text" disabled class="form-control js-title" name="title[{{$lang['code']}}]" value="{{$schoolClass['name'][$lang['code'] ?? null]}}" data-lang="{{$lang['code']}}">
+                                                    <input type="text" disabled class="form-control js-title" name="title[{{$lang['code']}}]" value="{{$subjects['name'][$lang['code'] ?? null]}}" data-lang="{{$lang['code']}}">
                                                 </div>
 
                                                 {{-- SEO TITLE --}}
@@ -77,7 +77,7 @@
                                                     <input type="text"
                                                            class="form-control js-meta-title"
                                                            name="meta_title[{{$lang['code']}}]" disabled
-                                                           placeholder="Boş burax → title-dan auto dolacaq" value="{{$schoolClass['seo']['meta_title'][$lang['code'] ?? null]}}" data-lang="{{$lang['code']}}">
+                                                           placeholder="Boş burax → title-dan auto dolacaq" value="{{$subjects['seo']['meta_title'][$lang['code'] ?? null]}}" data-lang="{{$lang['code']}}">
                                                 </div>
 
                                                 {{-- SEO DESCRIPTION --}}
@@ -88,7 +88,7 @@
                                                     <textarea class="form-control js-meta-text"
                                                               name="meta_text[{{$lang['code']}}]"
                                                               rows="3" disabled
-                                                              placeholder="Boş burax → title-dan auto dolacaq" data-lang="{{$lang['code']}}">{{$schoolClass['seo']['meta_text'][$lang['code'] ?? null]}}</textarea>
+                                                              placeholder="Boş burax → title-dan auto dolacaq" data-lang="{{$lang['code']}}">{{$subjects['seo']['meta_text'][$lang['code'] ?? null]}}</textarea>
                                                 </div>
 
                                                 {{-- SEO KEYWORDS --}}
@@ -99,7 +99,7 @@
                                                     <input type="text" disabled
                                                            class="form-control js-meta-keyword"
                                                            name="meta_keywords[{{$lang['code']}}]"
-                                                           placeholder="keyword1, keyword2" value="{{$schoolClass['seo']['meta_keywords'][$lang['code'] ?? null]}}" data-lang="{{$lang['code']}}">
+                                                           placeholder="keyword1, keyword2" value="{{$subjects['seo']['meta_keywords'][$lang['code'] ?? null]}}" data-lang="{{$lang['code']}}">
                                                 </div>
 
                                                 {{-- OG TITLE --}}
@@ -110,7 +110,7 @@
                                                     <input type="text" disabled
                                                            class="form-control js-og-title"
                                                            name="og_title[{{$lang['code']}}]"
-                                                           placeholder="Boş burax → meta title-dan götürüləcək" value="{{$schoolClass['seo']['og_title'][$lang['code'] ?? null]}}" data-lang="{{$lang['code']}}">
+                                                           placeholder="Boş burax → meta title-dan götürüləcək" value="{{$subjects['seo']['og_title'][$lang['code'] ?? null]}}" data-lang="{{$lang['code']}}">
                                                 </div>
 
                                                 {{-- OG DESCRIPTION --}}
@@ -121,7 +121,7 @@
                                                     <textarea class="form-control js-og-text"
                                                               name="og_text[{{$lang['code']}}]"
                                                               rows="2" disabled
-                                                              placeholder="Boş burax → meta description-dan götürüləcək" data-lang="{{$lang['code']}}">{{$schoolClass['seo']['og_text'][$lang['code'] ?? null]}}</textarea>
+                                                              placeholder="Boş burax → meta description-dan götürüləcək" data-lang="{{$lang['code']}}">{{$subjects['seo']['og_text'][$lang['code'] ?? null]}}</textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,8 +142,8 @@
                                                                 <label class="form-label">Canonical URL</label>
                                                                 <input type="text"
                                                                        class="form-control" disabled
-                                                                       name="canonical_url" value="{{$schoolClass['seo']['canonical_url'] ?? null}}"
-                                                                       placeholder="https://site.az/az/school-classes">
+                                                                       name="canonical_url" value="{{$subjects['seo']['canonical_url'] ?? null}}"
+                                                                       placeholder="https://site.az/az/subjects">
                                                             </div>
 
                                                             {{-- INDEX --}}
@@ -154,7 +154,7 @@
                                                                            type="checkbox"
                                                                            name="index"
                                                                            value="1" disabled
-                                                                           @if(!empty($schoolClass['seo']['index'])) checked @endif>
+                                                                           @if(!empty($subjects['seo']['index'])) checked @endif>
                                                                     <label class="form-check-label">
                                                                         Index
                                                                     </label>
@@ -169,7 +169,7 @@
                                                                            type="checkbox"
                                                                            name="follow"
                                                                            value="1" disabled
-                                                                           @if(!empty($schoolClass['seo']['follow'])) checked @endif>
+                                                                           @if(!empty($subjects['seo']['follow'])) checked @endif>
                                                                     <label class="form-check-label">
                                                                         Follow
                                                                     </label>
@@ -182,8 +182,8 @@
                                                                 <p> Şəkilin maksimum ölçüsü  1228x1228 piksel olmalıdır. Şəkil faylının maksimum ölçüsü 226 KB olmalıdır.</p>
                                                                 <div id="mainImagePreview" style="margin-top: 10px;"></div>
                                                                 <div class="col-md-5">
-                                                                    @if($schoolClass['image'] && Storage::disk('public')->exists($schoolClass['image']))
-                                                                        <img src="{{ asset('storage/' . $schoolClass['image']) }}"  style="width: 288px;!important;">
+                                                                    @if($subjects['image'] && Storage::disk('public')->exists($subjects['image']))
+                                                                        <img src="{{ asset('storage/' . $subjects['image']) }}"  style="width: 288px;!important;">
                                                                     @endif
                                                                 </div>
                                                             </div>

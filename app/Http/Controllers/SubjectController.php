@@ -47,6 +47,7 @@ class SubjectController extends Controller
             $this->subjectService->create($data);
             return redirect()->route('subjects.index')->with('success', 'Yeni fənn yaradıldı');
         } catch (\Throwable $e) {
+            dd($e->getMessage());
             return back()->withErrors( 'Xəta baş verdi: ' . $e->getMessage());
         }
     }

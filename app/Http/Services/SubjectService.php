@@ -22,7 +22,7 @@ class SubjectService implements ISubjectService
 
     public function find(int $id): array
     {
-        return Subject::findOrFail($id)->toArray();
+        return Subject::with('seo')->findOrFail($id)->toArray();
     }
 
     public function create(array $data): bool
@@ -42,10 +42,10 @@ class SubjectService implements ISubjectService
             foreach ($languages as $lang) {
                 $langCode = isset($lang['code']) ? $lang['code'] : app()->getLocale();
                 $title[$langCode] = $data['title'][$langCode];
-                $text[$langCode] = $data['text'][$langCode];
+                $text[$langCode] = $data['text'][$langCode] ?? null;
                 $slug[$langCode] = Str::slug(trim($data['title'][$langCode]));
             }
-            $model->title = $title;
+            $model->name = $title;
             $model->slug = $slug;
             $model->text = $text;
             $model->save();
@@ -56,11 +56,12 @@ class SubjectService implements ISubjectService
                 action: 'create',
                 objId: $model->id,
                 objTable: 'subjects',
-                description: "Yeni fənn yaradıldı: {$model->name}"
+                description: "Yeni fənn yaradıldı"
             );
             return true;
 
         } catch (Exception $e) {
+
             DB::rollBack();
             throw $e;
         }
@@ -70,8 +71,8 @@ class SubjectService implements ISubjectService
     {
         DB::beginTransaction();
         try {
-            $model = self::find($id);
-            $old = $model;
+            $model = Subject::findOrFail($id);
+            $old = $model->toArray();
             // Image update
             if (isset($data['image']) && $data['image']->isValid()) {
 
@@ -121,7 +122,7 @@ class SubjectService implements ISubjectService
     {
         DB::beginTransaction();
         try {
-            $model = self::find($id);
+            $model = Subject::findOrFail($id);
             $old = $model->toArray();
 
             // Image varsa sil

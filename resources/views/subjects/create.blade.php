@@ -32,13 +32,13 @@
         <div class="dashboard-breadcrumb mb-25">
             <h2>{{ __('content.new') }}</h2>
             <div class="btn-box">
-                <a href="{{ route('school-classes.index') }}" class="btn btn-sm btn-primary"> {{ __('content.school_classes') }}</a>
+                <a href="{{ route('subjects.index') }}" class="btn btn-sm btn-primary"> {{ __('content.subjects') }}</a>
             </div>
         </div>
         @include('errors.messages')
         <div class="row">
             <div class="col-12">
-                <form action="{{ route('school-classes.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('subjects.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="panel">
                         <div class="panel-body">
@@ -145,7 +145,7 @@
                                                                 <input type="text"
                                                                        class="form-control"
                                                                        name="canonical_url"
-                                                                       placeholder="https://site.az/az/school-classes">
+                                                                       placeholder="https://site.az/az/subjects">
                                                             </div>
 
                                                             {{-- INDEX --}}

@@ -15,13 +15,6 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
 
-        // Global middleware
-        // ✅ WEB GROUP (ƏSAS HƏLL BURADIR)
-        $middleware->web(append: [
-            SetLocale::class,
-        ]);
-
-
         // Route middleware-lər üçün
         $middleware->alias([
             'auth' => \App\Http\Middleware\Auth::class,

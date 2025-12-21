@@ -23,7 +23,7 @@ class SchoolClassService implements ISchoolClassService
 
     public function find(int $id): array
     {
-        return SchoolClass::findOrFail($id)->toArray();
+        return SchoolClass::with('seo')->findOrFail($id)->toArray();
     }
 
     public function create(array $data): bool
@@ -36,7 +36,7 @@ class SchoolClassService implements ISchoolClassService
             foreach ($languages as $lang) {
                 $langCode = isset($lang['code']) ? $lang['code'] : app()->getLocale();
                 $title[$langCode] = $data['title'][$langCode];
-                $text[$langCode] = $data['text'][$langCode];
+//                $text[$langCode] = $data['text'][$langCode];
                 $slug[$langCode] = Str::slug(trim($data['title'][$langCode]));
             }
             $model = new SchoolClass();
@@ -45,9 +45,9 @@ class SchoolClassService implements ISchoolClassService
                 $path = $data['image']->storeAs('school_classes', $imageName, 'public');
                 $model->image = $path;
             }
-            $model->title = $title;
+            $model->name = $title;
             $model->slug = $slug;
-            $model->text = $text;
+            $model->text = $title;
             $model->save();
             $model->saveSeo($data);
             DB::commit();
@@ -56,11 +56,12 @@ class SchoolClassService implements ISchoolClassService
                 action: 'create',
                 objId: $model->id,
                 objTable: 'school_classes',
-                description: "Yeni sinif yaradıldı: {$model->name}"
+                description: "Yeni sinif yaradıldı"
             );
             return true;
 
         } catch (Exception $e) {
+
             DB::rollBack();
             throw $e;
         }
@@ -70,8 +71,8 @@ class SchoolClassService implements ISchoolClassService
     {
         DB::beginTransaction();
         try {
-            $model = self::find($id);
-            $old = $model;
+            $model = SchoolClass::findOrFail($id);
+            $old = $model->toArray();
             // Image update
             if (isset($data['image']) && $data['image']->isValid()) {
 
@@ -89,10 +90,10 @@ class SchoolClassService implements ISchoolClassService
             foreach ($languages as $lang) {
                 $langCode = isset($lang['code']) ? $lang['code'] : app()->getLocale();
                 $title[$langCode] = $data['title'][$langCode];
-                $text[$langCode] = $data['text'][$langCode];
+//                $text[$langCode] = $data['text'][$langCode];
                 $slug[$langCode] = Str::slug(trim($data['title'][$langCode]));
             }
-            $model->title = $title;
+            $model->name = $title;
             $model->slug = $slug;
             $model->text = $text;
             $model->save();
@@ -121,7 +122,7 @@ class SchoolClassService implements ISchoolClassService
     {
         DB::beginTransaction();
         try {
-            $model = self::find($id);
+            $model = SchoolClass::findOrFail($id);
             $old = $model->toArray();
 
             // Image varsa sil

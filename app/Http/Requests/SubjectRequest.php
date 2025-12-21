@@ -11,7 +11,7 @@ class SubjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,34 @@ class SubjectRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = $this->route('subjects') ?? null;
         return [
-            //
+            'image' => [
+                'nullable',
+                'image',
+                'mimes:jpeg,png,jpg,gif,svg',
+                'max:2048', // fayl ölçüsü KB ilə
+                'dimensions:max_width=270,max_height=230', // tam ölçü
+            ],
+            'title' => 'required|array',
+            'title.*' => 'required|string|max:200',
+//            'text' => 'array|min:100',
+            'status' => 'boolean',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            '*.required' => __('validation.required'),
+            '*.string' => __('validation.string'),
+            '*.integer' => __('validation.integer'),
+            '*.boolean' => __('validation.boolean'),
+            'phone.regex' => __('validation.phone'),
+            'image.image' => __('validation.image'),
+            'image.mimes' => __('validation.mimes'),
+            'image.max' => __('validation.max'),
+            'image.dimensions' => __('validation.dimensions'),
         ];
     }
 }

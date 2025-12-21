@@ -10,6 +10,15 @@ return [
     'home' => 'Əsas',
     'home-page' => 'Əsas səhifə',
 
+    'settings' => 'Ayarlar',
+
+    'languages' => 'Dillər',
+    'language' => 'Dil',
+    'languages-index' => 'Dil siyahı',
+    'languages-create' => 'Dil yarat',
+    'languages-edit' => 'Dil düzenle',
+    'languages-delete' => 'Dil silmə',
+
     'cms_users' => 'İnzibatçılar',
     'cms-user' => 'İnzibatçı',
     'cms-user-index' => 'İnzibatçı siyahsı',
@@ -23,6 +32,27 @@ return [
     'role-create' => 'Səlahiyyət yarat',
     'role-edit' => 'Səlahiyyəti düzənləmə',
     'role-delete' => 'Səlahiyyəti silmə',
+
+    'school_classes' => 'Siniflər',
+    'school-class' => 'Sinif',
+    'school-classes-index' => 'Sinif siyahsı',
+    'school-classes-create' => 'Sinif yarat',
+    'school-classes-edit' => 'Sinif düzənləmə',
+    'school-classes-delete' => 'Sinif silmə',
+
+    'subjects' => 'Fənnlər',
+    'subject' => 'Fənn',
+    'subjects-index' => 'Fənn siyahsı',
+    'subjects-create' => 'Fənn yarat',
+    'subjects-edit' => 'Fənn düzənləmə',
+    'subjects-delete' => 'Fənn silmə',
+
+    'questions' => 'Suallar',
+    'question' => 'Sual',
+    'questions-index' => 'Sual siyahsı',
+    'questions-create' => 'Sual yarat',
+    'questions-edit' => 'Sual düzənləmə',
+    'questions-delete' => 'Sual silmə',
 
     'username' => 'İstifadəçi adı',
     'password' => 'Şifrə',
@@ -44,5 +74,6 @@ return [
     'choose' => 'Seçin',
     'not_data' => 'Məlumat tapılmadı',
     'cancel' => 'Bağla',
+    'other' => 'Digər',
     'are_you_delete' => 'Bu məlumatı ləvğ etməkdən əminsiz?',
 ];

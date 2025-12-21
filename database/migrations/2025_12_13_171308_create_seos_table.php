@@ -30,9 +30,9 @@ return new class extends Migration
             $table->boolean('follow')->default(true);
 
             // OG / Social
-            $table->string('og_title')->nullable();
-            $table->string('og_slug')->nullable();
-            $table->string('og_text')->nullable();
+            $table->json('og_title')->nullable();
+            $table->json('og_slug')->nullable();
+            $table->json('og_text')->nullable();
             $table->string('og_image')->nullable();
 
             $table->timestamps();
