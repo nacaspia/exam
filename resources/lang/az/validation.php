@@ -29,6 +29,7 @@ return [
         'role' => 'Səlahiyyət',
         'email' => 'E-poçt',
         'password' => 'Şifrə',
+        're_password' => 'Şifrə təkrarı',
         'username' => 'İstifadəçi adı',
         'title' => 'Başlıq',
         'text' => 'Qısa məlumat',

@@ -15,13 +15,18 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('class_id');
             $table->foreign('class_id')->references('id')->on('school_classes')->onDelete('cascade');
-            $table->unsignedBigInteger('subject_id');
-            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
             $table->json('title');
             $table->boolean('is_paid')->default(false);
             $table->decimal('price', 8, 2)->nullable();
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();
+            $table->integer('duration')->nullable(); // dəqiqə ilə
+            $table->integer('question_count')->default(0);
+            $table->string('language');
+            $table->text('description')->nullable();
+            $table->boolean('random_questions')->default(true);
+            $table->boolean('show_result')->default(true);
+            $table->boolean('active')->default(true);
             $table->timestamps();
         });
     }

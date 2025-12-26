@@ -20,41 +20,70 @@
             font-size: 15px;
             text-decoration: underline;
         }
+        .is-invalid {
+            border: 1px solid red !important;
+        }
+        .text-danger {
+            font-size: 13px;
+            margin-top: 4px;
+        }
 
     </style>
 @endsection
 @section('site.content')
     <section class="contact-action-area pt-120 pb-120">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="contact-action-item">
-                        <h6 class="title">{{ __('site.register') }}</h6>
-                        <form id="contact-form" action="https://themeforest.kreativdev.com/edus/assets/contact.php" method="post">
+            <h6 class="title">{{ __('site.register') }}</h6>
+            <form id="registerForm" method="POST" action="{{ route('site.auth.register-accept',['locale' => app()->getLocale()]) }}">
+                @csrf
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="contact-action-item">
                             <div class="input-box mt-20">
-                                <input name="username" type="text" placeholder="Enter your name">
+                                <input name="name" type="text" placeholder="{{ __('site.name') }}">
                                 <i class="fal fa-user"></i>
+                                <span class="text-danger error-text name_error"></span>
                             </div>
                             <div class="input-box mt-20">
-                                <input name="email" type="email" placeholder="Enter your name">
-                                <i class="fal fa-envelope"></i>
+                                <input name="phone" type="text" placeholder="{{ __('site.phone') }}">
+                                <i class="fal fa-phone"></i>
+                                <span class="text-danger error-text phone_error"></span>
                             </div>
                             <div class="input-box mt-20">
                                 <input name="password" type="password" placeholder="****">
                                 <i class="fal fa-lock"></i>
+                                <span class="text-danger error-text password_error"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="contact-action-item">
+                            <div class="input-box mt-20">
+                                <input name="surname" type="text" placeholder="{{ __('site.surname') }}">
+                                <i class="fal fa-user"></i>
+                                <span class="text-danger error-text surname_error"></span>
                             </div>
                             <div class="input-box mt-20">
-                                <button type="submit">Submit Now</button>
+                                <input name="email" type="email" placeholder="{{ __('site.email') }}">
+                                <i class="fal fa-envelope"></i>
+                                <span class="text-danger error-text email_error"></span>
                             </div>
-                        </form>
-                        <p class="form-message"></p>
+                            <div class="input-box mt-20">
+                                <input name="re_password" type="password" placeholder="****">
+                                <i class="fal fa-lock"></i>
+                                <span class="text-danger error-text re_password_error"></span>
+                            </div>
+                            <div class="input-box mt-20" style="text-align: right">
+                                <button type="submit">{{ __('site.register_accept') }}</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
-        <div class="map">
+       {{-- <div class="map">
             <img src="{{ asset('site/assets/images/contact-info-thumb-1.jpg') }}" width="600" height="450" style="border:0;" alt="info">
-        </div>
+        </div>--}}
     </section>
 @endsection
 @section('site.js')
@@ -73,4 +102,35 @@
     <script src="{{ asset('site/assets/js/jquery.magnific-popup.min.js') }}"></script>
     <script src="{{ asset('site/assets/js/ajax-contact.js') }}"></script>
     <script src="{{ asset('site/assets/js/main.js') }}"></script>
+    <script>
+        $('#registerForm').on('submit', function(e) {
+            e.preventDefault();
+
+            let form = $(this);
+
+            $('.error-text').text('');
+            $('input').removeClass('is-invalid');
+
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                data: form.serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        window.location.href = response.redirect;
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        let errors = xhr.responseJSON.errors;
+
+                        $.each(errors, function(key, value) {
+                            $('input[name="'+key+'"]').addClass('is-invalid');
+                            $('.'+key+'_error').text(value[0]);
+                        });
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

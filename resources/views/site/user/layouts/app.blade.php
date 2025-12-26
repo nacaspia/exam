@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Edule - eLearning Website Template</title>
+    <title>{{settings()['title'][language()] ?? null}} - {{ __('site.account') }}</title>
     <meta name="robots" content="noindex, follow" />
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('site/user/assets/images/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('storage/' . settings()['logo']['favicon']) }}">
     <!-- Google Fonts CSS -->
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
@@ -27,26 +27,28 @@
 
             <!-- Header Logo Start -->
             <div class="login-header-logo">
-                <a href="{{ route('site.index') }}"><img src="{{ asset('site/user/assets/images/logo-icon.png') }}" alt="Logo"></a></li>
+                <a href="{{ route('site.index', ['locale' => app()->getLocale()]) }}">
+                    <img src="{{ asset('storage/' . settings()['logo']['header_logo']) }}" alt="{{settings()['title'][language()] ?? null}}">
+                </a>
             </div>
             <!-- Header Logo End -->
 
             <!-- Header Search Start -->
             <div class="login-header-search dropdown">
-                <button class="search-toggle" data-bs-toggle="dropdown"><i class="flaticon-loupe"></i></button>
+            {{--    <button class="search-toggle" data-bs-toggle="dropdown"><i class="flaticon-loupe"></i></button>
 
                 <div class="search-input dropdown-menu">
                     <form action="#">
                         <input type="text" placeholder="Search here">
                     </form>
-                </div>
+                </div>--}}
 
             </div>
             <!-- Header Search End -->
 
             <!-- Header Action Start -->
             <div class="login-header-action ml-auto">
-                <div class="dropdown">
+                {{--<div class="dropdown">
                     <button class="action notification" data-bs-toggle="dropdown">
                         <i class="flaticon-notification"></i>
                         <span class="active"></span>
@@ -104,10 +106,10 @@
                         </ul>
                         <a class="all-notification" href="#">See all notifications <i class="icofont-simple-right"></i></a>
                     </div>
-                </div>
+                </div>--}}
 
                 <a class="action author" href="#">
-                    <img src="{{ asset('site/user/assets/images/author/author-07.jpg') }}" alt="Author">
+                    <img src="{{ asset('site/user/assets/images/author/admin.png') }}" alt="{{ user()->name }}">
                 </a>
 
                 <div class="dropdown">
@@ -117,9 +119,9 @@
                         <span></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="" href="#"><i class="icofont-user"></i> Profile</a></li>
-                        <li><a class="" href="#"><i class="icofont-inbox"></i> Inbox</a></li>
-                        <li><a class="" href="#"><i class="icofont-logout"></i> Sign Out</a></li>
+                        <li><a class="" href="{{ route('site.user.settings',['locale' => app()->getLocale()]) }}"><i class="icofont-user"></i> {{ __('site.settings') }}</a></li>
+{{--                        <li><a class="" href="#"><i class="icofont-inbox"></i> Inbox</a></li>--}}
+                        <li><a class="" href="{{ route('site.user.logout', ['locale' => app()->getLocale()]) }}"><i class="icofont-logout"></i> {{ __('site.logout') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -136,7 +138,7 @@
         <!-- Sidebar Wrapper Start -->
         <div class="sidebar-wrapper">
             <div class="menu-list">
-                <a class="{{ request()->routeIs('site.user.account') ? 'active' : '' }}" href="{{ route('site.user.account') }}"><img src="{{ asset('site/user/assets/images/menu-icon/icon-1.png') }}" alt="Icon"></a>
+                <a class="{{ request()->routeIs('site.user.account',['locale' => app()->getLocale()]) ? 'active' : '' }}" href="{{ route('site.user.account') }}"><img src="{{ asset('site/user/assets/images/menu-icon/icon-1.png') }}" alt="Icon"></a>
                 <a href="messages.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-2.png') }}" alt="Icon"></a>
                 <a href="overview.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-3.png') }}" alt="Icon"></a>
                 <a href="engagement.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-4.png') }}" alt="Icon"></a>
@@ -149,7 +151,7 @@
 
             <!-- Admin Tab Menu Start -->
             <div class="nav flex-column admin-tab-menu">
-                <a href="{{ route('site.user.account') }}" class="{{ request()->routeIs('site.user.account') ? 'active' : '' }}">Student’s</a>
+                <a href="{{ route('site.user.account',['locale' => app()->getLocale()]) }}" class="{{ request()->routeIs('site.user.account') ? 'active' : '' }}">{{ __('site.account') }}</a>
                 <a href="overview.html">Overview</a>
                 <a href="reviews.html">Review’s</a>
                 <a href="engagement.html">Course Engagement</a>

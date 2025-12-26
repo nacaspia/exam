@@ -16,6 +16,10 @@ function cms_user()
 {
     return auth('cms')->user() ?? null;
 }
+function user()
+{
+    return auth('user')->user() ?? null;
+}
 
 function time_now()
 {

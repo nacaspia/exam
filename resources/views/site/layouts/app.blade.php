@@ -79,8 +79,11 @@
                     <div class="header-btns d-flex align-items-center justify-content-center justify-content-sm-end">
 
                         <ul>
-                            <li><a href="{{ route('site.user.account', ['locale' => app()->getLocale()]) }}"><i class="fal fa-user"></i>{{ __('site.account') }}</a></li>
-                            <li><a href="{{ route('site.auth.login', ['locale' => app()->getLocale()]) }}"><i class="fal fa-key"></i> {{ __('site.login') }}</a></li>
+                            @if(!empty(user()))
+                                <li><a href="{{ route('site.user.account', ['locale' => app()->getLocale()]) }}"><i class="fal fa-user"></i>{{ __('site.account') }}</a></li>
+                            @else
+                                <li><a href="{{ route('site.auth.login', ['locale' => app()->getLocale()]) }}"><i class="fal fa-key"></i> {{ __('site.login') }}</a></li>
+                            @endif
                         </ul>
                         <!-- Dil seçimi -->
 

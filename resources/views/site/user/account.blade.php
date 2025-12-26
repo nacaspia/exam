@@ -9,99 +9,45 @@
             <div class="admin-top-bar students-top">
                 <div class="courses-select">
                     <select>
-                        <option data-display="All Courses">All Courses</option>
-                        <option value="1">option</option>
-                        <option value="2">option</option>
-                        <option value="3">option</option>
-                        <option value="4">Potato</option>
+                        <option value="">{{ __('site.all_class') }}</option>
+                        @if(!empty($classes[0]))
+                            @foreach($classes as $class)
+                                <option value="{{ $class['id'] }}">{{$class['name'][language()]}}</option>
+                            @endforeach
+                        @endif
                     </select>
 
-                    <h4 class="title">Meet people taking your courses</h4>
+                    <h4 class="title">{{ user()->name }} {{ user()->surname }}</h4>
                 </div>
-
-                <a href="#" class="btn">Create New Course <i class="icofont-rounded-right"></i></a>
+                @if(user()->type === 'parent')
+                    <a href="{{ route('site.user.children.create',['locale' => app()->getLocale()]) }}" class="btn">{{ __('site.add_child') }} <i class="icofont-rounded-right"></i></a>
+                @endif
             </div>
             <!-- Student Top End -->
 
+            @if(user()->type === 'parent')
             <!-- Student's Wrapper Start -->
             <div class="students-wrapper students-active">
                 <div class="swiper-container">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <!-- Single Student Start -->
-                            <div class="single-student">
-                                <div class="student-images">
-                                    <img src="{{ asset('site/user/assets/images/author/author-01.jpg') }}" alt="Author">
+                        @foreach($children as $child)
+                            <div class="swiper-slide">
+                                <!-- Single Student Start -->
+                                <div class="single-student">
+                                    <div class="student-images">
+                                        <img src="{{ asset('site/user/assets/images/author/admin.png') }}" alt="{{$child['name']}}">
+                                    </div>
+                                    <div class="student-content">
+                                        <h5 class="name">{{$child['name']}} {{$child['surname']}}</h5>
+                                        <p>{{ $child['class']['name'][language()] }}</p>
+                                        <span class="date"><i class="icofont-ui-calendar"></i> {{ date('d.m.Y',strtotime($child['created_at'])) }}</span>
+                                         <a href="{{ route('site.user.children.edit',['locale' => app()->getLocale(),'id' => (int)$child['id']]) }}"><i class="icofont-ui-edit"></i> {{ __('site.edit') }}</a>
+                                         <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $child['id'] }}"><i class="icofont-ui-delete"></i> {{ __('site.delete') }}</a>
+                                    </div>
                                 </div>
-                                <div class="student-content">
-                                    <h5 class="name">Margarita James</h5>
-                                    <span class="country"><img src="{{ asset('site/user/assets/images/flag/flag-1.png') }}" alt="Flog"> Brazil</span>
-                                    <p>Data Science and Machine learning</p>
-                                    <span class="date"><i class="icofont-ui-calendar"></i> 28.03.2021</span>
-                                </div>
+                                <!-- Single Student End -->
                             </div>
-                            <!-- Single Student End -->
-                        </div>
-                        <div class="swiper-slide">
-                            <!-- Single Student Start -->
-                            <div class="single-student">
-                                <div class="student-images">
-                                    <img src="{{ asset('site/user/assets/images/author/author-02.jpg') }}" alt="Author">
-                                </div>
-                                <div class="student-content">
-                                    <h5 class="name">Stanley Castro</h5>
-                                    <span class="country"><img src="{{ asset('site/user/assets/images/flag/flag-1.png') }}" alt="Flog"> Brazil</span>
-                                    <p>Data Science and Machine learning</p>
-                                    <span class="date"><i class="icofont-ui-calendar"></i> 28.03.2021</span>
-                                </div>
-                            </div>
-                            <!-- Single Student End -->
-                        </div>
-                        <div class="swiper-slide">
-                            <!-- Single Student Start -->
-                            <div class="single-student">
-                                <div class="student-images">
-                                    <img src="{{ asset('site/user/assets/images/author/author-07.jpg') }}" alt="Author">
-                                </div>
-                                <div class="student-content">
-                                    <h5 class="name">Beatrice Summers</h5>
-                                    <span class="country"><img src="{{ asset('site/user/assets/images/flag/flag-1.png') }}" alt="Flog"> Brazil</span>
-                                    <p>Data Science and Machine learning</p>
-                                    <span class="date"><i class="icofont-ui-calendar"></i> 28.03.2021</span>
-                                </div>
-                            </div>
-                            <!-- Single Student End -->
-                        </div>
-                        <div class="swiper-slide">
-                            <!-- Single Student Start -->
-                            <div class="single-student">
-                                <div class="student-images">
-                                    <img src="{{ asset('site/user/assets/images/author/author-08.jpg') }}" alt="Author">
-                                </div>
-                                <div class="student-content">
-                                    <h5 class="name">Beatrice Summers</h5>
-                                    <span class="country"><img src="{{ asset('site/user/assets/images/flag/flag-1.png') }}" alt="Flog"> Brazil</span>
-                                    <p>Data Science and Machine learning</p>
-                                    <span class="date"><i class="icofont-ui-calendar"></i> 28.03.2021</span>
-                                </div>
-                            </div>
-                            <!-- Single Student End -->
-                        </div>
-                        <div class="swiper-slide">
-                            <!-- Single Student Start -->
-                            <div class="single-student">
-                                <div class="student-images">
-                                    <img src="{{ asset('site/user/assets/images/author/author-09.jpg') }}" alt="Author">
-                                </div>
-                                <div class="student-content">
-                                    <h5 class="name">Beatrice Summers</h5>
-                                    <span class="country"><img src="{{ asset('site/user/assets/images/flag/flag-1.png') }}" alt="Flog"> Brazil</span>
-                                    <p>Data Science and Machine learning</p>
-                                    <span class="date"><i class="icofont-ui-calendar"></i> 28.03.2021</span>
-                                </div>
-                            </div>
-                            <!-- Single Student End -->
-                        </div>
+                        @endforeach
                     </div>
 
                     <div class="students-arrow">
@@ -111,30 +57,33 @@
                     </div>
                 </div>
             </div>
+                @foreach($children  as $delete)
+                    <div class="modal fade" id="deleteModal-{{ $delete['id'] }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ $delete['id'] }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel-{{ $delete['id'] }}">{{ __('content.delete') }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ __('content.are_you_delete') }} <strong>{{ $delete['name'] }} {{ $delete['surname'] }}</strong>?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('content.cancel') }}</button>
+
+                                    <form action="{{ route('site.user.children.delete',['locale' => app()->getLocale(),'id' => (int)$delete['id']]) }}" method="POST" class="delete-role-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">{{ __('content.delete') }}</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             <!-- Student's Wrapper End -->
+            @endif
 
-            <!-- Student's Map Start -->
-            <div class="students-map">
-                <h4 class="title">Student's locations and languages.</h4>
-
-                <div class="map">
-                    <div id="vmap"></div>
-                </div>
-            </div>
-            <!-- Student's Map End -->
-
-
-            <!-- New Courses Start -->
-            <div class="new-courses" style="background-image: url({{ asset('site/user/assets/images/new-courses-banner.jpg') }});">
-                <div class="new-courses-title">
-                    <h3 class="title">Your students want to learn more. <br> Consider creating new courses to meet that deman.</h3>
-                </div>
-                <img class="shape d-none d-xl-block" src="{{ asset('site/user/assets/images/shape/shape-27.png') }}" alt="Shape">
-                <div class="new-courses-btn">
-                    <a href="#" class="btn">Create New Course <i class="icofont-rounded-right"></i></a>
-                </div>
-            </div>
-            <!-- New Courses End -->
 
         </div>
     </div>

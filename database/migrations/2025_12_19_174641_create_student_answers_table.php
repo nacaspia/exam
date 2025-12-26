@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('student_answers', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('child_id')->nullable();
             $table->unsignedBigInteger('exam_result_id');
             $table->foreign('exam_result_id')->references('id')->on('exam_results')->onDelete('cascade');
             $table->unsignedBigInteger('question_id');
@@ -22,6 +24,8 @@ return new class extends Migration
             $table->text('answer_text')->nullable();
             $table->boolean('is_correct')->nullable();
             $table->integer('score')->default(0);
+            $table->integer('time_spent')->nullable(); // saniyə
+            $table->json('answer_json')->nullable(); // open_text üçün
             $table->timestamps();
         });
     }

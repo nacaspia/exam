@@ -83,69 +83,6 @@
         </div>
     </div>
 </div>
-{{--<section class="services-area pb-120">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-11">
-                <div class="section-title text-center">
-                    <h3 class="title">Unlimited Access To Over <span>15,000 Classes</span></h3>
-                </div>
-            </div>
-        </div>
-        <div class="services-border">
-            <div class="row no-gutters">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-services text-center">
-                        <i class="fal fa-user-tie"></i>
-                        <h5 class="title">UI/UX Design</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-services item-2 text-center">
-                        <i class="fal fa-books"></i>
-                        <h5 class="title">Research</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-services item-3 text-center">
-                        <i class="fal fa-lightbulb-on"></i>
-                        <h5 class="title">Web Developemtn</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-services item-4 text-center">
-                        <i class="fal fa-hand-holding-seedling"></i>
-                        <h5 class="title">Game Design</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-services item-5 text-center">
-                        <i class="fal fa-mind-share"></i>
-                        <h5 class="title">Medical</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-services item-6 text-center">
-                        <i class="fal fa-chalkboard-teacher"></i>
-                        <h5 class="title">Language</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-services item-7 text-center">
-                        <i class="fal fa-file-certificate"></i>
-                        <h5 class="title">Life Styles</h5>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-services item-8 text-center">
-                        <i class="fal fa-flask"></i>
-                        <h5 class="title">Digital Marketing</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>--}}
 <section class="offer-area bg_cover pt-110 pb-120" style="background-image: url({{ asset('site/assets/images/offer-bg.jpg') }})">
     <div class="container">
         <div class="row justify-content-center">

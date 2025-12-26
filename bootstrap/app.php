@@ -18,6 +18,8 @@ return Application::configure(basePath: dirname(__DIR__))
         // Route middleware-lər üçün
         $middleware->alias([
             'auth' => \App\Http\Middleware\Auth::class,
+            'userauth' => \App\Http\Middleware\UserAuth::class,
+            'ensure.guard' => \App\Http\Middleware\EnsureCorrectGuard::class,
             'permission' => \App\Http\Middleware\CheckPermission::class,
             'check.ip' => \App\Http\Middleware\CheckIp::class,
             'set.locale' => \App\Http\Middleware\SetLocale::class,

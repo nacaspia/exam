@@ -26,6 +26,8 @@ class AuthController extends Controller
     public function auth(LoginRequest $loginRequest) {
         $credentials = $loginRequest->only('username', 'password');
         if (auth('cms')->attempt($credentials)) {
+            request()->session()->regenerate();
+            request()->session()->put('auth_guard', 'cms');
             return redirect(route('home'));
         }
         return redirect()->back()->withErrors(['errors' => __('error.invalid_credentials')]);

@@ -10,7 +10,7 @@ class Question extends Model
     use SeoTrait;
     protected $table = 'questions';
     protected $fillable = [
-        'class_id', 'subject_id', 'title', 'slug', 'text', 'image', 'type', 'score', 'is_paid', 'price'
+        'subject_id', 'title', 'slug', 'text', 'image', 'type', 'score'
     ];
 
     protected $casts = [
@@ -18,6 +18,11 @@ class Question extends Model
         'slug' => 'array',
         'text' => 'array'
     ];
+
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class);
+    }
 
     public function seo()
     {

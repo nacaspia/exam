@@ -136,12 +136,8 @@ class QuestionService implements IQuestionService
             }
 
             /* ================= MAIN FIELDS ================= */
-            $model->class_id  = $data['class_id'];
             $model->subject_id = $data['subject_id'];
             $model->type      = $data['type'];
-            $model->is_paid   = $data['is_paid'] ?? false;
-            $model->price     = $model->is_paid ? $data['price'] : null;
-
             $model->title = $title;
             $model->slug  = $slug;
             $model->text  = $text;

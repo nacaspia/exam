@@ -18,6 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('exam_id');
             $table->foreign('exam_id')->references('id')->on('exams')->onDelete('cascade');
             $table->integer('total_score')->default(0);
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('finished_at')->nullable();
+            $table->enum('status', ['started', 'finished', 'timeout']);
+            $table->integer('time_spent')->nullable();
             $table->boolean('is_checked')->default(false); // açıq suallar yoxlanıb?
             $table->timestamps();
         });

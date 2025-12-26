@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'VURTUT CMS'),
+    'name' => env('APP_NAME', 'NACASPIA CMS'),
 
     /*
     |--------------------------------------------------------------------------

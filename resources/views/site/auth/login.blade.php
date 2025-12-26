@@ -6,6 +6,8 @@
     {{ __('site.login') }}
 @endsection
 @section('site.css')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="stylesheet" href="{{ asset('site/assets/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('site/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('site/assets/css/all.css') }}">
@@ -20,6 +22,13 @@
             font-size: 15px;
             text-decoration: underline;
         }
+        .is-invalid {
+            border: 1px solid red !important;
+        }
+        .text-danger {
+            font-size: 13px;
+            margin-top: 4px;
+        }
 
     </style>
 @endsection
@@ -30,24 +39,27 @@
                 <div class="col-lg-6">
                     <div class="contact-action-item">
                         <h6 class="title">{{ __('site.login') }}</h6>
-                        <form id="contact-form" action="https://themeforest.kreativdev.com/edus/assets/contact.php" method="post">
+                        <form id="loginForm" method="POST" action="{{ route('site.auth.login-accept',['locale' => app()->getLocale()]) }}">
+                            @csrf
                             <div class="input-box mt-20">
-                                <input name="username" type="text" placeholder="Enter your name">
+                                <input name="email" type="email" placeholder="{{ __('site.email') }}">
                                 <i class="fal fa-user"></i>
+                                <span class="text-danger error-text email_error"></span>
                             </div>
                             <div class="input-box mt-20">
                                 <input name="password" type="password" placeholder="****">
                                 <i class="fal fa-lock"></i>
+                                <span class="text-danger error-text password_error"></span>
                             </div>
                             <div class="input-box mt-20">
-                                <button type="submit">Submit Now</button>
+                                <button type="submit">{{ __('site.login') }}</button>
                             </div>
                         </form>
                         <p class="form-message"></p>
 
                         <div class="mt-20 d-flex justify-content-between">
-                            <a href="{{ route('site.auth.register') }}" class="text-primary">Qeydiyyat</a>
-                            <a href="{{ route('site.auth.forgot-password') }}" class="text-primary">Şifrəni unutdum?</a>
+                            <a href="{{ route('site.auth.register', ['locale' => app()->getLocale()]) }}" class="text-primary">{{ __('site.register') }}</a>
+                            <a href="{{ route('site.auth.forgot-password', ['locale' => app()->getLocale()]) }}" class="text-primary">{{ __('site.forgot_password') }}</a>
                         </div>
                     </div>
                 </div>
@@ -74,4 +86,38 @@
     <script src="{{ asset('site/assets/js/jquery.magnific-popup.min.js') }}"></script>
     <script src="{{ asset('site/assets/js/ajax-contact.js') }}"></script>
     <script src="{{ asset('site/assets/js/main.js') }}"></script>
+    <script>
+        $('#loginForm').on('submit', function(e) {
+            e.preventDefault();
+
+            let form = $(this);
+
+            $('.error-text').text('');
+            $('input').removeClass('is-invalid');
+
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                data: form.serialize(),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    if (response.success) {
+                        window.location.href = response.redirect;
+                    }
+                },
+                error: function(xhr) {
+                    if (xhr.status === 422) {
+                        let errors = xhr.responseJSON.errors;
+
+                        $.each(errors, function(key, value) {
+                            $('input[name="'+key+'"]').addClass('is-invalid');
+                            $('.'+key+'_error').text(value[0]);
+                        });
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

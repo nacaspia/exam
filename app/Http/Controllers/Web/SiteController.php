@@ -47,16 +47,10 @@ class SiteController extends Controller
             ->withQueryString(); // filtr saxlasın
         return view('site.exams', ['currentLang' => $this->currentLang, 'currentTime' => $this->currentTime, 'classes' => $classes, 'subjects' => $subjects, 'questions' => $questions]);
     }
-    public function examDetails($slug, $id)
+    public function examDetails($local = 'az', $slug, $id)
     {
-        dd($slug, $id);
         $this->currentLang = language();
         $this->currentTime = time_now();
-        // riyaziyyat-6 → [riyaziyyat, 6]
-        $parts = explode('-', $slug);
-        $id = (int) array_pop($parts);
-        $slug = implode('-', $parts);
-        dd($slug,$id);
         $classes = SchoolClass::where(['status' => 1])->orderBy('name->'.language(),'ASC')->get();
         $subjects = Subject::where(['status' => 1])->orderBy('name->'.language(),'ASC')->get();
 
@@ -64,7 +58,6 @@ class SiteController extends Controller
             ->where('slug->'.language(), $slug)
             ->where('id', $id)
             ->first();
-        dd($question,$id,$slug);
         return view('site.exam-details', ['currentLang' => $this->currentLang, 'currentTime' => $this->currentTime, 'classes' => $classes, 'subjects' => $subjects, 'question' => $question]);
     }
 

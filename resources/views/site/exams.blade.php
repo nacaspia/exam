@@ -59,7 +59,7 @@
                                         </div>
                                     </div>
                                     <div class="courses-content">
-                                        <a href="{{ route('site.examDetails',['locale' => app()->getLocale(),'slug' => $question->slug[language()], 'id' => $question->id]) }}">
+                                        <a {{--href="{{ route('site.examDetails',['locale' => app()->getLocale(), 'slug' => $question->slug[language()], 'id' => $question->id]) }}"--}}>
                                             <h4 class="title">{{ $question->title[language()] }}</h4>
                                         </a>
                                         <div class="courses-info d-flex justify-content-between">

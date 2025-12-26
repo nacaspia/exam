@@ -13,8 +13,6 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('school_classes')->onDelete('cascade');
             $table->unsignedBigInteger('subject_id');
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
             $table->json('title');
@@ -23,8 +21,6 @@ return new class extends Migration
             $table->string('image',512)->nullable();
             $table->enum('type', ['multiple_choice', 'short_text', 'open_text']);
             $table->integer('score')->default(1);
-            $table->boolean('is_paid')->default(false);
-            $table->decimal('price', 8, 2)->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@ use App\Http\Controllers\SettingController;
 
 use App\Http\Controllers\Web\SiteController;
 use App\Http\Controllers\Web\User\AccountController;
+
 Route::prefix('/admin')->middleware('check.ip')->group( function () {
     Route::get('/qr-login', [QrController::class, 'showLoginQr'])->name('qr.showLoginQr');
     Route::get('/qr-verify', [QrController::class, 'qrVerifyForm'])->name('qr.verify');
@@ -24,7 +25,7 @@ Route::prefix('/admin')->middleware('check.ip')->group( function () {
     Route::post('/auth', [AuthController::class,'auth'])->name('auth');
     Route::get('/logout', [AuthController::class,'logout'])->name('logout');
 
-    Route::group(['middleware' => 'auth:cms'], function () {
+    Route::group(['middleware' => ['auth:cms', 'ensure.guard:cms']], function () {
         Route::get('/home', [HomeController::class, 'home'])->name('home');
         Route::resource('roles',RolesController::class);
         Route::resource('cms-users',CmsUsersController::class);
@@ -36,10 +37,10 @@ Route::prefix('/admin')->middleware('check.ip')->group( function () {
     });
 });
 
-Route::prefix('{locale?}')->middleware('set.locale')->group(function () {
+Route::prefix('{locale?}')->middleware(['set.locale'])->group(function () {
     Route::get('/', [SiteController::class, 'index'])->name('site.index');
     Route::get('/exams', [SiteController::class, 'exams'])->name('site.exams');
-    Route::get('/exam-details/{slug}-{id}', [SiteController::class, 'examDetails'])->name('site.examDetails');
+    //Route::get('/exam-details/{slug}-{id}', [SiteController::class, 'examDetails'])->name('site.examDetails');
     Route::get('/subjects', [SiteController::class, 'subjects'])->name('site.subjects');
     Route::get('/classes', [SiteController::class, 'classes'])->name('site.classes');
     /*Route::get('/achievements', [SiteController::class, 'achievements'])->name('site.achievements');
@@ -51,11 +52,23 @@ Route::prefix('{locale?}')->middleware('set.locale')->group(function () {
     Route::get('/privacy-policy', [SiteController::class, 'privacyPolicy'])->name('site.privacy-policy');
 
     Route::get('/login', [\App\Http\Controllers\Web\AuthController::class, 'login'])->name('site.auth.login');
+    Route::post('/login-accept', [\App\Http\Controllers\Web\AuthController::class, 'loginAccept'])->name('site.auth.login-accept');
     Route::get('/register', [\App\Http\Controllers\Web\AuthController::class, 'register'])->name('site.auth.register');
     Route::get('/forgot-password', [\App\Http\Controllers\Web\AuthController::class, 'forgotPassword'])->name('site.auth.forgot-password');
     Route::get('/reset-password', [\App\Http\Controllers\Web\AuthController::class, 'resetPassword'])->name('site.auth.reset-password');
+    Route::post('/register-accept', [\App\Http\Controllers\Web\AuthController::class, 'registerAccept'])->name('site.auth.register-accept');
+    Route::group(['middleware' => ['userauth:user', 'ensure.guard:user']], function () {
+        Route::get('/user/logout', [\App\Http\Controllers\Web\AuthController::class, 'logout'])->name('site.user.logout');
+        Route::get('/user/account', [AccountController::class, 'account'])->name('site.user.account');
+        Route::get('/user/settings', [AccountController::class, 'settings'])->name('site.user.settings');
+        Route::put('/user/settings-update', [AccountController::class, 'settingsUpdate'])->name('site.user.settingsUpdate');
+        Route::get('/user/children-add', [\App\Http\Controllers\Web\User\ChildrenController::class, 'create'])->name('site.user.children.create');
+        Route::post('/user/children-save', [\App\Http\Controllers\Web\User\ChildrenController::class, 'store'])->name('site.user.children.save');
+        Route::get('/user/children-edit/{id}', [\App\Http\Controllers\Web\User\ChildrenController::class, 'edit'])->name('site.user.children.edit');
+        Route::put('/user/children-update/{id}', [\App\Http\Controllers\Web\User\ChildrenController::class, 'update'])->name('site.user.children.update');
+        Route::delete('/user/children-delete/{id}', [\App\Http\Controllers\Web\User\ChildrenController::class, 'destroy'])->name('site.user.children.delete');
 
-    Route::get('/user/account', [AccountController::class, 'account'])->name('site.user.account');
+    });
 });
 
 
