@@ -21,7 +21,6 @@ class QuestionRequest extends FormRequest
      */
     public function rules(): array
     {
-        $id = $this->route('school_classes') ?? null;
         return [
             'image' => [
                 'nullable',
@@ -31,10 +30,8 @@ class QuestionRequest extends FormRequest
                 'dimensions:max_width=270,max_height=230', // tam ölçü
             ],
             'subject_id' => 'required|integer|exists:subjects,id',
-            'class_id' => 'required|integer|exists:school_classes,id',
             'title' => 'required|array',
             'title.*' => 'required|string|max:200',
-//            'text' => 'array|min:100',
             'status' => 'boolean',
         ];
     }

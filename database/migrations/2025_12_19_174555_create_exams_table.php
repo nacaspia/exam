@@ -16,6 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('class_id');
             $table->foreign('class_id')->references('id')->on('school_classes')->onDelete('cascade');
             $table->json('title');
+            $table->json('slug');
+            $table->json('text')->nullable();
+            $table->string('image',512)->nullable();
             $table->boolean('is_paid')->default(false);
             $table->decimal('price', 8, 2)->nullable();
             $table->timestamp('start_time')->nullable();

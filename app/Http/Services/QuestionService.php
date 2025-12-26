@@ -18,16 +18,15 @@ class QuestionService implements IQuestionService
     use LoggableTrait;
     public function getAll(): array
     {
-
-        $data = Question::
-        with(['class','subject'])->
-        orderBy('id','DESC')->get()->toArray();
-        return $data;
+        return Question::with('subject')
+            ->orderBy('id', 'DESC')
+            ->get()
+            ->toArray();
     }
 
     public function find(int $id): array
     {
-        return Question::with(['seo','class','subject','options','answer'])->findOrFail($id)->toArray();
+        return Question::with(['seo','subject','options','answer'])->findOrFail($id)->toArray();
     }
 
 
@@ -51,14 +50,8 @@ class QuestionService implements IQuestionService
                 $text[$langCode] = $data['text'][$langCode] ?? null;
                 $slug[$langCode] = Str::slug(trim($data['title'][$langCode]));
             }
-            $model->class_id = $data['class_id'];
             $model->subject_id = $data['subject_id'];
-            //$table->enum('type', ['multiple_choice', 'short_text', 'open_text']);
             $model->type = $data['type'];
-            $model->is_paid = $data['is_paid'] ?? false;
-            if ($model->is_paid) {
-                $model->price = $data['price'];
-            }
             $model->title = $title;
             $model->slug = $slug;
             $model->text = $text;

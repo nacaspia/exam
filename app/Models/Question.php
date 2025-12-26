@@ -21,7 +21,12 @@ class Question extends Model
 
     public function exams()
     {
-        return $this->belongsToMany(Exam::class);
+        return $this->belongsToMany(
+            Exam::class,
+            'exam_questions',
+            'question_id',
+            'exam_id'
+        );
     }
 
     public function seo()

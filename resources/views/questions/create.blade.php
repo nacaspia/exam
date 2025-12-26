@@ -140,15 +140,6 @@
                                 <div class="tab-pane" id="other" role="tabpanel">
                                     <div class="row g-3">
 
-                                        {{-- CLASS --}}
-                                        <div class="col-md-12">
-                                            <label class="form-label">Sinif</label>
-                                            <select name="class_id" class="form-select" required>
-                                                @foreach($schoolClasses as $class)
-                                                    <option value="{{ $class['id'] }}">{{ $class['name'][language()] }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
 
                                         {{-- SUBJECT --}}
                                         <div class="col-md-12">

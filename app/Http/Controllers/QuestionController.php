@@ -36,9 +36,8 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $schoolClasses = SchoolClass::orderBy('id','DESC')->get();
         $subjects = Subject::orderBy('id','DESC')->get();
-        return view('questions.create',compact('schoolClasses','subjects'));
+        return view('questions.create',compact('subjects'));
     }
 
     /**
@@ -61,9 +60,8 @@ class QuestionController extends Controller
     public function show(int $id)
     {
         $question = $this->questionService->find($id);
-        $schoolClasses = SchoolClass::orderBy('id','DESC')->get();
         $subjects = Subject::orderBy('id','DESC')->get();
-        return view('questions.edit',compact('question','schoolClasses','subjects'));
+        return view('questions.show',compact('question','subjects'));
     }
 
     /**
@@ -72,9 +70,8 @@ class QuestionController extends Controller
     public function edit(int $id)
     {
         $question = $this->questionService->find($id);
-        $schoolClasses = SchoolClass::orderBy('id','DESC')->get();
         $subjects = Subject::orderBy('id','DESC')->get();
-        return view('questions.edit',compact('question','schoolClasses','subjects'));
+        return view('questions.edit',compact('question','subjects'));
     }
 
     /**

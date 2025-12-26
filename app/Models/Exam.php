@@ -10,6 +10,9 @@ class Exam extends Model
     protected $fillable = [
         'class_id',
         'title',
+        'slug',
+        'text',
+        'image',
         'is_paid',
         'start_time',
         'end_time',
@@ -24,10 +27,23 @@ class Exam extends Model
 
     protected $casts = [
         'title' => 'array',
+        'slug' => 'array',
+        'text' => 'array',
     ];
 
     public function questions()
     {
-        return $this->belongsToMany(Question::class);
+        return $this->belongsToMany(
+            Question::class,
+            'exam_questions',
+            'exam_id',
+            'question_id'
+        );
     }
+
+    public function results()
+    {
+        return $this->hasMany(ExamResult::class);
+    }
+
 }
