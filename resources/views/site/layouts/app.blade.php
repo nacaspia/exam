@@ -8,7 +8,7 @@
     @yield('site.meta')
     <!--====== Title ======-->
     <title>{{settings()['title'][language()] ?? null}} - @yield('site.title')</title>
-    <link rel="shortcut icon" href="{{ asset('storage/' . settings()['logo']['favicon']) }}" type="image/png">
+    <link rel="shortcut icon" href="{{ asset('storage/' . settings()['logo']['favicon']?? null) }}" type="image/png">
     @yield('site.css')
     <style>
         .language-switcher select {
@@ -64,7 +64,7 @@
                     <div class="header-logo d-flex align-items-center justify-content-center justify-content-sm-start">
                         <div class="logo">
                             <a href="{{ route('site.index', ['locale' => app()->getLocale()]) }}">
-                                <img src="{{ asset('storage/' . settings()['logo']['header_logo']) }}" alt="{{settings()['title'][language()] ?? null}}">
+                                <img src="{{ asset('storage/' . settings()['logo']['header_logo']?? null) }}" alt="{{settings()['title'][language()] ?? null}}">
                             </a>
                         </div>
                         <form class="d-none d-md-inline-block"  method="GET" action="{{ route('site.search',['locale'=>app()->getLocale()]) }}">
