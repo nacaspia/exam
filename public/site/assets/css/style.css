@@ -3,7 +3,7 @@
     Template Name: LMS & Online Education Learning HTML Template
     Template URI:
     Description: LMS & Online Education Learning HTML Template
-    Author: 
+    Author:
     Author URI:
     Version: 1.0
 
@@ -19,7 +19,7 @@
 
 -----------------------------------------------------------------------------------*/
 /*===========================
-    1. COMMON css 
+    1. COMMON css
 ===========================*/
 @import url("https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,900|Philosopher:400,700,700i&amp;display=swap");
 body {
@@ -353,7 +353,7 @@ p {
     -o-transform: scaleY(1.6);
     transform: scaleY(1.6); } }
 /*===========================
-    2.HEADER css 
+    2.HEADER css
 ===========================*/
 .header-area .header-top {
   padding-left: 30px;
@@ -1092,7 +1092,7 @@ p {
   100% {
     top: 0; } }
 /*===========================
-    3.BANNER css 
+    3.BANNER css
 ===========================*/
 .banner-area {
   height: 900px;
@@ -1384,7 +1384,7 @@ p {
   color: #fff; }
 
 /*===========================
-    3.DREAM COURSE css 
+    3.DREAM COURSE css
 ===========================*/
 .dream-course-area {
   margin-top: -136px;
@@ -1491,7 +1491,7 @@ p {
             padding: 0 10px; } }
 
 /*===========================
-    4.SERVICES css 
+    4.SERVICES css
 ===========================*/
 .services-area .services-border {
   border: 1px solid #ebecf6; }
@@ -1623,7 +1623,7 @@ p {
       color: #0056a6; }
 
 /*===========================
-    5.OFFER css 
+    5.OFFER css
 ===========================*/
 .offer-area {
   position: relative;
@@ -1830,7 +1830,7 @@ p {
         margin-left: 115px; } }
 
 /*===========================
-    6.ADVANCE COURSES css 
+    6.ADVANCE COURSES css
 ===========================*/
 .advance-courses-area {
   padding-bottom: 90px; }
@@ -2071,7 +2071,7 @@ p {
     transform: scale(1.1); }
 
 /*===========================
-    7.FEATURES css 
+    7.FEATURES css
 ===========================*/
 .features-area {
   padding-top: 100px;
@@ -2246,7 +2246,7 @@ p {
       color: #001b61; }
 
 /*===========================
-    8.PLAY css 
+    8.PLAY css
 ===========================*/
 .play-area {
   padding-top: 108px;
@@ -2343,7 +2343,7 @@ p {
     padding-top: 103px; }
 
 /*===========================
-    9.COUNTER css 
+    9.COUNTER css
 ===========================*/
 .counter-area {
   position: relative;
@@ -2586,7 +2586,7 @@ p {
       color: #ffc924; }
 
 /*===========================
-    9.TESTIMONIALS css 
+    9.TESTIMONIALS css
 ===========================*/
 .testimonials-area {
   padding-top: 120px; }
@@ -2759,7 +2759,7 @@ p {
         width: 56px; }
 
 /*===========================
-    10.COMMUNITY css 
+    10.COMMUNITY css
 ===========================*/
 .community-area {
   padding-top: 104px;
@@ -2874,12 +2874,12 @@ p {
       width: 90%; }
 
 /*===========================
-    11.FOOTER css 
+    11.FOOTER css
 ===========================*/
 .footer-area {
   background: #001b61;
-  padding-top: 113px;
-  padding-bottom: 85px; }
+  /*padding-top: 113px;
+  padding-bottom: 85px;*/ }
   .footer-area .footer-item .footer-title {
     position: relative;
     padding-bottom: 15px;
@@ -3054,7 +3054,7 @@ p {
     box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.1); }
 
 /*===========================
-    12.SUB ITEMS css 
+    12.SUB ITEMS css
 ===========================*/
 .sub-items-area .sub-item {
   background: #043e44;
@@ -3254,7 +3254,7 @@ p {
   width: 10px; }
 
 /*===========================
-    13.WE DO css 
+    13.WE DO css
 ===========================*/
 .we-do-area {
   padding-bottom: 120px; }
@@ -3449,7 +3449,7 @@ p {
         border-bottom-color: #ffbd5e; }
 
 /*===========================
-    14.MENTORS css 
+    14.MENTORS css
 ===========================*/
 .mentors-area {
   position: relative;
@@ -3649,7 +3649,7 @@ p {
         color: #fff; }
 
 /*===========================
-    15.ACCESS css 
+    15.ACCESS css
 ===========================*/
 .access-area .access-thumb img {
   width: 100%; }
@@ -3718,7 +3718,7 @@ p {
       padding-right: 0; } }
 
 /*===========================
-    16.POLITE css 
+    16.POLITE css
 ===========================*/
 .polite-area .polite-content {
   background: #fff;
@@ -3775,7 +3775,7 @@ p {
       padding-top: 8px; }
 
 /*===========================
-    17.SPONSORS css 
+    17.SPONSORS css
 ===========================*/
 .sponsors-area {
   position: relative;
@@ -3808,7 +3808,7 @@ p {
   width: 80%; }
 
 /*===========================
-    18.COURSE css 
+    18.COURSE css
 ===========================*/
 .course-grid-area {
   background: #f7fcff; }
@@ -4718,7 +4718,7 @@ p {
     overflow: visible; }
 
 /*===========================
-    19.OUR EVENTS css 
+    19.OUR EVENTS css
 ===========================*/
 .our-events-area {
   padding-top: 105px;
@@ -5081,7 +5081,7 @@ p {
   padding-bottom: 23px; }
 
 /*===========================
-    19.EVENT DESK css 
+    19.EVENT DESK css
 ===========================*/
 .event-desk-area {
   padding-top: 107px;
@@ -5244,7 +5244,7 @@ p {
       height: 100%; }
 
 /*===========================
-    20.GALLERY css 
+    20.GALLERY css
 ===========================*/
 .gallery-area .gallery-item {
   position: relative;
@@ -5314,7 +5314,7 @@ p {
     transform: translate(-50%, -50%) scale(1); }
 
 /*===========================
-    21.FAQ css 
+    21.FAQ css
 ===========================*/
 .faq-area {
   padding-top: 110px;
@@ -5549,7 +5549,7 @@ p {
   z-index: 231; }
 
 /*===========================
-    22.PRICING css 
+    22.PRICING css
 ===========================*/
 .pricing-area {
   padding-bottom: 153px; }
@@ -5653,7 +5653,7 @@ p {
       background: #6cdabd; }
 
 /*===========================
-    23.BLOG css 
+    23.BLOG css
 ===========================*/
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
   .blog-standard-area .blog-sidebar {
@@ -6622,7 +6622,7 @@ p {
       color: #001b61; }
 
 /*===========================
-    24.CONTACT css 
+    24.CONTACT css
 ===========================*/
 .contact-info-area {
   padding-top: 106px;
@@ -6760,7 +6760,7 @@ p {
       width: 100%; }
 
 /*===============================
-    28.SHOP css 
+    28.SHOP css
 ================================*/
 .shop-area .shop-sidebar-area {
   padding: 33px 40px 30px; }
@@ -7273,7 +7273,7 @@ nav .pagination.pagination-2 li a {
       height: 40px; } }
 
 /*===============================
-    29.EXP css 
+    29.EXP css
 ================================*/
 .exp-area {
   background: #e5f6ff;
@@ -7382,7 +7382,7 @@ nav .pagination.pagination-2 li a {
         color: #fff; }
 
 /*===============================
-    30.OUR COURSES css 
+    30.OUR COURSES css
 ================================*/
 .our-courses-area {
   background: #f5fbff;
@@ -7558,7 +7558,7 @@ nav .pagination.pagination-2 li a {
       right: 15px; }
 
 /*===============================
-    31.DOWNLOAD css 
+    31.DOWNLOAD css
 ================================*/
 .download-area {
   position: relative; }
