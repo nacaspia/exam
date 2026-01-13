@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    {{ __('content.questions') }}
+    {{ __('content.exams') }}
 @endsection
 @section('css')
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/all.min.css') }}">
@@ -18,11 +18,11 @@
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">
-                        <h5>{{ __('content.questions') }}</h5>
+                        <h5>{{ __('content.exams') }}</h5>
                         <div class="btn-box d-flex flex-wrap gap-2">
                             <div id="tableSearch"></div>
                             <button class="btn btn-sm btn-icon btn-outline-primary"><i class="fa-light fa-arrows-rotate"></i></button>
-                            <a href="{{ route('questions.create') }}" class="btn btn-sm btn-primary"><i class="fa-light fa-plus"></i>{{ __('content.new') }}</a>
+                            <a href="{{ route('exams.create') }}" class="btn btn-sm btn-primary"><i class="fa-light fa-plus"></i>{{ __('content.new') }}</a>
                         </div>
                     </div>
                     <div class="panel-body">
@@ -36,7 +36,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($questions as $data)
+                            @foreach($exams as $data)
                                 <tr>
                                     <td>{{$data['id']}}</td>
                                     <td>{{$data['title'][language()]}}</td>
@@ -45,9 +45,9 @@
                                         <div class="digi-dropdown dropdown d-inline-block">
                                             <button class="btn btn-sm btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">Action <i class="fa-regular fa-angle-down"></i></button>
                                             <ul class="digi-dropdown-menu dropdown-menu dropdown-slim dropdown-menu-sm">
-                                                <li><a href="{{ route('questions.show',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-eye"></i></span> {{ __('content.view') }}</a></li>
+                                                <li><a href="{{ route('exams.show',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-eye"></i></span> {{ __('content.view') }}</a></li>
 
-                                                <li><a href="{{ route('questions.edit',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-pen-to-square"></i></span>  {{ __('content.edit') }}</a></li>
+                                                <li><a href="{{ route('exams.edit',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-pen-to-square"></i></span>  {{ __('content.edit') }}</a></li>
                                                 <!-- Delete düyməsi (modal açır) -->
                                                 <li>
                                                     <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $data['id'] }}">
@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        @foreach($questions  as $delete)
+        @foreach($exams  as $delete)
             <div class="modal fade" id="deleteModal-{{ $delete['id'] }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ $delete['id'] }}" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -80,7 +80,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('content.cancel') }}</button>
 
-                            <form action="{{ route('questions.destroy', $delete['id']) }}" method="POST" class="delete-role-form">
+                            <form action="{{ route('exams.destroy', $delete['id']) }}" method="POST" class="delete-role-form">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger">{{ __('content.delete') }}</button>

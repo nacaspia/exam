@@ -6,6 +6,10 @@ use App\Http\Interfaces\IExamService;
 use App\Models\Exam;
 use App\Models\Language;
 use App\Traits\LoggableTrait;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ExamService implements IExamService
 {
@@ -53,6 +57,9 @@ class ExamService implements IExamService
             $model->slug = $slug;
             $model->text = $text;
             $model->duration = $data['duration'];
+            $model->start_time = $data['start_time'];
+            $model->end_time = $data['end_time'];
+            $model->description = $data['description'];
             $model->question_count = count($data['question_ids']);
             $model->random_questions = $data['random_questions'] ?? true;
             $model->show_result = $data['show_result'] ?? true;

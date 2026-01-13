@@ -22,4 +22,12 @@ class StudentAnswer extends Model
     protected $casts = [
         'answer_json' => 'array',
     ];
+
+    public function question() {
+        return $this->belongsTo(Question::class);
+    }
+
+    public function questionOption() {
+        return $this->belongsTo(QuestionOption::class, 'question_option_id');
+    }
 }

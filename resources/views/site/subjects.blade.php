@@ -21,7 +21,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-9">
-                    <div class="course-grid mt-30">
+                    {{--<div class="course-grid mt-30">
                         <div class="course-grid-top d-sm-flex d-block justify-content-between align-items-center">
                             <div class="course-filter d-block align-items-center d-sm-flex">
                                 <select>
@@ -33,117 +33,66 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mt-10 justify-content-center">
-                        <div class="col-lg-4 col-md-6 col-sm-8">
-                            <div class="single-courses mt-30">
-                                <div class="courses-thumb">
-                                    <img src="{{ asset('site/assets/images/courses-grid-1.jpg') }}" alt="courses">
-                                    <div class="courses-review">
-                                        <span><i class="fas fa-star"></i>5.6</span>
-                                    </div>
-                                    <div class="corses-thumb-title">
-                                        <span>Games, Art</span>
-                                    </div>
-                                </div>
-                                <div class="courses-content">
-                                    <a href="#">
-                                        <h4 class="title">Discover industry leading E Learning Tools</h4>
-                                    </a>
-                                    <div class="courses-info d-flex justify-content-between">
-                                        <div class="item">
-                                            <p>By Rosalina D.</p>
-                                        </div>
-                                        <span>$46</span>
-                                    </div>
-                                    <ul>
-                                        <li><i class="fal fa-users"></i> 23</li>
-                                        <li><i class="fal fa-clock"></i> 10 Hr</li>
-                                        <li><i class="fal fa-comments"></i> 143</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-8">
-                            <div class="single-courses mt-30">
-                                <div class="courses-thumb">
-                                    <img src="{{ asset('site/assets/images/courses-grid-1.jpg') }}" alt="courses">
-                                    <div class="courses-review">
-                                        <span><i class="fas fa-star"></i>5.6</span>
-                                    </div>
-                                    <div class="corses-thumb-title">
-                                        <span>Games, Art</span>
-                                    </div>
-                                </div>
-                                <div class="courses-content">
-                                    <a href="#">
-                                        <h4 class="title">Discover industry leading E Learning Tools</h4>
-                                    </a>
-                                    <div class="courses-info d-flex justify-content-between">
-                                        <div class="item">
-                                            <p>By Rosalina D.</p>
-                                        </div>
-                                        <span>$46</span>
-                                    </div>
-                                    <ul>
-                                        <li><i class="fal fa-users"></i> 23</li>
-                                        <li><i class="fal fa-clock"></i> 10 Hr</li>
-                                        <li><i class="fal fa-comments"></i> 143</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6 col-sm-8">
-                            <div class="single-courses mt-30">
-                                <div class="courses-thumb">
-                                    <img src="{{ asset('site/assets/images/courses-grid-1.jpg') }}" alt="courses">
-                                    <div class="courses-review">
-                                        <span><i class="fas fa-star"></i>5.6</span>
-                                    </div>
-                                    <div class="corses-thumb-title">
-                                        <span>Games, Art</span>
-                                    </div>
-                                </div>
-                                <div class="courses-content">
-                                    <a href="#">
-                                        <h4 class="title">Discover industry leading E Learning Tools</h4>
-                                    </a>
-                                    <div class="courses-info d-flex justify-content-between">
-                                        <div class="item">
-                                            <p>By Rosalina D.</p>
-                                        </div>
-                                        <span>$46</span>
-                                    </div>
-                                    <ul>
-                                        <li><i class="fal fa-users"></i> 23</li>
-                                        <li><i class="fal fa-clock"></i> 10 Hr</li>
-                                        <li><i class="fal fa-comments"></i> 143</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                    </div>--}}
 
+                    <div class="row mt-10">
+                        @forelse($subjects as $subject)
+                            <div class="col-lg-4 col-md-6 col-sm-8">
+                                <div class="single-courses mt-30">
+                                    <div class="courses-thumb">
+                                        <img src="{{ $subject->image? asset('storage/'.$subject->image) : asset('site/assets/images/courses-grid-1.jpg') }}">
+                                        {{-- <div class="courses-review">
+                                             <span><i class="fas fa-star"></i>5.6</span>
+                                         </div>--}}
+
+                                    </div>
+                                    <div class="courses-content">
+                                        <a href="{{ route('site.exams',['locale' => app()->getLocale(), 'class_id' => $subject->id]) }}">
+                                            <h4 class="title">{{ $subject->name[language()] }}</h4>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <p class="text-center">Nəticə tapılmadı</p>
+                        @endforelse
                         <div class="col-lg-12">
                             <div class="pagination-item d-flex justify-content-center mt-50">
-                                <nav aria-label="Page navigation example">
-                                    <ul class="pagination">
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Previous">
-                                                <span aria-hidden="true"><i class="fal fa-arrow-left"></i></span>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">01</a></li>
-                                        <li class="page-item"><a class="page-link active" href="#">02</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">03</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">...</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">10</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#" aria-label="Next">
-                                                <span aria-hidden="true"><i class="fal fa-arrow-right"></i></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                @if ($subjects->hasPages())
+                                    <nav aria-label="Page navigation example">
+                                        <ul class="pagination">
+                                            {{-- Previous --}}
+                                            <li class="page-item {{ $subjects->onFirstPage() ? 'disabled' : '' }}">
+                                                <a class="page-link" href="{{ $subjects->previousPageUrl() }}" aria-label="Previous">
+                                                    <span aria-hidden="true">
+                                                        <i class="fal fa-arrow-left"></i>
+                                                    </span>
+                                                </a>
+                                            </li>
+
+                                            {{-- Pages --}}
+                                            @foreach ($subjects->links()->elements[0] as $page => $url)
+                                                <li class="page-item {{ $page == $subjects->currentPage() ? 'active' : '' }}">
+                                                    <a class="page-link" href="{{ $url }}">
+                                                        {{ str_pad($page, 2, '0', STR_PAD_LEFT) }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+
+                                            {{-- Next --}}
+                                            <li class="page-item {{ $subjects->hasMorePages() ? '' : 'disabled' }}">
+                                                <a class="page-link" href="{{ $subjects->nextPageUrl() }}" aria-label="Next">
+                                                    <span aria-hidden="true">
+                                                        <i class="fal fa-arrow-right"></i>
+                                                    </span>
+                                                </a>
+                                            </li>
+
+                                        </ul>
+                                    </nav>
+                                @endif
+
+
                             </div>
                         </div>
                     </div>

@@ -48,7 +48,7 @@ class AuthController extends Controller
             return response()->json([
                 'success' => false,
                 'errors' => ['Email və ya şifrə yanlışdır.']
-            ]);
+            ],422);
 
         } catch (\Exception $exception) {
             return response()->json(['success' => false, 'errors' => ['Sistem xəttası!']]);
@@ -73,7 +73,8 @@ class AuthController extends Controller
                 'email' => $registerRequest->email,
                 'phone' => $registerRequest->phone,
                 'password' => Hash::make($registerRequest->password),
-                'status' => true
+                'status' => true,
+                'type' => 'student'
             ]);
 
             auth('user')->login($user);

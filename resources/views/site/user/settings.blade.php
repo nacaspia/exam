@@ -16,7 +16,7 @@
     </style>
 @endsection
 @section('site.user.content')
-    <div class="main-content-wrapper">
+    <div {{--class="main-content-wrapper"--}}>
         <div class="container-fluid">
 
             <!-- Student Top Start -->

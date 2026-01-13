@@ -25,8 +25,12 @@
                     <span>eDus Digital Institute</span>
                     <h1 class="title">The New Way To Learn.</h1>
                     <ul>
-                        <li><a class="main-btn" href="{{ route('site.auth.login') }}"><span>+</span> {{ __('site.login') }}</a></li>
-                        <li><a class="main-btn-2 main-btn" href="{{ route('site.contact') }}"><span>+</span>{{ __('site.contact_us') }}</a></li>
+                        @if(user())
+                            <li><a class="main-btn" href="{{ route('site.user.account',['locale'=>app()->getLocale()]) }}"><span>+</span> {{ __('site.account') }}</a></li>
+                        @else
+                            <li><a class="main-btn" href="{{ route('site.auth.login',['locale'=>app()->getLocale()]) }}"><span>+</span> {{ __('site.login') }}</a></li>
+                        @endif
+                        <li><a class="main-btn-2 main-btn" href="{{ route('site.contact',['locale'=>app()->getLocale()]) }}"><span>+</span>{{ __('site.contact_us') }}</a></li>
                     </ul>
                 </div>
             </div>
@@ -47,7 +51,7 @@
                     <div class="dream-course-title text-center">
                         <span>{{ __('site.search_exam') }}</span>
                     </div>
-                    <form action="#">
+                    <form method="GET" action="{{ route('site.search',['locale'=>app()->getLocale()]) }}">
                         <div class="dream-course-search d-flex">
                             <div class="input-box">
                                 <i class="fal fa-search"></i>
@@ -55,7 +59,7 @@
                             </div>
                             <div class="dream-course-category d-none d-lg-inline-block">
                                 <select name="class_id">
-                                    <option data-display="{{ __('site.classes') }}">{{ __('site.classes') }}</option>
+                                    <option value="">{{ __('site.classes') }}</option>
                                     @if(!empty($classes))
                                         @foreach($classes as $class)
                                             <option value="{{$class['id']}}">{{$class['name'][language()]}}</option>
@@ -65,7 +69,7 @@
                             </div>
                             <div class="dream-course-category  d-none d-lg-inline-block">
                                 <select name="subject_id">
-                                    <option data-display="{{ __('site.subjects') }}">{{ __('site.subjects') }}</option>
+                                    <option value="">{{ __('site.subjects') }}</option>
                                     @if(!empty($subjects))
                                         @foreach($subjects as $subject)
                                             <option value="{{$subject['id']}}">{{$subject['name'][language()]}}</option>
@@ -74,7 +78,7 @@
                                 </select>
                             </div>
                             <div class="dream-course-btn">
-                                <button type="button">{{ __('site.start_search') }}</button>
+                                <button type="submit">{{ __('site.start_search') }}</button>
                             </div>
                         </div>
                     </form>
@@ -91,7 +95,13 @@
                     <span>Are You Ready For This Offer</span>
                     <h2 class="title">50% Offer For Very First 50 Students & Mentors.</h2>
                     <ul>
-                        <li><a class="main-btn" href="#"><i class="fal fa-user"></i> Become A Student</a></li>
+                        <li>
+                        @if(user())
+                            <li><a class="main-btn" href="{{ route('site.user.account',['locale'=>app()->getLocale()]) }}"><i class="fal fa-user"></i>{{ __('site.account') }}</a></li>
+                        @else
+                            <li><a class="main-btn" href="{{ route('site.auth.login',['locale'=>app()->getLocale()]) }}"><i class="fal fa-lock"></i> {{ __('site.login') }}</a></li>
+                        @endif
+{{--                            <a class="main-btn" href="#"><i class="fal fa-user"></i> Become A Student</a></li>--}}
                     </ul>
                 </div>
             </div>
@@ -108,129 +118,65 @@
             </div>
         </div>
         <div class="row courses-active">
-            <div class="col-lg-4">
-                <div class="single-courses mt-30">
-                    <div class="courses-thumb">
-                        <img src="{{ asset('site/assets/images/courses-1.jpg') }}" alt="courses">
-                        <div class="courses-review">
-                            <span><span><i class="fas fa-star"></i>5.6</span> (1200+)</span>
-                        </div>
-                        <div class="corses-thumb-title">
-                            <span>Games, Art</span>
-                        </div>
-                    </div>
-                    <div class="courses-content">
-                        <a href="#">
-                            <h4 class="title">Discover industry leading E Learning Tools</h4>
-                        </a>
-                        <div class="courses-info d-flex justify-content-between">
-                            <div class="item">
-                                <img src="{{ asset('site/assets/images/courses-info-thumb.png') }}" alt="courses info">
-                                <p>Rosalina D. William</p>
+            @if(!empty($questions[0]))
+                @foreach($questions as $question)
+
+                    <div class="col-lg-4">
+                        <div class="single-courses mt-30">
+                            <div class="courses-thumb">
+                                <img src="{{ asset('storage/'.$question['image']) }}" alt="{{$question['title'][app()->getLocale()]}}">
+                               {{-- <div class="courses-review">
+                                    <span><span><i class="fas fa-star"></i>5.6</span> (1200+)</span>
+                                </div>--}}
+                                <div class="corses-thumb-title">
+                                    <span>{{ $question->class->name[language()] ?? '' }}</span>
+                                </div>
                             </div>
-                            <span>$46</span>
-                        </div>
-                        <ul>
-                            <li><i class="fal fa-users"></i> 23 Students</li>
-                            <li><i class="fal fa-clock"></i> 10 Hours</li>
-                            <li><i class="fal fa-comments"></i> 143</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="single-courses mt-30">
-                    <div class="courses-thumb">
-                        <img src="{{ asset('site/assets/images/courses-1.jpg') }}" alt="courses">
-                        <div class="courses-review">
-                            <span><span><i class="fas fa-star"></i>5.6</span> (1200+)</span>
-                        </div>
-                        <div class="corses-thumb-title">
-                            <span>Games, Art</span>
-                        </div>
-                    </div>
-                    <div class="courses-content">
-                        <a href="#">
-                            <h4 class="title">Discover industry leading E Learning Tools</h4>
-                        </a>
-                        <div class="courses-info d-flex justify-content-between">
-                            <div class="item">
-                                <img src="{{ asset('site/assets/images/courses-info-thumb.png') }}" alt="courses info">
-                                <p>Rosalina D. William</p>
+                            <div class="courses-content">
+                                <a href="#">
+                                    <h4 class="title">{{$question['title'][app()->getLocale()]}}</h4>
+                                </a>
+
+                                <div class="courses-info d-flex justify-content-between">
+                                    <div class="item">
+                                        <p>{{ $question->subject->name[language()] ?? '' }}</p>
+                                        @if($question->is_paid)
+                                            <span>{{ $question->price }} AZN</span>
+                                        @else
+                                            <span>Pulsuz</span>
+                                        @endif
+                                    </div>
+                                    @if(user())
+                                        @php
+                                            $examResult = \App\Models\ExamResult::where('user_id', user()->id)
+                                                ->where('exam_id', $question->id)
+                                                ->first();
+                                        @endphp
+
+                                        @if($examResult && $examResult->status === 'finished')
+                                            <a href="{{ route('site.user.exam.result', ['locale' => app()->getLocale(),'exam'=>$question->id]) }}">
+                                                Nəticəyə bax
+                                            </a>
+                                        @else
+                                            <a href="{{ route('site.user.exams.show',['locale' => app()->getLocale(),'exam'=> $question->id]) }}">
+                                                İmtahana başla
+                                            </a>
+                                        @endif
+                                    @else
+                                        <a href="{{ route('site.auth.login',['locale' => app()->getLocale()]) }}">
+                                            Daxil ol
+                                        </a>
+                                    @endif
+                                </div>
                             </div>
-                            <span>$46</span>
-                        </div>
-                        <ul>
-                            <li><i class="fal fa-users"></i> 23 Students</li>
-                            <li><i class="fal fa-clock"></i> 10 Hours</li>
-                            <li><i class="fal fa-comments"></i> 143</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="single-courses mt-30">
-                    <div class="courses-thumb">
-                        <img src="{{ asset('site/assets/images/courses-1.jpg') }}" alt="courses">
-                        <div class="courses-review">
-                            <span><span><i class="fas fa-star"></i>5.6</span> (1200+)</span>
-                        </div>
-                        <div class="corses-thumb-title">
-                            <span>Games, Art</span>
                         </div>
                     </div>
-                    <div class="courses-content">
-                        <a href="#">
-                            <h4 class="title">Discover industry leading E Learning Tools</h4>
-                        </a>
-                        <div class="courses-info d-flex justify-content-between">
-                            <div class="item">
-                                <img src="{{ asset('site/assets/images/courses-info-thumb.png') }}" alt="courses info">
-                                <p>Rosalina D. William</p>
-                            </div>
-                            <span>$46</span>
-                        </div>
-                        <ul>
-                            <li><i class="fal fa-users"></i> 23 Students</li>
-                            <li><i class="fal fa-clock"></i> 10 Hours</li>
-                            <li><i class="fal fa-comments"></i> 143</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="single-courses mt-30">
-                    <div class="courses-thumb">
-                        <img src="{{ asset('site/assets/images/courses-1.jpg') }}" alt="courses">
-                        <div class="courses-review">
-                            <span><span><i class="fas fa-star"></i>5.6</span> (1200+)</span>
-                        </div>
-                        <div class="corses-thumb-title">
-                            <span>Games, Art</span>
-                        </div>
-                    </div>
-                    <div class="courses-content">
-                        <a href="#">
-                            <h4 class="title">Discover industry leading E Learning Tools</h4>
-                        </a>
-                        <div class="courses-info d-flex justify-content-between">
-                            <div class="item">
-                                <img src="{{ asset('site/assets/images/courses-info-thumb.png') }}" alt="courses info">
-                                <p>Rosalina D. William</p>
-                            </div>
-                            <span>$46</span>
-                        </div>
-                        <ul>
-                            <li><i class="fal fa-users"></i> 23 Students</li>
-                            <li><i class="fal fa-clock"></i> 10 Hours</li>
-                            <li><i class="fal fa-comments"></i> 143</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+                @endforeach
+            @endif
         </div>
     </div>
 </section>
+{{--
 <section class="counter-area bg_cove" style="background-image: url({{ asset('site/assets/images/counter-bg.jpg') }})">
     <div class="container">
         <div class="row justify-content-center">
@@ -307,6 +253,7 @@
         </div>
     </div>
 </section>=
+--}}
 
 @endsection
 @section('site.js')

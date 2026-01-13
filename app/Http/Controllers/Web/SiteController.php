@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Exam;
 use App\Models\Question;
 use App\Models\SchoolClass;
 use App\Models\Subject;
@@ -24,7 +25,11 @@ class SiteController extends Controller
         $this->currentTime = time_now();
         $classes = SchoolClass::where(['status' => 1])->orderBy('name->'.language(),'ASC')->get();
         $subjects = Subject::where(['status' => 1])->orderBy('name->'.language(),'ASC')->get();
-        return view('site.index', ['currentLang' => $this->currentLang, 'currentTime' => $this->currentTime, 'classes' => $classes, 'subjects' => $subjects]);
+        $questions = Exam::query()
+            ->orderBy('id', 'DESC')
+            ->paginate(9)   // 🔥 pagination
+            ->withQueryString(); // filtr saxlasın
+        return view('site.index', ['currentLang' => $this->currentLang, 'currentTime' => $this->currentTime, 'classes' => $classes, 'subjects' => $subjects, 'questions' => $questions]);
     }
 
     public function exams(Request $request)
@@ -35,12 +40,14 @@ class SiteController extends Controller
         $subject_id = (int)$request->subject_id ?? null;
         $classes = SchoolClass::where(['status' => 1])->orderBy('name->'.language(),'ASC')->get();
         $subjects = Subject::where(['status' => 1])->orderBy('name->'.language(),'ASC')->get();
-        $questions = Question::query()
+        $questions = Exam::query()
             ->when($request->class_id, function ($q) use ($class_id) {
                 $q->where('class_id', $class_id);
             })
-            ->when($request->subject_id, function ($q) use ($subject_id) {
-                $q->where('subject_id', $subject_id);
+            ->when($subject_id, function ($q) use ($subject_id) {
+                $q->whereHas('questions', function ($qq) use ($subject_id) {
+                    $qq->where('subject_id', $subject_id);
+                });
             })
             ->orderBy('id', 'DESC')
             ->paginate(9)   // 🔥 pagination
@@ -65,14 +72,24 @@ class SiteController extends Controller
     {
         $this->currentLang = language();
         $this->currentTime = time_now();
-        return view('site.subjects', ['currentLang' => $this->currentLang, 'currentTime' => $this->currentTime]);
+        $classes = SchoolClass::where(['status' => 1])->orderBy('name->'.language(),'ASC')->get();
+        $subjects = Subject::where(['status' => 1])->orderBy('name->'.language(),'ASC')
+            ->paginate(9)   // 🔥 pagination
+            ->withQueryString(); // filtr saxlasın->get();
+
+        return view('site.subjects', ['currentLang' => $this->currentLang, 'currentTime' => $this->currentTime, 'classes' => $classes, 'subjects' => $subjects]);
     }
 
     public function classes()
     {
         $this->currentLang = language();
         $this->currentTime = time_now();
-        return view('site.classes', ['currentLang' => $this->currentLang, 'currentTime' => $this->currentTime]);
+        $classes = SchoolClass::where(['status' => 1])->orderBy('name->'.language(),'ASC')
+            ->paginate(9)   // 🔥 pagination
+            ->withQueryString(); // filtr saxlasın->get();
+        $subjects = Subject::where(['status' => 1])->orderBy('name->'.language(),'ASC')->get();
+
+        return view('site.classes', ['currentLang' => $this->currentLang, 'currentTime' => $this->currentTime, 'classes' => $classes, 'subjects' => $subjects]);
     }
 
     public function achievements()
@@ -80,6 +97,38 @@ class SiteController extends Controller
         $this->currentLang = language();
         $this->currentTime = time_now();
         return view('site.achievements', ['currentLang' => $this->currentLang, 'currentTime' => $this->currentTime]);
+    }
+
+    public function search(Request $request)
+    {
+        $query = Exam::query()->where('active', 1);
+
+        // 🔍 Text search
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title->'.app()->getLocale(), 'like', "%{$search}%")
+                    ->orWhere('text->'.app()->getLocale(), 'like', "%{$search}%");
+            });
+        }
+
+        // 📚 Class filter
+        if ($request->filled('class_id')) {
+            $query->where('class_id', (int)$request->class_id);
+        }
+
+        // 📘 Subject filter
+        if ($request->filled('subject_id')) {
+            $query->where('subject_id', (int)$request->subject_id);
+        }
+
+        $results = $query->latest()->paginate(12)->withQueryString();
+
+        return view('site.search', [
+            'questions'     => $results,
+            'currentLang' => $this->currentLang,
+            'currentTime' => $this->currentTime,
+        ]);
     }
 
     public function blogs()

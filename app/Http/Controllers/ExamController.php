@@ -49,7 +49,7 @@ class ExamController extends Controller
         try {
             $this->examService->create($data);
             return redirect()->route('exams.index')->with('success', 'Yeni imtahan yaradıldı');
-        } catch (\Throwable $e) {
+        } catch (\Exception $e) {
             return back()->withErrors( 'Xəta baş verdi: ' . $e->getMessage());
         }
     }
@@ -71,9 +71,10 @@ class ExamController extends Controller
     public function edit(int $id)
     {
         $exam = $this->examService->find($id);
+        $selectedQuestionIds = collect($exam['questions'])->pluck('id')->toArray();
         $schoolClasses = SchoolClass::orderBy('id','DESC')->get();
         $questions = Question::orderBy('id','DESC')->get();
-        return view('exams.edit',compact('exam','schoolClasses','questions'));
+        return view('exams.edit',compact('exam','schoolClasses','questions','schoolClasses','selectedQuestionIds'));
     }
 
     /**

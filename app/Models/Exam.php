@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Traits\SeoTrait;
 use Illuminate\Database\Eloquent\Model;
 
 class Exam extends Model
 {
+    use SeoTrait;
     protected $table = 'exams';
     protected $fillable = [
         'class_id',
@@ -31,6 +33,10 @@ class Exam extends Model
         'text' => 'array',
     ];
 
+    public function class()
+    {
+        return $this->belongsTo(SchoolClass::class, 'class_id');
+    }
     public function questions()
     {
         return $this->belongsToMany(
@@ -40,6 +46,7 @@ class Exam extends Model
             'question_id'
         );
     }
+
 
     public function results()
     {

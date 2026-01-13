@@ -151,7 +151,83 @@
                                             </select>
                                         </div>
 
+                                        {{-- LANGUAGE --}}
+                                        <div class="col-md-6">
+                                            <label class="form-label">Exam Language</label>
+                                            <select name="language" class="form-select" required>
+                                                @foreach(languages() as $lang)
+                                                    <option value="{{ $lang->code }}" @if($lang['code'] === $exam['language']) selected @endif>{{ $lang->code }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
+                                        {{-- PRICE --}}
+                                        <div class="col-md-4">
+                                            <label class="form-label">Qiymət</label>
+                                            <input type="number" name="price" class="form-control" min="0" step="0.01" value="{{ $exam['price'] }}">
+                                        </div>
+
+                                        {{-- DURATION --}}
+                                        <div class="col-md-4">
+                                            <label class="form-label">Müddət (dəq)</label>
+                                            <input type="number" name="duration" class="form-control" min="1" required  value="{{ $exam['duration'] }}">
+                                        </div>
+
+                                        {{-- QUESTION COUNT --}}
+                                        <div class="col-md-4">
+                                            <label class="form-label">Sual sayı</label>
+                                            <input type="number" name="question_count" class="form-control" min="1" required value="{{ $exam['question_count'] }}">
+                                        </div>
+
+                                        {{-- START TIME --}}
+                                        <div class="col-md-6">
+                                            <label class="form-label">Başlama vaxtı</label>
+                                            <input type="text" name="start_time" class="form-control datetimepicker"  value="{{ $exam['start_time'] }}">
+                                        </div>
+
+                                        {{-- END TIME --}}
+                                        <div class="col-md-6">
+                                            <label class="form-label">Bitmə vaxtı</label>
+                                            <input type="text" name="end_time" class="form-control datetimepicker"  value="{{ $exam['end_time'] }}">
+                                        </div>
+
+                                        {{-- FLAGS --}}
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="random_questions" value="1"  @if($exam['random_questions']) checked @endif>
+                                                <label class="form-check-label">Random suallar</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <label class="form-label">Sualları seç</label>
+                                            <select name="question_ids[]" id="questionsSelect" class="form-select" multiple="multiple" required title="Secin">
+                                                @foreach($questions as $question)
+                                                    <option value="{{ $question->id }}" @if(in_array($question->id,$selectedQuestionIds)) selected @endif>
+                                                        {{ $question->title[app()->getLocale()] ?? $question->title['en'] ?? 'No Title' }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                            <small>Ctrl/Shift ilə bir neçə sual seçə bilərsiniz</small>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="show_result" value="1"  @if($exam['show_result']) checked @endif>
+                                                <label class="form-check-label">Nəticəni göstər</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="active" value="1"  @if($exam['active']) checked @endif>
+                                                <label class="form-check-label">Aktiv</label>
+                                            </div>
+                                        </div>
+
+                                        {{-- DESCRIPTION --}}
+                                        <div class="col-12">
+                                            <label class="form-label">Təsvir</label>
+                                            <textarea class="form-control" name="description" rows="3">{{ $exam['description'] ?? null }}</textarea>
+                                        </div>
                                         {{-- CANONICAL --}}
                                         <div class="col-12">
                                             <label class="form-label">Canonical URL</label>
@@ -237,6 +313,25 @@
     <script src="{{ asset('assets/vendor/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/select2-init.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#questionsSelect').select2({
+                placeholder: "Sualları seçin...",
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr(".datetimepicker", {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                time_24hr: true
+            });
+        });
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
 

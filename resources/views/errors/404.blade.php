@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vurtut CMS | 404</title>
+    <title>{{settings()['title'][language()] ?? null}} | 404</title>
 
-    <link rel="shortcut icon" href="favicon.png">
-    <link rel="stylesheet" href="assets/vendor/css/all.min.css">
-    <link rel="stylesheet" href="assets/vendor/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" id="primaryColor" href="assets/css/blue-color.css">
+    <link rel="shortcut icon" href="{{ asset('storage/' . settings()['logo']['favicon']) }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" id="primaryColor" href="{{ asset('assets/css/blue-color.css') }}">
     <link rel="stylesheet" id="rtlStyle" href="#">
 </head>
 
@@ -30,22 +30,22 @@
     <div class="panel error-panel">
         <div class="panel-body h-100 d-flex flex-column align-items-center justify-content-center">
             <div class="part-img">
-                <img src="assets/images/error-404.png" alt="404">
+                <img src="{{ asset('assets/images/error-404.png') }}" alt="404">
             </div>
             <div class="part-txt text-center">
                 <h2 class="error-subtitle">{{ __('error.page_not_found') }}</h2>
-                <a href="{{ route('home') }}" class="btn btn-primary py-2 px-5 rounded-pill">{{ __('content.go_to_page') }}</a>
+                <a href="{{ route('site.index') }}" class="btn btn-primary py-2 px-5 rounded-pill">{{ __('content.go_to_page') }}</a>
             </div>
         </div>
     </div>
 </div>
 <!-- main content end -->
 
-<script src="assets/vendor/js/jquery-3.6.0.min.js"></script>
-<script src="assets/vendor/js/jquery.overlayScrollbars.min.js"></script>
-<script src="assets/vendor/js/moment.min.js"></script>
-<script src="assets/vendor/js/daterangepicker.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="{{ asset('assets/vendor/js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/js/jquery.overlayScrollbars.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/js/moment.min.js') }}"></script>
+<script src="{{ asset('assets/vendor/js/daterangepicker.js') }}"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
 <!-- for demo purpose -->
 <script>
     var rtlReady = $('html').attr('dir', 'ltr');

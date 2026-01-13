@@ -146,7 +146,7 @@
                                             <label class="form-label">Fənn</label>
                                             <select name="subject_id" class="form-select" required>
                                                 @foreach($subjects as $subject)
-                                                    <option value="{{ $subject['id'] }}" @if($class['id'] === $question['subject_id']) selected @endif>{{ $subject['name'][language()] }}</option>
+                                                    <option value="{{ $subject['id'] }}" @if($subject['id'] === $question['subject_id']) selected @endif>{{ $subject['name'][language()] }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

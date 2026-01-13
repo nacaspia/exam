@@ -12,9 +12,11 @@ use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\ExamController;
 
 use App\Http\Controllers\Web\SiteController;
 use App\Http\Controllers\Web\User\AccountController;
+use App\Http\Controllers\Web\User\ExamController as UserExamController;
 
 Route::prefix('/admin')->middleware('check.ip')->group( function () {
     Route::get('/qr-login', [QrController::class, 'showLoginQr'])->name('qr.showLoginQr');
@@ -33,23 +35,26 @@ Route::prefix('/admin')->middleware('check.ip')->group( function () {
         Route::resource('school-classes',SchoolClassController::class);
         Route::resource('subjects',SubjectController::class);
         Route::resource('questions',QuestionController::class);
+        Route::resource('exams',ExamController::class);
         Route::resource('settings',SettingController::class);
     });
 });
 
 Route::prefix('{locale?}')->middleware(['set.locale'])->group(function () {
     Route::get('/', [SiteController::class, 'index'])->name('site.index');
+    Route::get('/search', [SiteController::class, 'search'])->name('site.search');
     Route::get('/exams', [SiteController::class, 'exams'])->name('site.exams');
     //Route::get('/exam-details/{slug}-{id}', [SiteController::class, 'examDetails'])->name('site.examDetails');
     Route::get('/subjects', [SiteController::class, 'subjects'])->name('site.subjects');
     Route::get('/classes', [SiteController::class, 'classes'])->name('site.classes');
+    Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
     /*Route::get('/achievements', [SiteController::class, 'achievements'])->name('site.achievements');
     Route::get('/blogs', [SiteController::class, 'blogs'])->name('site.blogs');*/
-    Route::get('/about-us', [SiteController::class, 'about'])->name('site.about');
+    /*Route::get('/about-us', [SiteController::class, 'about'])->name('site.about');
     Route::get('/faqs', [SiteController::class, 'faqs'])->name('site.faqs');
     Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
     Route::get('/terms-conditions', [SiteController::class, 'termsConditions'])->name('site.terms-conditions');
-    Route::get('/privacy-policy', [SiteController::class, 'privacyPolicy'])->name('site.privacy-policy');
+    Route::get('/privacy-policy', [SiteController::class, 'privacyPolicy'])->name('site.privacy-policy');*/
 
     Route::get('/login', [\App\Http\Controllers\Web\AuthController::class, 'login'])->name('site.auth.login');
     Route::post('/login-accept', [\App\Http\Controllers\Web\AuthController::class, 'loginAccept'])->name('site.auth.login-accept');
@@ -68,6 +73,12 @@ Route::prefix('{locale?}')->middleware(['set.locale'])->group(function () {
         Route::put('/user/children-update/{id}', [\App\Http\Controllers\Web\User\ChildrenController::class, 'update'])->name('site.user.children.update');
         Route::delete('/user/children-delete/{id}', [\App\Http\Controllers\Web\User\ChildrenController::class, 'destroy'])->name('site.user.children.delete');
 
+        Route::get('/user/exam/{exam}', [UserExamController::class, 'examShow'])->name('site.user.exams.show');
+        Route::get('/user/exam/{exam}/start', [UserExamController::class, 'examStart'])->name('site.user.exams.start');
+        Route::post('/user/exam/{exam}/pay', [UserExamController::class, 'examPay'])->name('site.user.exam.pay');
+        Route::get('/user/exam/{exam}/solve', [UserExamController::class, 'examSolve'])->name('site.user.exam.solve');
+        Route::post('/user/exam/{exam}/finish', [UserExamController::class, 'examFinish'])->name('site.user.exam.finish');
+        Route::get('/user/exam/{exam}/result', [UserExamController::class, 'examResult'])->name('site.user.exam.result');
     });
 });
 

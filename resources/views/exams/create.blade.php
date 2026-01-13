@@ -199,7 +199,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <label class="form-label">Sualları seç</label>
-                                            <select name="question_ids[]" id="questionsSelect" class="form-select" multiple="multiple" required>
+                                            <select name="question_ids[]" id="questionsSelect" class="form-select" multiple="multiple" required title="Secin">
                                                 @foreach($questions as $question)
                                                     <option value="{{ $question->id }}">
                                                         {{ $question->title[app()->getLocale()] ?? $question->title['en'] ?? 'No Title' }}

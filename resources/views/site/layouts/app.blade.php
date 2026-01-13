@@ -67,10 +67,10 @@
                                 <img src="{{ asset('storage/' . settings()['logo']['header_logo']) }}" alt="{{settings()['title'][language()] ?? null}}">
                             </a>
                         </div>
-                        <form class="d-none d-md-inline-block" action="#">
+                        <form class="d-none d-md-inline-block"  method="GET" action="{{ route('site.search',['locale'=>app()->getLocale()]) }}">
                             <div class="input-box">
                                 <i class="fal fa-search"></i>
-                                <input type="text" placeholder="{{ __('site.search_exam') }}">
+                                <input type="text" name="search" placeholder="{{ __('site.search_exam') }}">
                             </div>
                         </form>
                     </div>
@@ -131,9 +131,6 @@
                                     @foreach(languages() as $lang)
                                         <option value="{{$lang['code']}}" {{ app()->getLocale() == $lang['code'] ? 'selected' : '' }}>{{$lang['name']}}</option>
                                     @endforeach
-                                    {{--<option value="az" {{ app()->getLocale() == 'az' ? 'selected' : '' }}>AZ</option>
-                                    <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>EN</option>
-                                    <option value="ru" {{ app()->getLocale() == 'ru' ? 'selected' : '' }}>RU</option>--}}
                                 </select>
                             </div>
                             <div class="navbar-item d-flex align-items-center">
@@ -158,7 +155,7 @@
 @yield('site.content')
 
 <footer class="footer-area">
-    <div class="container">
+    {{--<div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-12">
                 <div class="footer-item mt-30">
@@ -226,7 +223,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
     <div class="footer-bottom">
         <p>
             Müəllif hüquqları qorunur. By

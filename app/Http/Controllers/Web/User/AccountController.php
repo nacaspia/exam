@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Web\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\Children;
+use App\Models\Exam;
+use App\Models\ExamResult;
+use App\Models\QuestionOption;
 use App\Models\SchoolClass;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
 class AccountController extends Controller
@@ -23,7 +27,14 @@ class AccountController extends Controller
     public function account() {
         $classes = SchoolClass::where(['status' => 1])->orderBy('name->'.$this->currentLang,'ASC')->get();
         $children = Children::with(['user','class'])->where(['is_deleted' => 0, 'user_id' => \user()->id])->orderBy('id','DESC')->get();
-        return view('site.user.account',compact('classes','children'));
+// İstifadəçinin imtahan nəticələri
+        $examResults = ExamResult::with(['exam', 'exam.questions'])
+            ->where('user_id', \user()->id)
+            ->orderBy('created_at','DESC')
+            ->take(10) // son 10 imtahan
+            ->get();
+
+        return view('site.user.account',compact('classes','children','examResults'));
     }
     public function settings() {
         $classes = SchoolClass::where(['status' => 1])->orderBy('name->'.$this->currentLang,'ASC')->get();
@@ -56,6 +67,5 @@ class AccountController extends Controller
             return response()->json(['success' => false, 'errors' => ['Sistem xəttası!']]);
         }
     }
-
 
 }

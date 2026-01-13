@@ -138,25 +138,25 @@
         <!-- Sidebar Wrapper Start -->
         <div class="sidebar-wrapper">
             <div class="menu-list">
-                <a class="{{ request()->routeIs('site.user.account',['locale' => app()->getLocale()]) ? 'active' : '' }}" href="{{ route('site.user.account') }}"><img src="{{ asset('site/user/assets/images/menu-icon/icon-1.png') }}" alt="Icon"></a>
-                <a href="messages.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-2.png') }}" alt="Icon"></a>
+                <a class="{{ request()->routeIs('site.user.account') ? 'active' : '' }}" href="{{ route('site.user.account',['locale' => app()->getLocale()]) }}"><img src="{{ asset('site/user/assets/images/menu-icon/icon-1.png') }}" alt="Icon"></a>
+              {{--  <a href="messages.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-2.png') }}" alt="Icon"></a>
                 <a href="overview.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-3.png') }}" alt="Icon"></a>
                 <a href="engagement.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-4.png') }}" alt="Icon"></a>
                 <a href="traffic-conversion.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-5.png') }}" alt="Icon"></a>
-            </div>
+            --}}</div>
         </div>
         <!-- Sidebar Wrapper End -->
 
         <div class="page-content-wrapper py-0">
 
             <!-- Admin Tab Menu Start -->
-            <div class="nav flex-column admin-tab-menu">
-                <a href="{{ route('site.user.account',['locale' => app()->getLocale()]) }}" class="{{ request()->routeIs('site.user.account') ? 'active' : '' }}">{{ __('site.account') }}</a>
-                <a href="overview.html">Overview</a>
-                <a href="reviews.html">Review’s</a>
+{{--            <div class="nav flex-column admin-tab-menu">--}}
+{{--                <a href="{{ route('site.user.account',['locale' => app()->getLocale()]) }}" class="{{ request()->routeIs('site.user.account') ? 'active' : '' }}">{{ __('site.account') }}</a>--}}
+                {{--<a href="">Imtahanlarim</a>
+                <a href="reviews.html">Neticeler</a>
                 <a href="engagement.html">Course Engagement</a>
-                <a href="traffic-conversion.html">Traffic & Conversion</a>
-            </div>
+                <a href="traffic-conversion.html">Traffic & Conversion</a>--}}
+{{--            </div>--}}
             <!-- Admin Tab Menu End -->
 
             <!-- Page Content Wrapper Start -->

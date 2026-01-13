@@ -3,7 +3,7 @@
 
 @endsection
 @section('site.title')
-    {{ __('site.exams') }}
+    {{ __('site.search') }}
 @endsection
 @section('site.css')
     <link rel="stylesheet" href="{{ asset('site/assets/css/animate.min.css') }}">
@@ -21,39 +21,15 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-9">
-                    <div class="course-grid mt-30">
-                        <div class="course-grid-top d-sm-flex d-block justify-content-between align-items-center">
-                            <form method="GET" action="">
-                            <div class="course-filter d-block align-items-center d-sm-flex">
-                                <select name="class_id" onchange="this.form.submit()">
-                                    <option value="" @if(empty($_GET['class_id']))  selected @endif >{{ __('site.classes') }}</option>
-                                    @if(!empty($classes))
-                                        @foreach($classes as $class)
-                                            <option value="{{$class['id']}}" @if(!empty($_GET['class_id']) && $_GET['class_id']==$class['id'])  selected @endif>{{$class['name'][language()]}}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                                <select name="subject_id" onchange="this.form.submit()">
-                                    <option value="" @if(empty($_GET['subject_id']))  selected @endif>{{ __('site.subjects') }}</option>
-                                    @if(!empty($subjects))
-                                        @foreach($subjects as $subject)
-                                            <option value="{{$subject['id']}}" @if(!empty($_GET['subject_id']) && $_GET['subject_id']==$subject['id'])  selected @endif>{{$subject['name'][language()]}}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
                     <div class="row mt-10">
                         @forelse($questions as $question)
                             <div class="col-lg-4 col-md-6 col-sm-8">
                                 <div class="single-courses mt-30">
                                     <div class="courses-thumb">
                                         <img src="{{ $question->image? asset('storage/'.$question->image) : asset('site/assets/images/courses-grid-1.jpg') }}">
-                                       {{-- <div class="courses-review">
-                                            <span><i class="fas fa-star"></i>5.6</span>
-                                        </div>--}}
+                                        {{-- <div class="courses-review">
+                                             <span><i class="fas fa-star"></i>5.6</span>
+                                         </div>--}}
                                         <div class="corses-thumb-title">
                                             <span>{{ $question->class->name[language()] ?? '' }}</span>
                                         </div>
@@ -65,11 +41,11 @@
                                         <div class="courses-info d-flex justify-content-between">
                                             <div class="item">
                                                 <p>{{ $question->subject->name[language()] ?? '' }}</p>
-                                            @if($question->is_paid)
-                                                <span>{{ $question->price }} AZN</span>
-                                            @else
-                                                <span>Pulsuz</span>
-                                            @endif
+                                                @if($question->is_paid)
+                                                    <span>{{ $question->price }} AZN</span>
+                                                @else
+                                                    <span>Pulsuz</span>
+                                                @endif
                                             </div>
                                             @if(user())
                                                 @php

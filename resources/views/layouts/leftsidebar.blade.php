@@ -14,6 +14,9 @@
                 <a href="{{ route('questions.index') }}" class="sidebar-link">{{ __('content.questions') }}</a>
             </li>
             <li class="sidebar-item">
+                <a href="{{ route('exams.index') }}" class="sidebar-link">{{ __('content.exams') }}</a>
+            </li>
+            <li class="sidebar-item">
                 <a role="button" class="sidebar-link-group-title has-sub">{{ __('content.cms_users') }}</a>
                 <ul class="sidebar-link-group">
                     <li class="sidebar-dropdown-item">

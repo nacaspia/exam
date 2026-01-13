@@ -44,18 +44,18 @@
                             <div class="input-box mt-20">
                                 <input name="email" type="email" placeholder="{{ __('site.email') }}">
                                 <i class="fal fa-user"></i>
-                                <span class="text-danger error-text email_error"></span>
+                                <span class="text-danger email_error"></span>
                             </div>
                             <div class="input-box mt-20">
                                 <input name="password" type="password" placeholder="****">
                                 <i class="fal fa-lock"></i>
-                                <span class="text-danger error-text password_error"></span>
+                                <span class="text-danger password_error"></span>
                             </div>
                             <div class="input-box mt-20">
                                 <button type="submit">{{ __('site.login') }}</button>
                             </div>
                         </form>
-                        <p class="form-message"></p>
+                        <p class="error-text"></p>
 
                         <div class="mt-20 d-flex justify-content-between">
                             <a href="{{ route('site.auth.register', ['locale' => app()->getLocale()]) }}" class="text-primary">{{ __('site.register') }}</a>
@@ -110,10 +110,10 @@
                 error: function(xhr) {
                     if (xhr.status === 422) {
                         let errors = xhr.responseJSON.errors;
-
                         $.each(errors, function(key, value) {
                             $('input[name="'+key+'"]').addClass('is-invalid');
                             $('.'+key+'_error').text(value[0]);
+                            $('.error-text').text(value);
                         });
                     }
                 }

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\Interfaces\ICmsUserService;
+use App\Http\Interfaces\IExamService;
 use App\Http\Interfaces\ILanguageService;
 use App\Http\Interfaces\IQuestionService;
 use App\Http\Interfaces\IRoleService;
@@ -10,6 +11,7 @@ use App\Http\Interfaces\ISchoolClassService;
 use App\Http\Interfaces\ISettingService;
 use App\Http\Interfaces\ISubjectService;
 use App\Http\Services\CmsUserService;
+use App\Http\Services\ExamService;
 use App\Http\Services\LanguageService;
 use App\Http\Services\QuestionService;
 use App\Http\Services\RoleService;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ISubjectService::class, SubjectService::class);
         $this->app->bind(IQuestionService::class, QuestionService::class);
         $this->app->bind(ISettingService::class, SettingService::class);
+        $this->app->bind(IExamService::class, ExamService::class);
     }
 
     /**

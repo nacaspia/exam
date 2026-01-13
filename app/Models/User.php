@@ -50,4 +50,27 @@ class User extends Authenticatable
 //            'password' => 'hashed',
         ];
     }
+
+    // User.php
+    public function isStudent()
+    {
+        return $this->type === 'student';
+    }
+
+    public function isParent()
+    {
+        return $this->type === 'parent';
+    }
+
+    // User.php
+    public function children()
+    {
+        return $this->hasMany(Children::class, 'user_id');
+    }
+
+    public function examResults()
+    {
+        return $this->hasMany(ExamResult::class);
+    }
+
 }
