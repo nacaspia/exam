@@ -47,10 +47,10 @@ class CheckIp
      */
     public function handle(Request $request, Closure $next)
     {
-        $ip = self::getRealIp() ?? $request->ip();
+        /*$ip = self::getRealIp() ?? $request->ip();
         if (!in_array($ip, $this->allowedIps)) {
             abort(403, $ip.' '.__('error.ip'));
-        }
+        }*/
 
         return $next($request);
     }
