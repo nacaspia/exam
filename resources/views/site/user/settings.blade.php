@@ -78,11 +78,11 @@
 
                             <hr>
 
-                            <h6>Şifrəni dəyiş</h6>
+                            <h6>{{ __('site.password_resert') }}</h6>
 
                             <!-- Password -->
                             <div class="form-group mb-3">
-                                <label>Yeni şifrə</label>
+                                <label>{{ __('site.new_password') }}</label>
                                 <input type="password"
                                        name="password"
                                        class="form-control">
@@ -90,7 +90,7 @@
 
                             <!-- Password confirmation -->
                             <div class="form-group mb-4">
-                                <label>Şifrə təkrarı</label>
+                                <label>{{ __('site.password_confirmation') }}</label>
                                 <input type="password"
                                        name="password_confirmation"
                                        class="form-control">

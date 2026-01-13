@@ -47,6 +47,8 @@ return [
     'subjects-edit' => 'Fənn düzənləmə',
     'subjects-delete' => 'Fənn silmə',
 
+    'exams' => 'Imtahanlar',
+
     'questions' => 'Suallar',
     'question' => 'Sual',
     'questions-index' => 'Sual siyahsı',

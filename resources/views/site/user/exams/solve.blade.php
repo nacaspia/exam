@@ -20,7 +20,7 @@
 <h3>{{ $exam->title[app()->getLocale()] }}</h3>
 
 <div class="alert alert-info">
-    ⏳ Qalan vaxt: <span id="timer"></span>
+    ⏳ {{ __('site.time_remaining' }}: <span id="timer"></span>
 </div>
 
             <form method="POST" action="{{ route('site.user.exam.finish',['locale'=>app()->getLocale(),'exam'=>$exam->id]) }}">
@@ -73,7 +73,7 @@
                 @endforeach
 
                 <button class="btn btn-danger w-100">
-                    İmtahanı bitir
+                    {{ __('site.end_exam' }}
                 </button>
             </form>
 

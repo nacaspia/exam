@@ -104,7 +104,7 @@
                                         Suallar: {{ $exam->exam->questions->count() }}  <br>
                                         Tarix: {{ $exam->created_at->format('d/m/Y H:i') }}  <br>
                                         Status: {{ ucfirst($exam->status) }} <br>
-                                        <a href="{{ route('site.user.exam.result', ['locale' => app()->getLocale(), 'exam' => $exam->exam->id]) }}">Nəticəyə bax</a>
+                                        <a href="{{ route('site.user.exam.result', ['locale' => app()->getLocale(), 'exam' => $exam->exam->id]) }}">{{ __('site.check_the_result') }}</a>
                                         <span class="date"><i class="icofont-ui-calendar"></i> {{ date('d.m.Y',strtotime($exam->exam['created_at'])) }}</span>
                                     </div>
                                 </div>

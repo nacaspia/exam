@@ -23,15 +23,15 @@
             </div>
             <div class="card mt-3">
                 <div class="card-body">
-                    <p><strong>Qiymət:</strong> {{ $exam->price }} AZN</p>
-                    <p><strong>Müddət:</strong> {{ $exam->duration }} dəqiqə</p>
-                    <p><strong>Sual sayı:</strong> {{ $exam->question_count }} sual</p>
+                    <p><strong>{{ __('site.price') }}:</strong> {{ $exam->price }} AZN</p>
+                    <p><strong>{{ __('site.time') }}:</strong> {{ $exam->duration }} {{ __('site.minute') }}</p>
+                    <p><strong>{{ __('site.question_count') }}:</strong> {{ $exam->question_count }} {{ __('site.question') }}</p>
 
                     {{-- PAYMENT --}}
                     <form action="{{ route('site.user.exam.pay', [app()->getLocale(), $exam->id]) }}" method="POST">
                         @csrf
                         <button class="btn btn-success w-100">
-                            Ödəniş et və imtahana başla
+                            {{ __('site.pay_and_start_exam') }}
                         </button>
                     </form>
                 </div>

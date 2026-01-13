@@ -48,4 +48,28 @@ return [
     'edit' => 'Yenilə',
     'delete' => 'Ləvğ et',
     'save' => 'Yadda saxla',
+    'check_the_result' => 'Nəticəyə bax',
+    'password_resert' => 'Şifrəni dəyiş',
+    'new_password' => 'Yeni şifrə',
+    'password_confirmation' => 'Şifrənin təkrarı',
+    'price' => 'Qiymət',
+    'time' => 'Müddət',
+    'minute' => 'dəqiqə',
+    'question_count' => 'Sual sayı',
+    'question' => 'Sual',
+    'pay_and_start_exam' => 'Ödəniş et və imtahana başla',
+
+
+    'time_remaining' => 'Qalan vaxt',
+    'end_exam' => 'İmtahanı bitir',
+    'correct_answer' => 'Düzgün cavab',
+    'true' => 'Düzgün',
+    'false' => 'Səhv',
+    'your_answer' => 'Cavabınız',
+    'questions_and_answers' => 'Suallar və cavablar',
+    'result' => 'Nəticə',
+    'total_score' => 'Toplam bal',
+    'seconds' => 'saniyə',
+    'result_is_available' => 'Nəticə açıqdır',
+    'result_will_be_checked' => 'Nəticə müəllim tərəfindən yoxlanılacaq'
 ];
