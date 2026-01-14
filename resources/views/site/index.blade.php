@@ -110,13 +110,6 @@
 </section>
 <section class="advance-courses-area pb-120">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-7">
-                <div class="section-title">
-                    <h3 class="title">Advance Courses <span>For Students.</span></h3>
-                </div>
-            </div>
-        </div>
         <div class="row courses-active">
             @if(!empty($questions[0]))
                 @foreach($questions as $question)
