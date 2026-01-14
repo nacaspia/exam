@@ -45,7 +45,7 @@
                                         <div class="digi-dropdown dropdown d-inline-block">
                                             <button class="btn btn-sm btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">Action <i class="fa-regular fa-angle-down"></i></button>
                                             <ul class="digi-dropdown-menu dropdown-menu dropdown-slim dropdown-menu-sm">
-                                                <li><a href="{{ route('exams.show',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-eye"></i></span> {{ __('content.view') }}</a></li>
+{{--                                                <li><a href="{{ route('exams.show',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-eye"></i></span> {{ __('content.view') }}</a></li>--}}
 
                                                 <li><a href="{{ route('exams.edit',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-pen-to-square"></i></span>  {{ __('content.edit') }}</a></li>
                                                 <!-- Delete düyməsi (modal açır) -->

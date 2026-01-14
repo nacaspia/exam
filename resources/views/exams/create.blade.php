@@ -172,11 +172,6 @@
                                             <input type="number" name="duration" class="form-control" min="1" required>
                                         </div>
 
-                                        {{-- QUESTION COUNT --}}
-                                        <div class="col-md-4">
-                                            <label class="form-label">Sual sayı</label>
-                                            <input type="number" name="question_count" class="form-control" min="1" required>
-                                        </div>
 
                                         {{-- START TIME --}}
                                         <div class="col-md-6">
@@ -191,12 +186,6 @@
                                         </div>
 
                                         {{-- FLAGS --}}
-                                        <div class="col-md-4">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="random_questions" value="1" checked>
-                                                <label class="form-check-label">Random suallar</label>
-                                            </div>
-                                        </div>
                                         <div class="col-md-4">
                                             <label class="form-label">Sualları seç</label>
                                             <select name="question_ids[]" id="questionsSelect" class="form-select" multiple="multiple" required title="Secin">

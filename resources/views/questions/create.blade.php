@@ -156,8 +156,8 @@
                                             <select name="type" id="questionType" class="form-select" required>
                                                 <option value="">Seçin</option>
                                                 <option value="multiple_choice">Variantlı</option>
-                                                <option value="short_text">Qısa yazı</option>
-                                                <option value="open_text">Açıq sual</option>
+                                                <option value="short_text">Açıq sual</option>
+{{--                                                <option value="open_text">Açıq sual</option>--}}
                                             </select>
                                         </div>
                                         <div class="col-md-12" id="multipleChoiceBlock" style="display:none">

@@ -174,10 +174,6 @@
                                         </div>
 
                                         {{-- QUESTION COUNT --}}
-                                        <div class="col-md-4">
-                                            <label class="form-label">Sual sayı</label>
-                                            <input type="number" name="question_count" class="form-control" min="1" required value="{{ $exam['question_count'] }}">
-                                        </div>
 
                                         {{-- START TIME --}}
                                         <div class="col-md-6">
@@ -192,12 +188,6 @@
                                         </div>
 
                                         {{-- FLAGS --}}
-                                        <div class="col-md-4">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="random_questions" value="1"  @if($exam['random_questions']) checked @endif>
-                                                <label class="form-check-label">Random suallar</label>
-                                            </div>
-                                        </div>
 
                                         <div class="col-md-4">
                                             <label class="form-label">Sualları seç</label>

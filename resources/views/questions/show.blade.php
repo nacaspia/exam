@@ -156,8 +156,8 @@
                                             <select name="type" id="questionType" class="form-select" required>
                                                 <option value="">Seçin</option>
                                                 <option value="multiple_choice" @if($question['type'] === 'multiple_choice') selected @endif>Variantlı</option>
-                                                <option value="short_text" @if($question['type'] === 'short_text') selected @endif>Qısa yazı</option>
-                                                <option value="open_text"  @if($question['type'] === 'open_text') selected @endif>Açıq sual</option>
+                                                <option value="short_text" @if($question['type'] === 'short_text') selected @endif>Açıq sual</option>
+{{--                                                <option value="open_text"  @if($question['type'] === 'open_text') selected @endif>Açıq sual</option>--}}
                                             </select>
                                         </div>
                                         <div class="col-md-12" id="multipleChoiceBlock">
