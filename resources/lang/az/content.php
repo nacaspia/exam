@@ -56,6 +56,9 @@ return [
     'questions-edit' => 'Sual düzənləmə',
     'questions-delete' => 'Sual silmə',
 
+    'user_abouts' => 'İstifadəçilərin məlumatları',
+    'users' => 'İstifadəçilər',
+
     'username' => 'İstifadəçi adı',
     'password' => 'Şifrə',
     'login_send' => 'Giriş et',

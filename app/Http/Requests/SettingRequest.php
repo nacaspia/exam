@@ -29,7 +29,7 @@ class SettingRequest extends FormRequest
             'instagram'=> 'required|url',
             'telegram' => 'required|url',
             'linkedin' => 'required|url',
-            'header_logo' => [
+            /*'header_logo' => [
                 'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
@@ -48,7 +48,7 @@ class SettingRequest extends FormRequest
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
                 'max:2048', // tam ölçü
-            ],
+            ],*/
         ];
     }
 

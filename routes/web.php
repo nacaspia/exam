@@ -13,6 +13,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ExamController;
+use \App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Web\SiteController;
 use App\Http\Controllers\Web\User\AccountController;
@@ -37,6 +38,7 @@ Route::prefix('/admin')->middleware('check.ip')->group( function () {
         Route::resource('questions',QuestionController::class);
         Route::resource('exams',ExamController::class);
         Route::resource('settings',SettingController::class);
+        Route::resource('users',UserController::class);
     });
 });
 

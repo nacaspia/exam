@@ -10,6 +10,7 @@ use App\Http\Interfaces\IRoleService;
 use App\Http\Interfaces\ISchoolClassService;
 use App\Http\Interfaces\ISettingService;
 use App\Http\Interfaces\ISubjectService;
+use App\Http\Interfaces\IUserService;
 use App\Http\Services\CmsUserService;
 use App\Http\Services\ExamService;
 use App\Http\Services\LanguageService;
@@ -18,6 +19,7 @@ use App\Http\Services\RoleService;
 use App\Http\Services\SchoolClassService;
 use App\Http\Services\SettingService;
 use App\Http\Services\SubjectService;
+use App\Http\Services\UserService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -35,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(IQuestionService::class, QuestionService::class);
         $this->app->bind(ISettingService::class, SettingService::class);
         $this->app->bind(IExamService::class, ExamService::class);
+        $this->app->bind(IUserService::class, UserService::class);
     }
 
     /**

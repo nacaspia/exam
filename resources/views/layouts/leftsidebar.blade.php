@@ -17,6 +17,15 @@
                 <a href="{{ route('exams.index') }}" class="sidebar-link">{{ __('content.exams') }}</a>
             </li>
             <li class="sidebar-item">
+                <a role="button" class="sidebar-link-group-title has-sub">{{ __('content.user_abouts') }}</a>
+                <ul class="sidebar-link-group">
+                    <li class="sidebar-dropdown-item">
+                        <a href="{{ route('users.index') }}" class="sidebar-link"><span class="nav-icon"><i class="fa-light fa-calendar"></i></span> <span class="sidebar-txt">{{ __('content.users') }}</span></a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="sidebar-item">
                 <a role="button" class="sidebar-link-group-title has-sub">{{ __('content.cms_users') }}</a>
                 <ul class="sidebar-link-group">
                     <li class="sidebar-dropdown-item">
