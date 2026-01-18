@@ -19,7 +19,7 @@ class ExamRequest extends FormRequest
                 'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
-                'max:4096',
+//                'max:4096',
             ],
 
             /* ================= MAIN ================= */

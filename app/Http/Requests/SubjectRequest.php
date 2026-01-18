@@ -27,8 +27,8 @@ class SubjectRequest extends FormRequest
                 'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
-                'max:2048', // fayl ölçüsü KB ilə
-                'dimensions:max_width=270,max_height=230', // tam ölçü
+                /*'max:2048', // fayl ölçüsü KB ilə
+                'dimensions:max_width=270,max_height=230', // tam ölçü*/
             ],
             'title' => 'required|array',
             'title.*' => 'required|string|max:200',

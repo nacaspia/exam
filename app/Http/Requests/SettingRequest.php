@@ -29,26 +29,26 @@ class SettingRequest extends FormRequest
             'instagram'=> 'required|url',
             'telegram' => 'required|url',
             'linkedin' => 'required|url',
-            /*'header_logo' => [
+            'header_logo' => [
                 'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
-                'max:2048', // fayl ölçüsü KB ilə
-                'dimensions:max_width=122,max_height=29', // tam ölçü
+             /*   'max:2048', // fayl ölçüsü KB ilə
+                'dimensions:max_width=122,max_height=29', // tam ölçü*/
             ],
             'footer_logo' => [
                 'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
-                'max:2048', // fayl ölçüsü KB ilə
-                'dimensions:max_width=122,max_height=29', // tam ölçü
+              /*  'max:2048', // fayl ölçüsü KB ilə
+                'dimensions:max_width=122,max_height=29', // tam ölçü*/
             ],
             'favicon' => [
                 'nullable',
                 'image',
                 'mimes:jpeg,png,jpg,gif,svg',
-                'max:2048', // tam ölçü
-            ],*/
+               /* 'max:2048', // tam ölçü*/
+            ],
         ];
     }
 
