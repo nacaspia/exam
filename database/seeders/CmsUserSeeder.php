@@ -63,6 +63,48 @@ class CmsUserSeeder extends Seeder
                 'cms-user-edit',
                 'cms-user-delete',
             ],
+            'school-classes' => [
+                'school-classes-index',
+                'school-classes-create',
+                'school-classes-edit',
+                'school-classes-delete',
+            ],
+            'subjects' => [
+                'subjects-index',
+                'subjects-create',
+                'subjects-edit',
+                'subjects-delete',
+            ],
+            'questions' => [
+                'questions-index',
+                'questions-create',
+                'questions-edit',
+                'questions-delete',
+            ],
+            'exams' => [
+                'exams-index',
+                'exams-create',
+                'exams-edit',
+                'exams-delete',
+            ],
+            'users' => [
+                'users-index',
+                'users-create',
+                'users-edit',
+                'users-delete',
+            ],
+            'languages' => [
+                'languages-index',
+                'languages-create',
+                'languages-edit',
+                'languages-delete',
+            ],
+            'settings' => [
+                'settings-index',
+                'settings-create',
+                'settings-edit',
+                'settings-delete',
+            ],
         ];
 
         foreach ($labels as $labelName => $permissions) {

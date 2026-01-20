@@ -51,7 +51,7 @@
         </div>
         <div class="col-xxl-6 col-xl-7 col-lg-8 col-4">
             <div class="header-right-btns d-flex justify-content-end align-items-center">
-                <div class="header-collapse-group">
+               {{-- <div class="header-collapse-group">
                     <div class="header-right-btns d-flex justify-content-end align-items-center p-0">
                         <div class="header-right-btns d-flex justify-content-end align-items-center p-0">
                             <div class="lang-select">
@@ -169,7 +169,7 @@
                     </div>
                 </div>
                 <button class="header-btn header-collapse-group-btn d-lg-none"><i class="fa-light fa-ellipsis-vertical"></i></button>
-                <button class="header-btn theme-settings-btn d-lg-none"><i class="fa-light fa-gear"></i></button>
+                <button class="header-btn theme-settings-btn d-lg-none"><i class="fa-light fa-gear"></i></button>--}}
                 <div class="header-btn-box profile-btn-box">
                     <button class="profile-btn" data-bs-toggle="dropdown" aria-expanded="false">
                         @if(cms_user()->image)
@@ -185,11 +185,11 @@
                                 <span class="d-block">{{ cms_user()->roles->first()->name }}</span>
                             </div>
                         </li>
-                        <li><a class="dropdown-item" href="chat.html"><span class="dropdown-icon"><i class="fa-regular fa-message-lines"></i></span> Message</a></li>
+                        {{--<li><a class="dropdown-item" href="chat.html"><span class="dropdown-icon"><i class="fa-regular fa-message-lines"></i></span> Message</a></li>
                         <li><a class="dropdown-item" href="task.html"><span class="dropdown-icon"><i class="fa-regular fa-calendar-check"></i></span> Taskboard</a></li>
                         <li><a class="dropdown-item" href="#"><span class="dropdown-icon"><i class="fa-regular fa-circle-question"></i></span> Help</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="edit-profile.html"><span class="dropdown-icon"><i class="fa-regular fa-gear"></i></span> Settings</a></li>
+                        <li><a class="dropdown-item" href="edit-profile.html"><span class="dropdown-icon"><i class="fa-regular fa-gear"></i></span> Settings</a></li>--}}
                         <li><a class="dropdown-item" href="{{ route('logout') }}"><span class="dropdown-icon"><i class="fa-regular fa-arrow-right-from-bracket"></i></span>{{ __('content.logout') }}</a></li>
                     </ul>
                 </div>
