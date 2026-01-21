@@ -13,4 +13,6 @@ interface ICmsUserService
     public function update(int $id, array $data): bool;
 
     public function delete(int $id): bool;
+    public function exams(int $userId): array;
+    public function questions(int $userId): array;
 }

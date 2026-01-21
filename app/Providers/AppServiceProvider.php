@@ -20,10 +20,17 @@ use App\Http\Services\SchoolClassService;
 use App\Http\Services\SettingService;
 use App\Http\Services\SubjectService;
 use App\Http\Services\UserService;
+use App\Listeners\MarkUserActive;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    protected $listen = [
+        Verified::class => [
+            MarkUserActive::class,
+        ],
+    ];
     /**
      * Register any application services.
      */

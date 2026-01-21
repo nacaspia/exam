@@ -10,6 +10,7 @@ class Exam extends Model
     use SeoTrait;
     protected $table = 'exams';
     protected $fillable = [
+        'user_id',
         'class_id',
         'title',
         'slug',

@@ -73,6 +73,7 @@
                                 <i class="fal fa-lock"></i>
                                 <span class="text-danger error-text re_password_error"></span>
                             </div>
+                            <div id="formAlert" class="alert" style="display:none"></div>
                             <div class="input-box mt-20" style="text-align: right">
                                 <button type="submit">{{ __('site.register_accept') }}</button>
                             </div>
@@ -107,7 +108,7 @@
             e.preventDefault();
 
             let form = $(this);
-
+            $('#formAlert').hide().removeClass('alert-success alert-danger').text('');
             $('.error-text').text('');
             $('input').removeClass('is-invalid');
 
@@ -117,7 +118,19 @@
                 data: form.serialize(),
                 success: function(response) {
                     if (response.success) {
-                        window.location.href = response.redirect;
+
+                        $('#formAlert')
+                            .addClass('alert-success')
+                            .text(response.messages ?? 'Əməliyyat uğurla tamamlandı')
+                            .show();
+
+                        // istəsən redirect
+                        // setTimeout(() => window.location.href = response.redirect, 1500);
+                    } else {
+                        $('#formAlert')
+                            .addClass('alert-danger')
+                            .text(response.errors?.[0] ?? 'Xəta baş verdi')
+                            .show();
                     }
                 },
                 error: function(xhr) {
@@ -128,6 +141,12 @@
                             $('input[name="'+key+'"]').addClass('is-invalid');
                             $('.'+key+'_error').text(value[0]);
                         });
+                    } else {
+                        // Digər xətalar
+                        $('#formAlert')
+                            .addClass('alert-danger')
+                            .text(xhr.responseJSON?.errors?.[0] ?? 'Sistem xətası baş verdi')
+                            .show();
                     }
                 }
             });

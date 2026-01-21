@@ -10,7 +10,7 @@ class Question extends Model
     use SeoTrait;
     protected $table = 'questions';
     protected $fillable = [
-        'subject_id', 'title', 'slug', 'text', 'image', 'type', 'score'
+        'subject_id', 'user_id', 'title', 'slug', 'text', 'image', 'type', 'score'
     ];
 
     protected $casts = [

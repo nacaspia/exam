@@ -48,6 +48,9 @@ return [
             'model' => App\Models\CmsUser::class,
         ],
     ],
+    'verification' => [
+        'expire' => 60, // dəqiqə ilə
+    ],
 
     /*
     |--------------------------------------------------------------------------

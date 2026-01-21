@@ -4,6 +4,8 @@ namespace App\Http\Services;
 
 use App\Http\Interfaces\ICmsUserService;
 use App\Models\CmsUser;
+use App\Models\Exam;
+use App\Models\Question;
 use App\Traits\LoggableTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +19,14 @@ class CmsUserService implements ICmsUserService
     {
         $cmsUsers = CmsUser::with('roles')->orderBy('name','ASC')->get()->toArray();
         return $cmsUsers;
+    }
+    public function exams($userId): array
+    {
+        return Exam::with(['class','questions','results'])->orderBy('id','DESC')->get()->toArray();
+    }
+    public function questions($userId): array
+    {
+        return Question::with(['exams','subject','options', 'answer'])->orderBy('id','DESC')->get()->toArray();
     }
 
     public function find(int $id): array

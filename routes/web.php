@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+
 use App\Http\Controllers\RolesController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
@@ -43,6 +45,8 @@ Route::prefix('/admin')->middleware('check.ip')->group( function () {
 });
 
 Route::prefix('{locale?}')->middleware(['set.locale'])->group(function () {
+
+
     Route::get('/', [SiteController::class, 'index'])->name('site.index');
     Route::get('/search', [SiteController::class, 'search'])->name('site.search');
     Route::get('/exams', [SiteController::class, 'exams'])->name('site.exams');
@@ -61,9 +65,12 @@ Route::prefix('{locale?}')->middleware(['set.locale'])->group(function () {
     Route::get('/login', [\App\Http\Controllers\Web\AuthController::class, 'login'])->name('site.auth.login');
     Route::post('/login-accept', [\App\Http\Controllers\Web\AuthController::class, 'loginAccept'])->name('site.auth.login-accept');
     Route::get('/register', [\App\Http\Controllers\Web\AuthController::class, 'register'])->name('site.auth.register');
-    Route::get('/forgot-password', [\App\Http\Controllers\Web\AuthController::class, 'forgotPassword'])->name('site.auth.forgot-password');
-    Route::get('/reset-password', [\App\Http\Controllers\Web\AuthController::class, 'resetPassword'])->name('site.auth.reset-password');
     Route::post('/register-accept', [\App\Http\Controllers\Web\AuthController::class, 'registerAccept'])->name('site.auth.register-accept');
+    Route::get('/verify-email', [\App\Http\Controllers\Web\AuthController::class, 'verifyEmail'])->name('site.verify.email');
+    Route::get('/forgot-password', [\App\Http\Controllers\Web\AuthController::class, 'forgotPassword'])->name('site.auth.forgot-password');
+    Route::get('/reset-password', [\App\Http\Controllers\Web\AuthController::class, 'showResetForm'])->name('site.password.reset');
+    Route::post('/reset-password', [\App\Http\Controllers\Web\AuthController::class, 'resetPassword'])->name('site.password.update');
+    Route::post('/forgot-password-accept', [\App\Http\Controllers\Web\AuthController::class, 'forgotPasswordAccept'])->name('site.password.forgotPasswordAccept');
     Route::group(['middleware' => ['userauth:user', 'ensure.guard:user']], function () {
         Route::get('/user/logout', [\App\Http\Controllers\Web\AuthController::class, 'logout'])->name('site.user.logout');
         Route::get('/user/account', [AccountController::class, 'account'])->name('site.user.account');

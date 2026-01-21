@@ -50,11 +50,13 @@ class QuestionService implements IQuestionService
                 $text[$langCode] = $data['text'][$langCode] ?? null;
                 $slug[$langCode] = Str::slug(trim($data['title'][$langCode]));
             }
+            $model->user_id = cms_user()->id;
             $model->subject_id = $data['subject_id'];
             $model->type = $data['type'];
             $model->title = $title;
             $model->slug = $slug;
             $model->text = $text;
+            $model->active = $data['active'] ?? false;
             $model->save();
 
             // 1️⃣ VARIANTLI SUAL
@@ -134,6 +136,7 @@ class QuestionService implements IQuestionService
             $model->title = $title;
             $model->slug  = $slug;
             $model->text  = $text;
+            $model->active = $data['active'] ?? false;
             $model->save();
 
             /* ================= CLEAN OLD DATA ================= */

@@ -63,7 +63,9 @@ class CmsUsersController extends Controller
     {
         $cmsUser = $this->cmsUserService->find($id);
         $roles = Role::orderBy("name",'ASC')->get();
-        return view('cms-users.show',compact('cmsUser','roles'));
+        $exams = $this->cmsUserService->exams($cmsUser['id']);
+        $questions = $this->cmsUserService->questions($cmsUser['id']);
+        return view('cms-users.show',compact('cmsUser','roles', 'questions', 'exams'));
     }
 
     /**

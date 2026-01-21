@@ -30,19 +30,23 @@
                 <div class="col-lg-6">
                     <div class="contact-action-item">
                         <h6 class="title">{{ __('site.forgot_password') }}</h6>
-                        <form id="forgotPasswordForm" method="POST" action="{{ route('site.password.forgotPasswordAccept',['locale' => app()->getLocale()]) }}">
+                        <form id="forgotPasswordForm" method="POST" action="{{ route('site.password.update',['locale' => app()->getLocale()]) }}">
                             @csrf
                             <div class="input-box mt-20">
-                                <input name="email" type="email" placeholder="{{ __('site.enter_email') }}">
-                                <i class="fal fa-envelope"></i>
-                                <span class="text-danger error-text email_error"></span>
+                                <input name="new_password" type="password" placeholder="{{ __('site.new_password') }}">
+                                <i class="fal fa-lock"></i>
+                                <span class="text-danger error-text new_password_error"></span>
+                            </div>
+                            <div class="input-box mt-20">
+                                <input name="password_confirmation" type="password" placeholder="{{ __('site.password_confirmation') }}">
+                                <i class="fal fa-lock"></i>
+                                <span class="text-danger error-text password_confirmation_error"></span>
                             </div>
                             <div id="formAlert" class="alert" style="display:none"></div>
                             <div class="input-box mt-20">
                                 <button type="submit">{{ __('site.send') }}</button>
                             </div>
                         </form>
-                        <p class="form-message"></p>
                     </div>
                 </div>
             </div>

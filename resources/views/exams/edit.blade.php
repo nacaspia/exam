@@ -206,13 +206,14 @@
                                                 <label class="form-check-label">Nəticəni göstər</label>
                                             </div>
                                         </div>
+                                        @if(cms_user()->hasPermission('exams-index'))
                                         <div class="col-md-4">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="active" value="1"  @if($exam['active']) checked @endif>
                                                 <label class="form-check-label">Aktiv</label>
                                             </div>
                                         </div>
-
+                                        @endif
                                         {{-- DESCRIPTION --}}
                                         <div class="col-12">
                                             <label class="form-label">Təsvir</label>

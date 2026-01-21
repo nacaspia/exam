@@ -203,12 +203,14 @@
                                                 <label class="form-check-label">Nəticəni göstər</label>
                                             </div>
                                         </div>
+                                        @if(cms_user()->hasPermission('exams-index'))
                                         <div class="col-md-4">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="active" value="1" checked>
                                                 <label class="form-check-label">Aktiv</label>
                                             </div>
                                         </div>
+                                        @endif
 
                                         {{-- DESCRIPTION --}}
                                         <div class="col-12">

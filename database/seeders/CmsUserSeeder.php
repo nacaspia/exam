@@ -80,12 +80,14 @@ class CmsUserSeeder extends Seeder
                 'questions-create',
                 'questions-edit',
                 'questions-delete',
+                'questions-active',
             ],
             'exams' => [
                 'exams-index',
                 'exams-create',
                 'exams-edit',
                 'exams-delete',
+                'exams-active',
             ],
             'users' => [
                 'users-index',

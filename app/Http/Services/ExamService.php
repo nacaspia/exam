@@ -49,6 +49,7 @@ class ExamService implements IExamService
                 $text[$langCode] = $data['text'][$langCode] ?? null;
                 $slug[$langCode] = Str::slug(trim($data['title'][$langCode]));
             }
+            $model->user_id = cms_user()->id;
             $model->class_id = $data['class_id'];
             $model->language = $data['language'];
             $model->price = $data['price'] ?? 0;
@@ -63,7 +64,7 @@ class ExamService implements IExamService
             $model->question_count = count($data['question_ids']);
             $model->random_questions = $data['random_questions'] ?? true;
             $model->show_result = $data['show_result'] ?? true;
-            $model->active = $data['active'] ?? true;
+            $model->active =  $data['active'] ?? false;
             $model->save();
 
             // Exam save-dən SONRA
@@ -132,7 +133,7 @@ class ExamService implements IExamService
             $model->question_count = count($data['question_ids']);
             $model->random_questions = $data['random_questions'] ?? true;
             $model->show_result = $data['show_result'] ?? true;
-            $model->active = $data['active'] ?? true;
+            $model->active = $data['active'] ?? false;
             $model->save();
 
             if (!empty($data['question_ids']) && is_array($data['question_ids'])) {

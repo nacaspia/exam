@@ -71,5 +71,9 @@ return [
     'total_score' => 'Toplam bal',
     'seconds' => 'saniyə',
     'result_is_available' => 'Nəticə açıqdır',
-    'result_will_be_checked' => 'Nəticə müəllim tərəfindən yoxlanılacaq'
+    'result_will_be_checked' => 'Nəticə müəllim tərəfindən yoxlanılacaq',
+    'register_success' => 'Qeydiyyat uğurla tamamlandlı zəhmət olmasa hesabı təsdiq üçün e-poçtunuzu yoxlayın.',
+    'register_errorr' => 'Sistem xəttası!',
+    'enter_email' => 'E-poçt ünvanınızı qeyd edin',
+    'send' => 'Göndər'
 ];

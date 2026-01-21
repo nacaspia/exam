@@ -150,6 +150,15 @@
                                                 @endforeach
                                             </select>
                                         </div>
+
+                                        @if(cms_user()->hasPermission('questions-index'))
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" name="active" value="1"  @if($question['active']) checked @endif>
+                                                    <label class="form-check-label">Aktiv</label>
+                                                </div>
+                                            </div>
+                                        @endif
                                         {{-- TYPE --}}
                                         <div class="col-md-12">
                                             <label class="form-label">Sual növü</label>
