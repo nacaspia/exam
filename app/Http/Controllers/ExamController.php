@@ -6,6 +6,7 @@ use App\Http\Interfaces\IExamService;
 use App\Http\Requests\ExamRequest;
 use App\Models\Question;
 use App\Models\SchoolClass;
+use App\Models\Subject;
 
 class ExamController extends Controller
 {
@@ -36,8 +37,9 @@ class ExamController extends Controller
     public function create()
     {
         $schoolClasses = SchoolClass::orderBy('id','DESC')->get();
+        $subjects = Subject::orderBy('id','DESC')->get();
         $questions = Question::orderBy('id','DESC')->get();
-        return view('exams.create',compact('schoolClasses','questions'));
+        return view('exams.create',compact('schoolClasses','subjects','questions'));
     }
 
     /**
@@ -61,8 +63,9 @@ class ExamController extends Controller
     {
         $exam = $this->examService->find($id);
         $schoolClasses = SchoolClass::orderBy('id','DESC')->get();
+        $subjects = Subject::orderBy('id','DESC')->get();
         $questions = Question::orderBy('id','DESC')->get();
-        return view('exams.show',compact('exam','schoolClasses','questions'));
+        return view('exams.show',compact('exam','schoolClasses','subjects','questions'));
     }
 
     /**
@@ -73,8 +76,9 @@ class ExamController extends Controller
         $exam = $this->examService->find($id);
         $selectedQuestionIds = collect($exam['questions'])->pluck('id')->toArray();
         $schoolClasses = SchoolClass::orderBy('id','DESC')->get();
+        $subjects = Subject::orderBy('id','DESC')->get();
         $questions = Question::orderBy('id','DESC')->get();
-        return view('exams.edit',compact('exam','schoolClasses','questions','schoolClasses','selectedQuestionIds'));
+        return view('exams.edit',compact('exam','schoolClasses','subjects', 'questions','schoolClasses','selectedQuestionIds'));
     }
 
     /**

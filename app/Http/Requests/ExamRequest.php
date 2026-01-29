@@ -10,46 +10,52 @@ class ExamRequest extends FormRequest
     {
         return true;
     }
-
     public function rules(): array
     {
         return [
-            /* ================= IMAGE ================= */
-            'image' => [
-                'nullable',
-                'image',
-                'mimes:jpeg,png,jpg,gif,svg',
-//                'max:4096',
-            ],
+            // Image
+            'image' => ['nullable','image','mimes:jpeg,png,jpg,gif,svg'],
 
-            /* ================= MAIN ================= */
+            // Main
             'class_id' => 'required|integer|exists:school_classes,id',
             'language' => 'required|string|max:10',
 
-            'duration' => 'required|integer|min:1',
-            'question_count' => 'required|integer|min:1',
-
-            'price' => 'nullable|numeric|min:0',
+            // Price
+            'price_type' => 'required|in:paid,free',
+            'price' => 'nullable|numeric|min:0|required_if:price_type,paid',
             'is_paid' => 'boolean',
 
-            /* ================= TRANSLATIONS ================= */
+            // Duration
+            'duration_type' => 'required|in:timed,untimed',
+            'duration' => 'nullable|integer|min:1|required_if:duration_type,timed',
+            'start_time' => 'nullable|date|required_if:duration_type,timed',
+            'end_time' => 'nullable|date|after:start_time|required_if:duration_type,timed',
+
+            // Translations
             'title' => 'required|array',
             'title.*' => 'required|string|max:200',
-
             'text' => 'nullable|array',
             'text.*' => 'nullable|string',
 
-            /* ================= FLAGS ================= */
-            'random_questions' => 'boolean',
+            // Flags
             'show_result' => 'boolean',
             'active' => 'boolean',
 
-            /* ================= TIME ================= */
-            'start_time' => 'nullable|date',
-            'end_time'   => 'nullable|date|after:start_time',
-
-            /* ================= DESCRIPTION ================= */
+            // Description
             'description' => 'nullable|string',
+
+            // Questions (dynamic)
+            'questions' => 'required|array|min:1',
+            'questions.*.title' => 'required|array',
+            'questions.*.title.*' => 'required|string|max:200',
+            'questions.*.text' => 'nullable|array',
+            'questions.*.text.*' => 'nullable|string',
+            'questions.*.type' => 'required|in:multiple_choice,short_text',
+            'questions.*.subject_id' => 'required|integer|exists:subjects,id',
+            'questions.*.correct_answer' => 'nullable|string', // short_text üçün
+            'questions.*.options' => 'nullable|array', // multiple_choice üçün
+            'questions.*.options.*.*' => 'required_with:questions.*.options|string|max:200',
+            'questions.*.correct_option' => 'nullable|integer', // multiple_choice üçün
         ];
     }
 
@@ -68,8 +74,10 @@ class ExamRequest extends FormRequest
             '*.after' => __('validation.after'),
 
             'class_id.exists' => __('validation.exists'),
-            'duration.min' => __('İmtahan müddəti minimum 1 dəqiqə olmalıdır'),
-            'question_count.min' => __('Minimum 1 sual seçilməlidir'),
+            'questions.required' => 'Ən azı 1 sual əlavə edilməlidir.',
+            'questions.*.title.*.required' => 'Hər sualın başlığı doldurulmalıdır.',
+            'questions.*.options.*.*.required_with' => 'Variantlar doldurulmalıdır.',
+            'duration.min' => 'İmtahan müddəti minimum 1 dəqiqə olmalıdır',
         ];
     }
 }

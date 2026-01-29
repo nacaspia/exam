@@ -16,11 +16,11 @@
                 <a href="{{ route('subjects.index') }}" class="sidebar-link">{{ __('content.subjects') }}</a>
             </li>
             @endif
-            @if(cms_user()->hasPermission('questions-index'))
+           {{-- @if(cms_user()->hasPermission('questions-index'))
             <li class="sidebar-item">
                 <a href="{{ route('questions.index') }}" class="sidebar-link">{{ __('content.questions') }}</a>
             </li>
-            @endif
+            @endif--}}
             @if(cms_user()->hasPermission('exams-index'))
             <li class="sidebar-item">
                 <a href="{{ route('exams.index') }}" class="sidebar-link">{{ __('content.exams') }}</a>

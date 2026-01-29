@@ -28,7 +28,7 @@
             <!-- Header Logo Start -->
             <div class="login-header-logo">
                 <a href="{{ route('site.index', ['locale' => app()->getLocale()]) }}">
-                    <img src="{{ asset('storage/' . settings()['logo']['header_logo']) }}" alt="{{settings()['title'][language()] ?? null}}">
+                    <img src="{{ asset('storage/' . settings()['logo']['header_logo']) }}" alt="{{settings()['title'][language()] ?? null}}" style="max-width: 58%;!important;">
                 </a>
             </div>
             <!-- Header Logo End -->
@@ -139,7 +139,9 @@
         <div class="sidebar-wrapper">
             <div class="menu-list">
                 <a class="{{ request()->routeIs('site.user.account') ? 'active' : '' }}" href="{{ route('site.user.account',['locale' => app()->getLocale()]) }}"><img src="{{ asset('site/user/assets/images/menu-icon/icon-1.png') }}" alt="Icon"></a>
-              {{--  <a href="messages.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-2.png') }}" alt="Icon"></a>
+                <a class="{{ request()->routeIs('site.user.settings') ? 'active' : '' }}" href="{{ route('site.user.settings',['locale' => app()->getLocale()]) }}"><i class="icofont-user"></i> </a>
+                <a class="{{ request()->routeIs('site.user.logout') ? 'active' : '' }}"  href="{{ route('site.user.logout', ['locale' => app()->getLocale()]) }}"><i class="icofont-logout"></i></a>
+                {{--  <a href="messages.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-2.png') }}" alt="Icon"></a>
                 <a href="overview.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-3.png') }}" alt="Icon"></a>
                 <a href="engagement.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-4.png') }}" alt="Icon"></a>
                 <a href="traffic-conversion.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-5.png') }}" alt="Icon"></a>

@@ -26,12 +26,17 @@
                     <p><strong>{{ __('site.time') }}:</strong> {{ $exam->duration }} {{ __('site.minute') }}</p>
                     <p><strong>{{ __('site.question_count') }}:</strong> {{ $exam->question_count }} {{ __('site.question') }}</p>
                     {{-- PAYMENT --}}
-                    <form action="{{ route('site.user.exam.pay', [ app()->getLocale(),  $exam->id]) }}" method="POST">
-                        @csrf
-                        <button class="btn btn-success w-100">
-                            {{ __('site.pay_and_start_exam') }}
-                        </button>
-                    </form>
+                    @if($exam->is_paid)
+                        <form action="{{ route('site.user.exams.pay', [ app()->getLocale(),  $exam->id]) }}" method="POST">
+                            @csrf
+                            <button class="btn btn-success w-100">{{ __('site.pay_and_start_exam') }}</button>
+                        </form>
+                    @else
+                        <a href="{{ route('site.user.exams.start', ['locale'=>app()->getLocale(),'exam'=>$exam->id]) }}" class="btn btn-primary w-100">
+                            {{ __('site.start_exam') }}
+                        </a>
+                    @endif
+
                 </div>
             </div>
 

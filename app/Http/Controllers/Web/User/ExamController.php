@@ -27,7 +27,7 @@ class ExamController extends Controller
         $exam = Exam::where(['id' => (int)$exam])->first();
         if (empty($exam)) { return redirect()->back(); }
         // ödəniş lazımdırsa
-        if ($exam->is_paid) {
+        if ($exam->is_paid && $exam->price_type !='free') {
             return view('site.user.exams.pay', compact('exam'));
         }
 
@@ -159,7 +159,7 @@ class ExamController extends Controller
                 'answer_text' => $answerText,
                 'is_correct' => $isCorrect,
                 'score' => $isCorrect ? 1 : 0,
-                'time_spent' => now()->diffInSeconds($result->started_at),
+                'time_spent' => $result->duration_type === 'timed' ? now()->diffInSeconds($result->started_at) : 0,
                 'answer_json' => is_array($answer) ? $answer : null,
             ]);
         }

@@ -17,11 +17,16 @@
                 @endif
             </div>
             <!-- Student Top End -->
-<h3>{{ $exam->title[app()->getLocale()] }}</h3>
+            <h3>{{ $exam->title[app()->getLocale()] }}</h3>
 
-<div class="alert alert-info">
-    ⏳ {{ __('site.time_remaining' }}: <span id="timer"></span>
-</div>
+            <div class="alert alert-info">
+                ⏳ {{ __('site.time_remaining') }}:
+                @if($exam->duration_type === 'timed')
+                    <span id="timer"></span>
+                @else
+                    {{ __('site.unlimited_time') }}
+                @endif
+            </div>
 
             <form method="POST" action="{{ route('site.user.exam.finish',['locale'=>app()->getLocale(),'exam'=>$exam->id]) }}">
                 @csrf
@@ -73,7 +78,7 @@
                 @endforeach
 
                 <button class="btn btn-danger w-100">
-                    {{ __('site.end_exam' }}
+                    {{ __('site.end_exam') }}
                 </button>
             </form>
 
@@ -82,20 +87,20 @@
 </div>
 @endsection
 @section('site.user.js')
-    <script>
-        let seconds = {{ $exam->duration * 60 }};
-
-        const timer = setInterval(() => {
-            seconds--;
-            let m = Math.floor(seconds / 60);
-            let s = seconds % 60;
-            document.getElementById('timer').innerText = m + ':' + s;
-
-            if (seconds <= 0) {
-                clearInterval(timer);
-                document.querySelector('form').submit();
-            }
-        }, 1000);
-    </script>
+    @if($exam->duration_type === 'timed')
+        <script>
+            let seconds = {{ $exam->duration * 60 }};
+            const timer = setInterval(() => {
+                seconds--;
+                let m = Math.floor(seconds / 60);
+                let s = seconds % 60;
+                document.getElementById('timer').innerText = m + ':' + s;
+                if (seconds <= 0) {
+                    clearInterval(timer);
+                    document.querySelector('form').submit();
+                }
+            }, 1000);
+        </script>
+    @endif
 
 @endsection

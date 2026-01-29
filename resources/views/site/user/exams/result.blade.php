@@ -11,7 +11,7 @@
                 <p><strong>{{ __('site.time') }}:</strong> {{ $result->time_spent }} {{ __('site.seconds') }}</p>
 
                 @if($exam->show_result)
-                    <p class="text-success">{{ __('site.“result_is_available') }}</p>
+                    <p class="text-success">{{ __('site.result_is_available') }}</p>
                 @else
                     <p class="text-warning">{{ __('site.result_will_be_checked') }}</p>
                 @endif

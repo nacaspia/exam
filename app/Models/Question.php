@@ -43,12 +43,23 @@ class Question extends Model
         return $this->hasOne(Subject::class,'id','subject_id');
     }
 
+    /*public function options()
+    {
+        return $this->hasMany(QuestionOption::class);
+    }*/
+
+    public function answer()
+    {
+        return $this->hasOne(QuestionAnswer::class);
+    }
+    // VARIANTLI SUALLAR üçün
     public function options()
     {
         return $this->hasMany(QuestionOption::class);
     }
 
-    public function answer()
+    // QISA YAZI (short_text) sualları üçün
+    public function shortAnswer()
     {
         return $this->hasOne(QuestionAnswer::class);
     }
