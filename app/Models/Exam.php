@@ -41,6 +41,12 @@ class Exam extends Model
     {
         return $this->belongsTo(SchoolClass::class, 'class_id');
     }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     public function questions()
     {
         return $this->belongsToMany(

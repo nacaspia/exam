@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Web\User;
 use App\Http\Controllers\Controller;
 use App\Models\Exam;
 use App\Models\ExamResult;
+use App\Models\Payment;
 use App\Models\Question;
 use App\Models\QuestionOption;
 use App\Models\StudentAnswer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class ExamController extends Controller
 {
@@ -25,11 +27,19 @@ class ExamController extends Controller
     public function examShow(string $local, string $exam)
     {
         $exam = Exam::where(['id' => (int)$exam])->first();
-        if (empty($exam)) { return redirect()->back(); }
-        // ödəniş lazımdırsa
+        $userId = \user()->id;
+
         if ($exam->is_paid && $exam->price_type !='free') {
-            return view('site.user.exams.pay', compact('exam'));
+            $paid = Payment::where('user_id', $userId)
+                ->where('exam_id', $exam->id)
+                ->where('status', 'success')
+                ->exists();
+
+            if (!$paid) {
+                return view('site.user.exams.pay', compact('exam'));
+            }
         }
+        if (empty($exam)) { return redirect()->back(); }
 
         return view('site.user.exams.start', compact('exam'));
     }
@@ -37,13 +47,75 @@ class ExamController extends Controller
     public function examPay(string $local, int $examId)
     {
         $exam = Exam::findOrFail($examId);
-        $userId = auth()->id();
+        $user = \user();
 
-        /*// artıq ödənilib?
+        // pending payment
+        $payment = Payment::create([
+            'user_id' => $user->id,
+            'exam_id' => $exam->id,
+            'amount' => $exam->price,
+            'provider' => 'payriff',
+            'status' => 'pending',
+        ]);
+
+        $payload = [
+            "amount" => (int) round($exam->price * 100),
+            "currency" => "AZN",
+            "description" => $exam->title[app()->getLocale()],
+            "order_id" => (string)$payment->id,
+            "callbackUrl" => route('site.user.payriff.callback',[app()->getLocale()]),
+            "redirectUrl" => route('site.user.exams.start', [
+                'locale' => app()->getLocale(),
+                'exam' => $exam->id
+            ])
+        ];
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . config('services.payriff.secret'),
+            'Content-Type' => 'application/json',
+        ])->post('https://api.payriff.com/v2/checkout', $payload);
+        if (!$response->successful()) {
+            dd([
+                'status' => $response->status(),
+                'body' => $response->body(),
+                'json' => $response->json(),
+                'payload' => $payload,
+            ]);
+        }
+        return redirect($response['checkoutUrl']);
+    }
+
+    public function callback(Request $request)
+    {
+        $userId = \user()->id;
+        $payment =Payment::where('user_id', $userId)
+            ->where('exam_id', $request->order_id)
+            ->first();
+
+        if ($request->status === 'success') {
+            $payment->update([
+                'status' => 'success',
+                'transaction_id' => $request->transaction_id
+            ]);
+        } else {
+            $payment->update(['status' => 'failed']);
+        }
+
+        return response()->json(['ok' => true]);
+    }
+
+
+
+    /*    public function examPay(string $local, int $examId)
+        {
+            $exam = Exam::findOrFail($examId);
+            $userId = auth()->id();
+
+             artıq ödənilib?
         $paid = ExamPayment::where('user_id', $userId)
             ->where('exam_id', $examId)
             ->where('status', 'paid')
-            ->exists();*/
+            ->exists();
         $paid = true;
 
         if ($paid) {
@@ -72,12 +144,23 @@ class ExamController extends Controller
             'locale' => app()->getLocale(),
             'exam' => $exam->id
         ])->with('success', 'Ödəniş uğurla tamamlandı');
-    }
+    }*/
 
     public function examStart(string $local, string $exam)
     {
         $userId = \user()->id;
         $exam = Exam::where(['id' => (int)$exam])->first();
+
+        if ($exam->is_paid && $exam->price_type !='free') {
+            $paid = Payment::where('user_id', $userId)
+                ->where('exam_id', $exam->id)
+                ->where('status', 'success')
+                ->exists();
+
+            if (!$paid) {
+                abort(403, 'Ödəniş edilməyib');
+            }
+        }
         if (empty($exam)) { return redirect()->back(); }
         // artıq başlamışsa
         $existing = ExamResult::where('user_id', $userId)

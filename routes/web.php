@@ -88,6 +88,13 @@ Route::prefix('{locale?}')->middleware(['set.locale'])->group(function () {
         Route::get('/user/exam/{exam}/solve', [UserExamController::class, 'examSolve'])->name('site.user.exam.solve');
         Route::post('/user/exam/{exam}/finish', [UserExamController::class, 'examFinish'])->name('site.user.exam.finish');
         Route::get('/user/exam/{exam}/result', [UserExamController::class, 'examResult'])->name('site.user.exam.result');
+
+        //payriff
+ /*       Route::post('/user/exam/{exam}/payriff', [UserExamController::class, 'payriffInit'])
+            ->name('site.user.exams.pay');*/
+        Route::post('/user/payment/payriff/callback', [UserExamController::class, 'callback'])
+            ->name('site.user.payriff.callback');
+
     });
 });
 

@@ -150,9 +150,9 @@ class AuthController extends Controller
 
     public function forgotPasswordAccept(ForgotPassword $request)
     {
-       /* DB::beginTransaction();
+        DB::beginTransaction();
 
-        try {*/
+        try {
             $user = User::where('email', $request->email)->first();
 
             if (!$user) {
@@ -171,8 +171,10 @@ class AuthController extends Controller
 
             $link = url(app()->getLocale() . '/reset-password?token=' . $token);
 
-            Mail::to($user->email)->send(
-                new \App\Mail\ResetPasswordMail($user->name, $link)
+            $full_name = $user->name . ' ' . $user->surname;
+
+            Mail::to($user['email'])->send(
+                new \App\Mail\ResetPasswordMail($full_name, $link)
             );
 
             DB::commit();
@@ -182,13 +184,13 @@ class AuthController extends Controller
                 'messages' => ['Şifrə yeniləmə linki emailə göndərildi']
             ]);
 
-        /*} catch (\Throwable $e) {
+        } catch (\Exception $e) {
             DB::rollBack();
             return response()->json([
                 'success' => false,
                 'errors' => ['Xəta baş verdi']
             ]);
-        }*/
+        }
     }
 
 
@@ -203,25 +205,42 @@ class AuthController extends Controller
     {
         $request->validate([
             'token' => 'required',
-            'password' => 'required|min:6|confirmed',
+            'new_password' => 'required|min:6|same:password_confirmation',
+            'password_confirmation' => 'required|min:6',
         ]);
 
-        $user = User::where('password_reset_token', $request->token)
-            ->where('password_reset_expires_at', '>', now())
-            ->first();
+        try {
+            $user = User::where('password_reset_token', $request->token)
+                ->where('password_reset_expires_at', '>', now())
+                ->first();
 
-        if (!$user) {
-            return back()->withErrors('Link etibarsız və ya vaxtı bitib');
+            if (!$user) {
+                return response()->json([
+                    'success' => false,
+                    'errors' => ['Link etibarsız və ya vaxtı bitib']
+                ]);
+            }
+
+
+            $user->update([
+                'password' => Hash::make($request->new_password),
+                'password_reset_token' => null,
+                'password_reset_expires_at' => null,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'messages' => ['Şifrə uğurla dəyişdirildi'],
+                'redirect' => route('site.auth.login', app()->getLocale())
+            ]);
+//            return redirect()->route('site.auth.login', app()->getLocale())->with('success', 'Şifrə uğurla dəyişdirildi');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'errors' => ['Xəta baş verdi: '. $e->getMessage()]
+            ]);
         }
-
-        $user->update([
-            'password' => Hash::make($request->password),
-            'password_reset_token' => null,
-            'password_reset_expires_at' => null,
-        ]);
-
-        return redirect()->route('site.auth.login', app()->getLocale())
-            ->with('success', 'Şifrə uğurla dəyişdirildi');
     }
 
 

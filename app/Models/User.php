@@ -26,7 +26,9 @@ class User extends Authenticatable
         'password',
         'type',
         'status',
-        'email_verification_token'
+        'email_verification_token',
+        'password_reset_token',
+        'password_reset_expires_at'
     ];
 
     /**
@@ -73,5 +75,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(ExamResult::class);
     }
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
 
 }

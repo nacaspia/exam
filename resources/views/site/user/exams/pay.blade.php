@@ -27,7 +27,7 @@
                     <p><strong>{{ __('site.question_count') }}:</strong> {{ $exam->question_count }} {{ __('site.question') }}</p>
                     {{-- PAYMENT --}}
                     @if($exam->is_paid)
-                        <form action="{{ route('site.user.exams.pay', [ app()->getLocale(),  $exam->id]) }}" method="POST">
+                        <form action="{{ route('site.user.exam.pay', [ app()->getLocale(),  $exam->id]) }}" method="POST">
                             @csrf
                             <button class="btn btn-success w-100">{{ __('site.pay_and_start_exam') }}</button>
                         </form>
@@ -45,4 +45,5 @@
     </div>
 @endsection
 @section('site.user.js')
+
 @endsection

@@ -32,6 +32,7 @@
                         <h6 class="title">{{ __('site.forgot_password') }}</h6>
                         <form id="forgotPasswordForm" method="POST" action="{{ route('site.password.update',['locale' => app()->getLocale()]) }}">
                             @csrf
+                            <input type="hidden" name="token" value="{{ $token }}">
                             <div class="input-box mt-20">
                                 <input name="new_password" type="password" placeholder="{{ __('site.new_password') }}">
                                 <i class="fal fa-lock"></i>
@@ -47,6 +48,7 @@
                                 <button type="submit">{{ __('site.send') }}</button>
                             </div>
                         </form>
+                        <p class="form-message"></p>
                     </div>
                 </div>
             </div>
@@ -92,13 +94,18 @@
                             .addClass('alert-success')
                             .text(response.messages ?? 'Əməliyyat uğurla tamamlandı')
                             .show();
-
+                        if (response.redirect) {
+                            setTimeout(() => {
+                                window.location.href = response.redirect;
+                            }, 1500);
+                        }
                         // istəsən redirect
                         // setTimeout(() => window.location.href = response.redirect, 1500);
                     } else {
+                        console.log(response)
                         $('#formAlert')
                             .addClass('alert-danger')
-                            .text(response.errors?.[0] ?? 'Xəta baş verdi')
+                            .text(response.errors?.[0] ?? 'Xəta baş verdi!')
                             .show();
                     }
                 },
