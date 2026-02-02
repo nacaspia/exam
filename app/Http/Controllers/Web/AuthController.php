@@ -107,7 +107,7 @@ class AuthController extends Controller
             ]);
         } catch (\Exception $exception) {
             DB::rollBack();
-            return response()->json(['success' => false, 'errors' => [__('site.register_errorr'). ': '.$exception->getMessage()]]);
+            return response()->json(['success' => false, 'errors' => [__('site.register_errorr'). ': '.$exception->getMessage()]],422);
         }
 
     }
