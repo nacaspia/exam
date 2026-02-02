@@ -79,8 +79,8 @@ class AuthController extends Controller
     }
     public function registerAccept(RegisterRequest $registerRequest)
     {
-        DB::beginTransaction();
-        try {
+        /*DB::beginTransaction();
+        try {*/
             $token = Str::random(64);
 
             $user = User::create([
@@ -105,10 +105,10 @@ class AuthController extends Controller
                 'messages' => __('site.register_success')
                 //'redirect' => route('site.user.account', ['locale' => app()->getLocale()])
             ]);
-        } catch (\Exception $exception) {
+        /*} catch (\Exception $exception) {
             DB::rollBack();
             return response()->json(['success' => false, 'errors' => [__('site.register_errorr'). ': '.$exception->getMessage()]],422);
-        }
+        }*/
 
     }
 
