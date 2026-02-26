@@ -88,14 +88,15 @@ Route::prefix('{locale?}')->middleware(['set.locale'])->group(function () {
         Route::get('/user/exam/{exam}/solve', [UserExamController::class, 'examSolve'])->name('site.user.exam.solve');
         Route::post('/user/exam/{exam}/finish', [UserExamController::class, 'examFinish'])->name('site.user.exam.finish');
         Route::get('/user/exam/{exam}/result', [UserExamController::class, 'examResult'])->name('site.user.exam.result');
-
-        //payriff
- /*       Route::post('/user/exam/{exam}/payriff', [UserExamController::class, 'payriffInit'])
-            ->name('site.user.exams.pay');*/
-        Route::post('/user/payment/payriff/callback', [UserExamController::class, 'callback'])
-            ->name('site.user.payriff.callback');
-
     });
 });
 
+
+Route::group(['middleware' => ['userauth:user', 'ensure.guard:user']], function () {
+    // e-point redirect nəticələri
+    Route::get('/user/payment/epoint/success',[UserExamController::class, 'epointSuccess'])->name('site.user.epoint.success');
+    Route::get('/user/payment/epoint/fail',[UserExamController::class, 'epointFail'])->name('site.user.epoint.fail');
+    // e-point callback (server → server)
+    Route::post('/user/payment/epoint/callback',[UserExamController::class, 'epointCallback'])->name('site.user.epoint.callback');
+});
 

@@ -46,6 +46,7 @@ class ExamController extends Controller
 
     public function examPay(string $local, int $examId)
     {
+        app()->setLocale($local);
         $exam = Exam::findOrFail($examId);
         $user = \user();
 
@@ -58,44 +59,49 @@ class ExamController extends Controller
             'status' => 'pending',
         ]);
 
-        $payload = [
-            "amount" => (int) round($exam->price * 100),
-            "currency" => "AZN",
-            "description" => $exam->title[app()->getLocale()],
-            "order_id" => (string)$payment->id,
-            "callbackUrl" => route('site.user.payriff.callback',[app()->getLocale()]),
-            "redirectUrl" => route('site.user.exams.start', [
-                'locale' => app()->getLocale(),
-                'exam' => $exam->id
-            ])
+        $data = [
+            'merchant' => config('services.epoint.merchant_id'),
+            'amount' => number_format($exam->price, 2, '.', ''),
+            'currency' => 'AZN',
+            'order_id' => $payment->id,
+            'description' => $exam->title[$local],
+            'success_url' => route('site.user.epoint.success', $local),
+            'fail_url' => route('site.user.epoint.fail', $local),
+            'callback_url' => route('site.user.epoint.callback', $local),
         ];
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . config('services.payriff.secret'),
-            'Content-Type' => 'application/json',
-        ])->post('https://api.payriff.com/v2/checkout', $payload);
-        if (!$response->successful()) {
-            dd([
-                'status' => $response->status(),
-                'body' => $response->body(),
-                'json' => $response->json(),
-                'payload' => $payload,
-            ]);
-        }
-        return redirect($response['checkoutUrl']);
+        $data['signature'] = $this->epointSignature($data);
+
+        return view('site.user.payments.epoint', compact('data'));
     }
 
-    public function callback(Request $request)
+    private function epointSignature(array $data): string
     {
-        $userId = \user()->id;
-        $payment =Payment::where('user_id', $userId)
-            ->where('exam_id', $request->order_id)
-            ->first();
+        $secret = config('services.epoint.secret');
+
+        $string =
+            $data['merchant'] .
+            $data['amount'] .
+            $data['currency'] .
+            $data['order_id'] .
+            $secret;
+
+        return hash('sha256', $string);
+    }
+
+    public function epointCallback(Request $request, string $locale)
+    {
+        $payment = Payment::findOrFail($request->order_id);
+
+        // signature yoxla (mütləq!)
+        if (!$this->checkEpointSignature($request->all())) {
+            abort(403);
+        }
 
         if ($request->status === 'success') {
             $payment->update([
-                'status' => 'success',
-                'transaction_id' => $request->transaction_id
+                'status' => 'paid',
+                'transaction_id' => $request->transaction_id,
             ]);
         } else {
             $payment->update(['status' => 'failed']);
@@ -104,47 +110,19 @@ class ExamController extends Controller
         return response()->json(['ok' => true]);
     }
 
+    public function epointSuccess(string $locale)
+    {
+        return redirect()
+            ->route('site.user.exams')
+            ->with('success', 'Ödəniş uğurla tamamlandı');
+    }
 
-
-    /*    public function examPay(string $local, int $examId)
-        {
-            $exam = Exam::findOrFail($examId);
-            $userId = auth()->id();
-
-             artıq ödənilib?
-        $paid = ExamPayment::where('user_id', $userId)
-            ->where('exam_id', $examId)
-            ->where('status', 'paid')
-            ->exists();
-        $paid = true;
-
-        if ($paid) {
-            return redirect()->route('site.user.exams.start', [
-                'locale' => app()->getLocale(),
-                'exam' => $examId
-            ]);
-        }
-
-        DB::transaction(function () use ($exam, $userId) {
-            ExamPayment::updateOrCreate(
-                [
-                    'user_id' => $userId,
-                    'exam_id' => $exam->id
-                ],
-                [
-                    'amount' => $exam->price,
-                    'provider' => 'manual',
-                    'status' => 'paid',
-                    'paid_at' => now()
-                ]
-            );
-        });
-
-        return redirect()->route('site.user.exams.start', [
-            'locale' => app()->getLocale(),
-            'exam' => $exam->id
-        ])->with('success', 'Ödəniş uğurla tamamlandı');
-    }*/
+    public function epointFail(string $locale)
+    {
+        return redirect()
+            ->route('site.user.exams')
+            ->with('error', 'Ödəniş alınmadı');
+    }
 
     public function examStart(string $local, string $exam)
     {

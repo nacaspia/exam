@@ -28,8 +28,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'payriff' => [
-        'secret' => 'A10846AD3FC74086A7AF4F2B07D76B2E'
+    'epoint' => [
+        'merchant_id' => env('EPOINT_MERCHANT_ID'),
+        'public_key' => 'i000201323',
+        'secret'      => env('EPOINT_SECRET'),
+        'url'         => env('EPOINT_URL', 'http://wish.ww/api/1/checkout'),
     ],
 
     'slack' => [
