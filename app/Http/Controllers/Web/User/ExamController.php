@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Exam;
 use App\Models\ExamResult;
 use App\Models\Payment;
+use App\Models\PaymentLog;
 use App\Models\Question;
 use App\Models\QuestionOption;
 use App\Models\StudentAnswer;
@@ -121,6 +122,15 @@ class ExamController extends Controller
 
         $decoded = json_decode(base64_decode($data), true);
 
+        // PaymentLog yaradılır
+        PaymentLog::create([
+            'user_id' => user()->id ?? null,           // əgər data-da user_id varsa, yoxsa null
+            'payment_id' => $decoded['order_id'] ?? null,       // order_id = payment ID
+            'payment_type_id' => 1,                             // növü, məsələn epoint = 1
+            'amount' => $decoded['amount'] ?? 0,
+            'data' => $decoded,                                 // bütün callback data array kimi
+            'status' => $decoded['status'] ?? 'unknown',
+        ]);
         $payment = Payment::findOrFail($decoded['order_id']);
 
         if ($decoded['status'] === 'success') {
@@ -141,7 +151,10 @@ class ExamController extends Controller
         $payment = Payment::findOrFail($order_id);
 
         if ($payment->status !== 'success') {
-            return redirect()->route('site.user.exams', $locale)
+            return redirect()->route('site.user.exams', [
+                'locale' => $locale,
+                'exam' => $payment->exam_id
+            ])
                 ->with('error', 'Ödəniş təsdiqlənməyib');
         }
 
