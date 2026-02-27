@@ -151,7 +151,7 @@ class ExamController extends Controller
         $payment = Payment::findOrFail($order_id);
 
         if ($payment->status !== 'success') {
-            return redirect()->route('site.user.exams', [
+            return redirect()->route('site.user.exams.show', [
                 'locale' => $locale,
                 'exam' => $payment->exam_id
             ])
@@ -167,7 +167,7 @@ class ExamController extends Controller
     public function epointFail(string $locale)
     {
         return redirect()
-            ->route('site.user.exams',['locale'=>$locale])
+            ->route('site.user.exams.show',['locale'=>$locale])
             ->with('error', 'Ödəniş alınmadı');
     }
 
