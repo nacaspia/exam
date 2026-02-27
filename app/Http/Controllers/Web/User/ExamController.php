@@ -119,7 +119,14 @@ class ExamController extends Controller
         $decoded = json_decode(base64_decode($data), true);
 
         $payment = Payment::findOrFail($decoded['order_id']);
-
+        PaymentLog::create([
+            'user_id' => $payment->user_id,
+            'payment_id' => $payment->id,
+            'payment_type_id' => 1,
+            'amount' => $decoded['amount'] ?? 0,
+            'data' => $decoded,
+            'status' => false,
+        ]);
         if ($signature !== $checkSignature) {
             // log edib return edin
             PaymentLog::create([
@@ -128,7 +135,7 @@ class ExamController extends Controller
                 'payment_type_id' => 1,
                 'amount' => $decoded['amount'] ?? 0,
                 'data' => $decoded,
-                'status' => 'signature_mismatch',
+                'status' => false,
             ]);
             abort(403, 'Signature did not match');
         }
@@ -140,7 +147,7 @@ class ExamController extends Controller
             'payment_type_id' => 1,
             'amount' => $decoded['amount'] ?? 0,
             'data' => $decoded,
-            'status' => $decoded['status'] ?? 'unknown',
+            'status' => $decoded['status']? true : false,
         ]);
 
         // Payment status update

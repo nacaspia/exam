@@ -25,7 +25,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'set.locale' => \App\Http\Middleware\SetLocale::class,
         ]);
         $middleware->validateCsrfTokens(except: [
-            '*/payment/epoint/callback',
+            '*/user/payment/epoint/callback',
+            'user/payment/epoint/callback',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
