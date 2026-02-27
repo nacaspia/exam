@@ -87,12 +87,14 @@ class ExamController extends Controller
         );
 
         if (!$response->successful()) {
+            echo '1';
             dd($response->body());
         }
 
         $responseData = $response->json();
 
         if (!isset($responseData['redirect_url'])) {
+            echo '2';
             dd($responseData);
         }
 
