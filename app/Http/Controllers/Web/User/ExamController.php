@@ -75,6 +75,7 @@ class ExamController extends Controller
             "result_url" => route('site.user.epoint.callback', ['locale' => $locale]) // <-- burda callback bildirirsən
         ];
 
+        dd($json);
         $data = base64_encode(json_encode($json));
 
         $privateKey = config('services.epoint.private_key');
