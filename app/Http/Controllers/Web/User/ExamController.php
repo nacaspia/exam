@@ -122,7 +122,7 @@ class ExamController extends Controller
 
         if ($decoded['status'] === 'success') {
             $payment->update([
-                'status' => 'paid',
+                'status' => 'success', // <-- paid yox, success
                 'transaction_id' => $decoded['transaction_id'] ?? null,
             ]);
         } else {
@@ -133,17 +133,25 @@ class ExamController extends Controller
     }
 
 
-    public function epointSuccess()
+    public function epointSuccess(string $locale, $order_id)
     {
-        return redirect()
-            ->route('site.user.exams',['locale'=>'az'])
-            ->with('success', 'Ödəniş uğurla tamamlandı');
+        $payment = Payment::findOrFail($order_id);
+
+        if ($payment->status !== 'success') {
+            return redirect()->route('site.user.exams', $locale)
+                ->with('error', 'Ödəniş təsdiqlənməyib');
+        }
+
+        return redirect()->route('site.user.exams.start', [
+            'locale' => $locale,
+            'exam' => $payment->exam_id
+        ]);
     }
 
-    public function epointFail()
+    public function epointFail(string $locale)
     {
         return redirect()
-            ->route('site.user.exams',['locale'=>'az'])
+            ->route('site.user.exams',['locale'=>$locale])
             ->with('error', 'Ödəniş alınmadı');
     }
 
