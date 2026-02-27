@@ -131,83 +131,19 @@ class ExamController extends Controller
 
         return response()->json(['status' => 'ok']);
     }
-   /* public function examPay(string $local, int $examId)
-    {
-        app()->setLocale($local);
-        $exam = Exam::findOrFail($examId);
-        $user = \user();
 
-        // pending payment
-        $payment = Payment::create([
-            'user_id' => $user->id,
-            'exam_id' => $exam->id,
-            'amount' => $exam->price,
-            'provider' => 'epoint',
-            'status' => 'pending',
-        ]);
 
-        $data = [
-            'merchant' => config('services.epoint.merchant_id'),
-            'amount' => number_format($exam->price, 2, '.', ''),
-            'currency' => 'AZN',
-            'order_id' => $payment->id,
-            'description' => $exam->title[$local],
-            'success_url' => route('site.user.epoint.success', $local),
-            'fail_url' => route('site.user.epoint.fail', $local),
-            'callback_url' => route('site.user.epoint.callback', $local),
-        ];
-
-        $data['signature'] = $this->epointSignature($data);
-
-        return view('site.user.payments.epoint', compact('data'));
-    }*/
-
-/*    private function epointSignature(array $data): string
-    {
-        $secret = config('services.epoint.secret');
-
-        $string =
-            $data['merchant'] .
-            $data['amount'] .
-            $data['currency'] .
-            $data['order_id'] .
-            $secret;
-
-        return hash('sha256', $string);
-    }*/
-
-   /* public function epointCallback(Request $request, string $locale)
-    {
-        $payment = Payment::findOrFail($request->order_id);
-
-        // signature yoxla (mütləq!)
-        if (!$this->checkEpointSignature($request->all())) {
-            abort(403);
-        }
-
-        if ($request->status === 'success') {
-            $payment->update([
-                'status' => 'paid',
-                'transaction_id' => $request->transaction_id,
-            ]);
-        } else {
-            $payment->update(['status' => 'failed']);
-        }
-
-        return response()->json(['ok' => true]);
-    }*/
-
-    public function epointSuccess(string $locale)
+    public function epointSuccess()
     {
         return redirect()
-            ->route('site.user.exams',['locale'=>$locale])
+            ->route('site.user.exams',['locale'=>'az'])
             ->with('success', 'Ödəniş uğurla tamamlandı');
     }
 
-    public function epointFail(string $locale)
+    public function epointFail()
     {
         return redirect()
-            ->route('site.user.exams',['locale'=>$locale])
+            ->route('site.user.exams',['locale'=>'az'])
             ->with('error', 'Ödəniş alınmadı');
     }
 
