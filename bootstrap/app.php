@@ -24,6 +24,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'check.ip' => \App\Http\Middleware\CheckIp::class,
             'set.locale' => \App\Http\Middleware\SetLocale::class,
         ]);
+        $middleware->validateCsrfTokens(except: [
+            '*/payment/epoint/callback',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

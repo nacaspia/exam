@@ -29,7 +29,7 @@ return [
     ],
 
     'epoint' => [
-        'merchant_id' => env('EPOINT_MERCHANT_ID'),
+        'merchant_id' => 'i000201323',
         'public_key' => 'i000201323',
         'secret'      => 'Dzj7i46VrQcigCJglb0SJVIT',
         'url'         => env('EPOINT_URL', 'http://wish.ww/api/1/checkout'),
