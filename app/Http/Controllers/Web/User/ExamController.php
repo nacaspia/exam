@@ -75,7 +75,6 @@ class ExamController extends Controller
             "result_url" => route('site.user.epoint.callback', ['locale' => $locale]) // <-- burda callback bildirirsən
         ];
 
-        dd($json);
         $data = base64_encode(json_encode($json));
 
         $privateKey = config('services.epoint.private_key');
@@ -109,6 +108,8 @@ class ExamController extends Controller
 
     public function epointCallback(Request $request, string $locale)
     {
+        try {
+
         $data = $request->data;
         $signature = $request->signature;
 
@@ -162,6 +163,14 @@ class ExamController extends Controller
         }
 
         return response()->json(['status' => 'ok']);
+
+        }catch (\Exception $exception){
+            \Log::error('Epoint callback error', [
+                'error' => $exception->getMessage(),
+                'request' => $request->all(),
+            ]);
+            return response()->json(['status' => 'error'], 500);
+        }
     }
 
 
