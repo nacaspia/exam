@@ -72,6 +72,7 @@ class ExamController extends Controller
                 'order_id' => $payment->id
             ]),
             "error_redirect_url" => route('site.user.epoint.fail', ['locale' => $locale]),
+            "result_url" => route('site.user.epoint.callback', ['locale' => $locale]) // <-- burda callback bildirirsən
         ];
 
         $data = base64_encode(json_encode($json));
@@ -112,31 +113,40 @@ class ExamController extends Controller
 
         $privateKey = config('services.epoint.private_key');
 
-        $checkSignature = base64_encode(
-            sha1($privateKey . $data . $privateKey, true)
-        );
-
-       /* if ($signature !== $checkSignature) {
-            abort(403);
-        }*/
+        // signature yoxlama
+        $checkSignature = base64_encode(sha1($privateKey . $data . $privateKey, true));
 
         $decoded = json_decode(base64_decode($data), true);
 
-        // PaymentLog yaradılır
-        PaymentLog::create([
-            'user_id' => user()->id ?? null,           // əgər data-da user_id varsa, yoxsa null
-            'payment_id' => $decoded['order_id'] ?? null,       // order_id = payment ID
-            'payment_type_id' => 1,                             // növü, məsələn epoint = 1
-            'amount' => $decoded['amount'] ?? 0,
-            'data' => $decoded,                                 // bütün callback data array kimi
-            'status' => $decoded['status'] ?? 'unknown',
-        ]);
-        dd();
         $payment = Payment::findOrFail($decoded['order_id']);
 
+        if ($signature !== $checkSignature) {
+            // log edib return edin
+            PaymentLog::create([
+                'user_id' => $payment->user_id,
+                'payment_id' => $payment->id,
+                'payment_type_id' => 1,
+                'amount' => $decoded['amount'] ?? 0,
+                'data' => $decoded,
+                'status' => 'signature_mismatch',
+            ]);
+            abort(403, 'Signature did not match');
+        }
+
+        // log hər zaman
+        PaymentLog::create([
+            'user_id' => $payment->user_id,
+            'payment_id' => $payment->id,
+            'payment_type_id' => 1,
+            'amount' => $decoded['amount'] ?? 0,
+            'data' => $decoded,
+            'status' => $decoded['status'] ?? 'unknown',
+        ]);
+
+        // Payment status update
         if ($decoded['status'] === 'success') {
             $payment->update([
-                'status' => 'success', // <-- paid yox, success
+                'status' => 'success',
                 'transaction_id' => $decoded['transaction_id'] ?? null,
             ]);
         } else {
