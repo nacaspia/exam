@@ -66,8 +66,11 @@ class ExamController extends Controller
             "language" => $locale,
             "order_id" => (string)$payment->id,
             "description" => $exam->title[$locale] ?? 'Exam payment',
-            "success_redirect_url" => route('site.user.epoint.success', $locale),
-            "error_redirect_url" => route('site.user.epoint.fail', $locale),
+            "success_redirect_url" => route('site.user.epoint.success', [
+                'locale' => $locale,
+                'order_id' => $payment->id
+            ]),
+            "error_redirect_url" => route('site.user.epoint.fail', ['locale' => $locale]),
         ];
 
         $data = base64_encode(json_encode($json));
