@@ -32,7 +32,7 @@ return [
         'merchant_id' => 'i000201323',
         'public_key' => 'i000201323',
         'secret'      => 'Dzj7i46VrQcigCJglb0SJVIT',
-        'url'         => env('EPOINT_URL', 'http://wish.ww/api/1/checkout'),
+        'url'         => env('EPOINT_URL', 'https://epoint.az/api/1/request'),
     ],
 
     'slack' => [
