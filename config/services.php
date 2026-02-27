@@ -31,7 +31,7 @@ return [
     'epoint' => [
         'merchant_id' => env('EPOINT_MERCHANT_ID'),
         'public_key' => 'i000201323',
-        'secret'      => env('EPOINT_SECRET'),
+        'secret'      => 'Dzj7i46VrQcigCJglb0SJVIT',
         'url'         => env('EPOINT_URL', 'http://wish.ww/api/1/checkout'),
     ],
 
