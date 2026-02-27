@@ -20,121 +20,26 @@
     <section class="access-area pt-120 pb-120">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="access-thumb">
-                        <img src="{{ asset('site/assets/images/access-thumb.jpg') }}" alt="access">
-                    </div>
-                </div>
-                <div class="col-lg-6">
+                <div class="col-lg-12">
                     <div class="access-content">
                         <div class="access-title">
-                            <span></span>
-                            <h3 class="title">Unlimited Access To Over <span>1500 Classes.</span></h3>
+                            <h3 class="title">{{ __('site.about_us') }}</h3>
                         </div>
                         <div class="access-mission">
-                            <h4 class="title">eDus <span>Mission</span></h4>
-                            <p>See the E Learning Tools your competitors are already using - Start Now! GetApp helps more than 800k businesses find the best software for their needs to know about our mission. </p>
+                            <h4 class="title">piyayimlari.az  1–12-ci sinif şagirdləri üçün Azərbaycan, Rus və İngilis bölmələrində onlayn imtahan və qiymətləndirmə xidmətləri təqdim edən rəqəmsal təhsil platformasıdır.</h4>
+                            <p>
+                                Platformanın məqsədi:
+                                Şagirdlərin bilik səviyyəsini obyektiv və şəffaf şəkildə qiymətləndirmək
+                                Onlayn imtahan prosesini təhlükəsiz və texnoloji cəhətdən etibarlı mühitdə təşkil etmək
+                                Valideyn və müəllimlər üçün dəqiq nəticə və analiz imkanları təqdim etmək
+                                Platforma fərdi sahibkar Eldəniz Tariverdiyev (VÖEN: 7701971982) tərəfindən idarə olunur və tam onlayn əsasda fəaliyyət göstərir.
+                                Sistem müasir texnologiyalar əsasında hazırlanmışdır və aşağıdakı imkanları təmin edir:
+                                Təhlükəsiz onlayn ödəniş sistemi
+                                Avtomatik nəticə hesablanması
+                                Statistik analiz və nəticə hesabatı
+                                piyayimlari.az təhsildə keyfiyyət, dürüstlük və texnoloji inkişaf prinsiplərini əsas tutur.
+                            </p>
                         </div>
-                        <div class="access-vision">
-                            <h4 class="title">eDus <span>vision</span></h4>
-                            <p>See the E Learning Tools your competitors are already using - Start Now! GetApp helps more than 800k businesses find the best software for their needs to know about our mission. </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="about-counter-area bg_cover pt-120 pb-120" style="background-image: url({{ asset('site/assets/images/counter-bg-2.png') }})">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="about-counter-content">
-                        <h3 class="title">Make Some Noise With Us.</h3>
-                        <span>See the E Learning Tools your competitors are already using - Start Now!</span>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit.</p>
-                    </div>
-                    <div class="about-counter-item d-block d-sm-flex justify-content-center justify-content-sm-between">
-                        <div class="counter-item text-center text-sm-left">
-                            <h4 class="title"><span class="counter">150</span>+</h4>
-                            <span>Cool Mentors</span>
-                        </div>
-                        <div class="counter-item text-center text-sm-left">
-                            <h4 class="title"><span class="counter">100</span>+</h4>
-                            <span>Subjects</span>
-                        </div>
-                        <div class="counter-item text-center text-sm-left">
-                            <h4 class="title"><span class="counter">1</span>M+</h4>
-                            <span>Students</span>
-                        </div>
-                        <div class="counter-item text-center text-sm-left">
-                            <h4 class="title"><span class="counter">10</span>+</h4>
-                            <span>Country</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="counter-thumb ml-30">
-                        <img src="{{ asset('site/assets/images/counter-thumb.jpg') }}" alt="counter">
-                        <a class="video-popup" href="https://www.youtube.com/watch?v=TdSA7gkVYU0"><i class="fal fa-play"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="sponsors-area bg_cover pb-120" style="background-image: url({{ asset('site/assets/images/sponsors-bg.jpg') }})">
-        <div class="container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-title text-center">
-                        <h3 class="title">Our Sponsors</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row brand-active owl-carousel">
-                <div class="col-lg-12">
-                    <div class="single-brand">
-                        <img src="{{ asset('site/assets/images/brand-1.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="single-brand">
-                        <img src="{{ asset('site/assets/images/brand-1.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="single-brand">
-                        <img src="{{ asset('site/assets/images/brand-1.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="single-brand">
-                        <img src="{{ asset('site/assets/images/brand-1.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="single-brand">
-                        <img src="{{ asset('site/assets/images/brand-1.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="single-brand">
-                        <img src="{{ asset('site/assets/images/brand-1.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="single-brand">
-                        <img src="{{ asset('site/assets/images/brand-1.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="single-brand">
-                        <img src="{{ asset('site/assets/images/brand-1.png') }}" alt="brand">
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="single-brand">
-                        <img src="{{ asset('site/assets/images/brand-1.png') }}" alt="brand">
                     </div>
                 </div>
             </div>

@@ -156,6 +156,9 @@
 
 <footer class="footer-area">
     <div class="footer-bottom">
+        <a href="{{ route('site.about', ['locale' => app()->getLocale()]) }}">{{ __('site.about_us') }}</a>
+        <a href="{{ route('site.contact', ['locale' => app()->getLocale()]) }}">{{ __('site.contact') }}</a>
+        <a href="{{ route('site.privacy-policy', ['locale' => app()->getLocale()]) }}">{{ __('site.privacy_policy') }}</a>
         <p>
             Müəllif hüquqları qorunur. By
             <a href="https://nacaspia.com" target="_blank"> NACaspia Informaion Technologies MMC</a>

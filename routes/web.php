@@ -56,11 +56,11 @@ Route::prefix('{locale?}')->middleware(['set.locale'])->group(function () {
     Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
     /*Route::get('/achievements', [SiteController::class, 'achievements'])->name('site.achievements');
     Route::get('/blogs', [SiteController::class, 'blogs'])->name('site.blogs');*/
-    /*Route::get('/about-us', [SiteController::class, 'about'])->name('site.about');
-    Route::get('/faqs', [SiteController::class, 'faqs'])->name('site.faqs');
+    Route::get('/about-us', [SiteController::class, 'about'])->name('site.about');
     Route::get('/contact', [SiteController::class, 'contact'])->name('site.contact');
-    Route::get('/terms-conditions', [SiteController::class, 'termsConditions'])->name('site.terms-conditions');
-    Route::get('/privacy-policy', [SiteController::class, 'privacyPolicy'])->name('site.privacy-policy');*/
+    Route::get('/privacy-policy', [SiteController::class, 'privacyPolicy'])->name('site.privacy-policy');
+    /*Route::get('/faqs', [SiteController::class, 'faqs'])->name('site.faqs');
+    Route::get('/terms-conditions', [SiteController::class, 'termsConditions'])->name('site.terms-conditions');*/
 
     Route::get('/login', [\App\Http\Controllers\Web\AuthController::class, 'login'])->name('site.auth.login');
     Route::post('/login-accept', [\App\Http\Controllers\Web\AuthController::class, 'loginAccept'])->name('site.auth.login-accept');
