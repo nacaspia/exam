@@ -63,7 +63,7 @@
                                         <p>{{ __('site.correct_answer') }}:
                                             @if($answer['question']['type'] === 'multiple_choice')
                                                 {{
-                                                    collect($answer->question->options)
+                                                    collect($answer['question']['options'])
                                                         ->where('is_correct', 1)
                                                         ->first()['option'][language()] ?? ''
                                                 }}
