@@ -126,7 +126,7 @@
                                                     <div class="digi-dropdown dropdown d-inline-block">
                                                         <button class="btn btn-sm btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">Action <i class="fa-regular fa-angle-down"></i></button>
                                                         <ul class="digi-dropdown-menu dropdown-menu dropdown-slim dropdown-menu-sm">
-                                                            <li><a href="{{ route('users.exam',$examResult['id']) }}" target="_blank" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-eye"></i></span> {{ __('content.view') }}</a></li>
+                                                            <li><a href="{{ route('users.exam',['userId' => $examResult['user_id'], 'examId' => $examResult['id']]) }}" target="_blank" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-eye"></i></span> {{ __('content.view') }}</a></li>
                                                         </ul>
                                                     </div>
                                                 </td>

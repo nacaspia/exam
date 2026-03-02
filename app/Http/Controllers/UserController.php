@@ -54,6 +54,7 @@ class UserController extends Controller
         $user = $this->userService->find($id);
         return view('users.show',compact('user'));
     }
+
     public function exam(int $userId, int $examId)
     {
         $exam = $this->userService->exam($examId);
