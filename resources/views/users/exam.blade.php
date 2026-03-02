@@ -42,7 +42,7 @@
 
                         <h4>{{ __('site.questions_and_answers') }}</h4>
 
-                        @foreach($examResult['studentAnswers'] as $answer)
+                        @foreach($examResult['student_answers'] as $answer)
                             <div class="card mb-2">
                                 <div class="card-body">
                                     <strong>{{ $loop['iteration'] }}. {{ $answer['question']['title'][language()] ?? 'No Title' }}</strong>
@@ -50,7 +50,7 @@
                                     <p>
                                         {{ __('site.your_answer') }}:
                                         @if($answer['question_option_id'])
-                                            {{ $answer['questionOption']['option'][language()] ?? '' }}
+                                            {{ $answer['question_option']['option'][language()] ?? '' }}
                                         @else
                                             {{ $answer['answer_text'] ?? '' }}
                                         @endif
