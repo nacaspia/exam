@@ -29,10 +29,10 @@
 
                         <div class="card mb-3">
                             <div class="card-body">
-                                <p><strong>{{ __('site.total_score') }}:</strong> {{ $examResult->total_score }}</p>
-                                <p><strong>{{ __('site.time') }}:</strong> {{ $examResult->time_spent }} {{ __('site.seconds') }}</p>
+                                <p><strong>{{ __('site.total_score') }}:</strong> {{ $examResult['total_score'] }}</p>
+                                <p><strong>{{ __('site.time') }}:</strong> {{ $examResult['time_spent'] }} {{ __('site.seconds') }}</p>
 
-                                @if($examResult->show_result)
+                                @if($examResult['show_result'])
                                     <p class="text-success">{{ __('site.result_is_available') }}</p>
                                 @else
                                     <p class="text-warning">{{ __('site.result_will_be_checked') }}</p>
@@ -42,29 +42,29 @@
 
                         <h4>{{ __('site.questions_and_answers') }}</h4>
 
-                        @foreach($examResult->studentAnswers as $answer)
+                        @foreach($examResult['studentAnswers'] as $answer)
                             <div class="card mb-2">
                                 <div class="card-body">
-                                    <strong>{{ $loop->iteration }}. {{ $answer->question->title[app()->getLocale()] ?? 'No Title' }}</strong>
+                                    <strong>{{ $loop['iteration'] }}. {{ $answer['question']['title'][language()] ?? 'No Title' }}</strong>
 
                                     <p>
                                         {{ __('site.your_answer') }}:
-                                        @if($answer->question_option_id)
-                                            {{ $answer->questionOption->option[app()->getLocale()] ?? '' }}
+                                        @if($answer['question_option_id'])
+                                            {{ $answer['questionOption']['option'][language()] ?? '' }}
                                         @else
-                                            {{ $answer->answer_text ?? '' }}
+                                            {{ $answer['answer_text'] ?? '' }}
                                         @endif
                                     </p>
 
-                                    @if($answer->is_correct)
+                                    @if($answer['is_correct'])
                                         <p class="text-success">✅ {{ __('site.true') }}</p>
                                     @else
                                         <p class="text-danger">❌ {{ __('site.false') }}</p>
                                         <p>{{ __('site.correct_answer') }}:
-                                            @if($answer->question->type === 'multiple_choice')
-                                                {{ $answer->question->options->where('is_correct', 1)->first()->option[app()->getLocale()] ?? '' }}
+                                            @if($answer['question']['type'] === 'multiple_choice')
+                                                {{ $answer['question']['options']->where('is_correct', 1)->first()['option'][language()] ?? '' }}
                                             @else
-                                                {{ $answer->question->answer->answer ?? '' }}
+                                                {{ $answer['question']['answer']['answer'] ?? '' }}
                                             @endif
                                         </p>
                                     @endif
