@@ -108,6 +108,10 @@ class ExamController extends Controller
 
     public function epointCallback(Request $request, string $locale)
     {
+        \Log::error('Epoint callback error', [
+            'error' => 'test',
+            'request' => $request->all(),
+        ]);
         try {
 
         $data = $request->data;
