@@ -62,7 +62,11 @@
                                         <p class="text-danger">❌ {{ __('site.false') }}</p>
                                         <p>{{ __('site.correct_answer') }}:
                                             @if($answer['question']['type'] === 'multiple_choice')
-                                                {{ $answer['question']['options']->where('is_correct', 1)->first()['option'][language()] ?? '' }}
+                                                {{
+                                                    collect($answer->question->options)
+                                                        ->where('is_correct', 1)
+                                                        ->first()['option'][language()] ?? ''
+                                                }}
                                             @else
                                                 {{ $answer['question']['answer']['answer'] ?? '' }}
                                             @endif
