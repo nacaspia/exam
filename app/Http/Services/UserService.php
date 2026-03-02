@@ -36,7 +36,7 @@ class UserService implements IUserService
     public function examResult(int $userId, int $examId): array
     {
         $result = ExamResult::with(['studentAnswers'])->where('user_id',  $userId)
-            ->where('exam_id', (int)$examId)
+            ->where('id', (int)$examId)
             ->where('status', 'finished')
             ->firstOrFail();
 
