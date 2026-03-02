@@ -45,7 +45,7 @@
                         @foreach($examResult['student_answers'] as $answer)
                             <div class="card mb-2">
                                 <div class="card-body">
-                                    <strong>{{ $loop['iteration'] }}. {{ $answer['question']['title'][language()] ?? 'No Title' }}</strong>
+                                    <strong>{{ $loop->iteration }}. {{ $answer['question']['title'][language()] ?? 'No Title' }}</strong>
 
                                     <p>
                                         {{ __('site.your_answer') }}:
