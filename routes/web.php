@@ -40,6 +40,9 @@ Route::prefix('/admin')->middleware('check.ip')->group( function () {
         Route::resource('questions',QuestionController::class);
         Route::resource('exams',ExamController::class);
         Route::resource('settings',SettingController::class);
+
+
+        Route::get('/users/exam/{userId}/{examId}', [UserController::class,'exam'])->name('users.exam');
         Route::resource('users',UserController::class);
     });
 });

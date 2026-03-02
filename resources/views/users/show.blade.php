@@ -108,6 +108,7 @@
                                         <th>Status</th>
                                         <th>Başladıqı Tarix</th>
                                         <th>Bitirdiyi Tarix</th>
+                                        <th>Daha ətraflı</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -121,6 +122,14 @@
                                                 <td><span class="active-mark"><i class="fa-regular fa-check"></i></span> {{$examResult['status'] === 'pending' ? 'Gözləyir': "Tamamlanıb"}}</td>
                                                 <td>{{ date('d.m.Y H:i:s', strtotime($examResult['started_at'])) }}</td>
                                                 <td>{{ date('d.m.Y H:i:s', strtotime($examResult['finished_at'])) }}</td>
+                                                <td>
+                                                    <div class="digi-dropdown dropdown d-inline-block">
+                                                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">Action <i class="fa-regular fa-angle-down"></i></button>
+                                                        <ul class="digi-dropdown-menu dropdown-menu dropdown-slim dropdown-menu-sm">
+                                                            <li><a href="{{ route('users.exam',$examResult['id']) }}" target="_blank" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-eye"></i></span> {{ __('content.view') }}</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @else

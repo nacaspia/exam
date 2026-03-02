@@ -54,6 +54,12 @@ class UserController extends Controller
         $user = $this->userService->find($id);
         return view('users.show',compact('user'));
     }
+    public function exam(int $userId, int $examId)
+    {
+        $exam = $this->userService->exam($examId);
+        $examResult = $this->userService->examResult($userId, $examId);
+        return view('users.exam',compact('exam', 'examResult'));
+    }
 
     /**
      * Show the form for editing the specified resource.
