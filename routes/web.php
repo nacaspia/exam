@@ -90,14 +90,14 @@ Route::prefix('{locale?}')->middleware(['set.locale'])->group(function () {
         Route::get('/user/exam/{exam}/result', [UserExamController::class, 'examResult'])->name('site.user.exam.result');
 
         // e-point redirect nəticələri
-        Route::get('/payment/epoint/success/{order_id}', [UserExamController::class, 'epointSuccess'])->name('site.user.epoint.success');
+        Route::get('/user/payment/epoint/success/{order_id}', [UserExamController::class, 'epointSuccess'])->name('site.user.epoint.success');
         //Route::get('/user/payment/epoint/success',[UserExamController::class, 'epointSuccess'])->name('site.user.epoint.success');
         Route::get('/user/payment/epoint/fail',[UserExamController::class, 'epointFail'])->name('site.user.epoint.fail');
         // e-point callback (server → server)
-        Route::post('/user/payment/epoint/callback',[UserExamController::class, 'epointCallback'])->name('site.user.epoint.callback');
+   });
+    Route::post('/user/payment/epoint/callback',[UserExamController::class, 'epointCallback'])->name('site.user.epoint.callback');
 
 
-    });
 });
 
 //
