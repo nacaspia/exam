@@ -24,7 +24,7 @@ class StudentAnswer extends Model
     ];
 
     public function question() {
-        return $this->belongsTo(Question::class);
+        return $this->belongsTo(Question::class)->with(['answers','options']);
     }
 
     public function questionOption() {
