@@ -111,8 +111,8 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if(!empty($user['examResults'][0]))
-                                        @foreach($user['examResults'] as $examResult)
+                                    @if(!empty($user['exam_results'][0]))
+                                        @foreach($user['exam_results'] as $examResult)
                                             <tr>
                                                 <td>{{$examResult['id']}}</td>
                                                 <td>{{ $examResult['exam']['title'][language()] }}</td>

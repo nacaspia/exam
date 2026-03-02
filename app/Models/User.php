@@ -73,7 +73,7 @@ class User extends Authenticatable
 
     public function examResults()
     {
-        return $this->hasMany(ExamResult::class);
+        return $this->hasMany(ExamResult::class)->with(['exam','studentAnswers']);
     }
     public function payments()
     {
