@@ -32,7 +32,7 @@
                                 <p><strong>{{ __('site.total_score') }}:</strong> {{ $examResult['total_score'] }}</p>
                                 <p><strong>{{ __('site.time') }}:</strong> {{ $examResult['time_spent'] }} {{ __('site.seconds') }}</p>
 
-                                @if($examResult['show_result'])
+                                @if($exam['show_result'])
                                     <p class="text-success">{{ __('site.result_is_available') }}</p>
                                 @else
                                     <p class="text-warning">{{ __('site.result_will_be_checked') }}</p>
