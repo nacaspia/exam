@@ -108,8 +108,8 @@ class ExamController extends Controller
 
     public function epointCallback(Request $request, string $locale)
     {
-        \Log::info('HEADERS', $request->headers->all());
-        \Log::info('BODY', $request->all());
+//        \Log::info('HEADERS', $request->headers->all());
+//        \Log::info('BODY', $request->all());
         try {
 
         $data = $request->data;

@@ -36,7 +36,6 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -52,7 +51,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = $this->userService->find($id);
+        return view('users.show',compact('user'));
     }
 
     /**

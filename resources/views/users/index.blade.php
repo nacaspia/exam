@@ -47,16 +47,15 @@
                                         <div class="digi-dropdown dropdown d-inline-block">
                                             <button class="btn btn-sm btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">Action <i class="fa-regular fa-angle-down"></i></button>
                                             <ul class="digi-dropdown-menu dropdown-menu dropdown-slim dropdown-menu-sm">
-{{--                                                <li><a href="{{ route('users.show',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-eye"></i></span> {{ __('content.view') }}</a></li>--}}
-{{--                                                @if($data['username'] != 'super_admin')--}}
-{{--                                                    <li><a href="{{ route('cms-users.edit',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-pen-to-square"></i></span>  {{ __('content.edit') }}</a></li>--}}
-{{--                                                    <!-- Delete düyməsi (modal açır) -->--}}
-{{--                                                    <li>--}}
-{{--                                                        <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $data['id'] }}">--}}
-{{--                                                            <span class="dropdown-icon"><i class="fa-light fa-trash-can"></i></span> {{ __('content.delete') }}--}}
-{{--                                                        </button>--}}
-{{--                                                    </li>--}}
-{{--                                                @endif--}}
+                                                <li><a href="{{ route('users.show',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-eye"></i></span> {{ __('content.view') }}</a></li>
+
+                                                    {{--<li><a href="{{ route('users.edit',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-pen-to-square"></i></span>  {{ __('content.edit') }}</a></li>
+                                                    <!-- Delete düyməsi (modal açır) -->
+                                                    <li>
+                                                        <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $data['id'] }}">
+                                                            <span class="dropdown-icon"><i class="fa-light fa-trash-can"></i></span> {{ __('content.delete') }}
+                                                        </button>
+                                                    </li>--}}
                                             </ul>
                                         </div>
                                     </td>

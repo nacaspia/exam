@@ -21,7 +21,7 @@ class UserService implements IUserService
 
     public function find(int $id): array
     {
-        return User::with('examResults')->findOrFail($id)->toArray();
+        return User::with(['examResults', 'payments'])->findOrFail($id)->toArray();
     }
 
 }

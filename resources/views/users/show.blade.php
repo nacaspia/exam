@@ -25,48 +25,111 @@
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-body">
-                        <div class="row g-3">
-                            <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">{{ __('validation.attributes.username') }}</label>
-                                <input type="text" class="form-control form-control-sm" name="username" value="{{ $cmsUser['username'] ?? old('username') }}" readonly>
-                            </div>
-                            <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">{{ __('validation.attributes.name') }}</label>
-                                <input type="text" class="form-control form-control-sm" name="name" value="{{ $cmsUser['name'] ?? old('name') }}" readonly>
-                            </div>
-                            <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">{{ __('validation.attributes.surname') }}</label>
-                                <input type="text" class="form-control form-control-sm" name="surname" value="{{ $cmsUser['surname'] ?? old('surname') }}" readonly>
-                            </div>
-                            <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">{{ __('validation.attributes.email') }}</label>
-                                <input type="email" class="form-control form-control-sm" name="email" value="{{ $cmsUser['email'] ?? old('email') }}" readonly>
-                            </div>
-                            <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">{{ __('validation.attributes.phone') }}</label>
-                                <input type="tel" class="form-control form-control-sm" name="phone" value="{{ $cmsUser['phone'] ?? old('phone') }}" readonly>
-                            </div>
-                            <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">{{ __('validation.attributes.pin') }}</label>
-                                <input type="text" class="form-control form-control-sm" name="pin" value="{{ $cmsUser['pin'] ?? old('pin') }}" readonly>
-                            </div>
-                            <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">{{ __('validation.attributes.birthday') }}</label>
-                                <input type="text" class="form-control form-control-sm" name="birthday" value="{{ $cmsUser['birthday'] ?? old('birthday') }}" placeholder="Y-m-d" readonly>
-                            </div>
-                            {{--<div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">{{ __('validation.attributes.password') }}</label>
-                                <input type="password" class="form-control form-control-sm" name="password">
-                            </div>--}}
-                            <div class="col-xxl-3 col-lg-4 col-sm-6">
-                                <label class="form-label">{{ __('validation.attributes.role') }}</label>
-                                <select class="form-control form-control-sm" data-placeholder="{{ __('content.choose') }}" name="roles" disabled>
-                                    <option value="">{{ __('content.choose') }}</option>
-                                    @foreach($roles as $role)
-                                        <option value="{{ $role['id'] }}" @if($role['id'] == ($cmsUser['roles'][0]['id'] ?? old('roles'))) selected @endif>{{ $role['name'] }}</option>
-                                    @endforeach
+                        <ul class="nav nav-pills nav-justified" role="tablist">
+                            <li class="nav-item waves-effect waves-light">
+                                <a class="nav-link active"  data-bs-toggle="tab"
+                                   href="#about" role="tab">
+                                    <span class="d-none d-sm-block">Məlumatlar</span>
+                                </a>
+                            </li>
+                            <li class="nav-item waves-effect waves-light">
+                                <a class="nav-link"  data-bs-toggle="tab"
+                                   href="#payment" role="tab">
+                                    <span class="d-none d-sm-block">Ödənişləri</span>
+                                </a>
+                            </li>
+                            <li class="nav-item waves-effect waves-light">
+                                <a class="nav-link"  data-bs-toggle="tab"
+                                   href="#exam" role="tab">
+                                    <span class="d-none d-sm-block">Imtahanlar</span>
+                                </a>
+                            </li>
+                        </ul>
 
-                                </select>
+                        <div class="tab-content p-3 text-muted">
+                            <div class="tab-pane active" id="about" role="tabpanel">
+                                <div class="row g-3">
+                                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                                        <label class="form-label">{{ __('validation.attributes.name') }}</label>
+                                        <input type="text" class="form-control form-control-sm" name="name" value="{{ $user['name'] ?? old('name') }}" readonly>
+                                    </div>
+                                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                                        <label class="form-label">{{ __('validation.attributes.surname') }}</label>
+                                        <input type="text" class="form-control form-control-sm" name="surname" value="{{ $user['surname'] ?? old('surname') }}" readonly>
+                                    </div>
+                                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                                        <label class="form-label">{{ __('validation.attributes.email') }}</label>
+                                        <input type="email" class="form-control form-control-sm" name="email" value="{{ $user['email'] ?? old('email') }}" readonly>
+                                    </div>
+                                    <div class="col-xxl-3 col-lg-4 col-sm-6">
+                                        <label class="form-label">{{ __('validation.attributes.phone') }}</label>
+                                        <input type="tel" class="form-control form-control-sm" name="phone" value="{{ $user['phone'] ?? old('phone') }}" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="payment" role="tabpanel">
+                                <table class="table table-dashed table-hover digi-dataTable all-employee-table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Imtahan</th>
+                                        <th>Məbləğ</th>
+                                        <th>Status</th>
+                                        <th>Ödənişi etdiyi Tarix</th>
+                                        <th>Ödənişi tamamladıqı Tarix</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if(!empty($user['payments'][0]))
+                                        @foreach($user['payments'] as $payment)
+                                            <tr>
+                                                <td>{{$payment['id']}}</td>
+                                                <td>{{ $payment['exam']['title'][language()] }}</td>
+                                                <td>{{$payment['amount']}}</td>
+                                                <td><span class="active-mark"><i class="fa-regular fa-check"></i></span> {{$payment['status'] === 'pending' ? 'Gözləyir': "Tamamlanıb"}}</td>
+                                                <td>{{ date('d.m.Y H:i:s', strtotime($payment['created_at'])) }}</td>
+                                                <td>{{ date('d.m.Y H:i:s', strtotime($payment['updated_at'])) }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <p>Melumat yoxdur</p>
+                                    @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="exam" role="tabpanel">
+                                <table class="table table-dashed table-hover digi-dataTable all-employee-table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Başlıq</th>
+                                        <th>Düzgün cavab sayı</th>
+                                        <th>Sərf etdiyi vaxt</th>
+                                        <th>Status</th>
+                                        <th>Başladıqı Tarix</th>
+                                        <th>Bitirdiyi Tarix</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if(!empty($user['examResults'][0]))
+                                        @foreach($user['examResults'] as $examResult)
+                                            <tr>
+                                                <td>{{$examResult['id']}}</td>
+                                                <td>{{ $examResult['exam']['title'][language()] }}</td>
+                                                <td>{{$examResult['total_score']}}</td>
+                                                <td>{{$examResult['time_spent']}}</td>
+                                                <td><span class="active-mark"><i class="fa-regular fa-check"></i></span> {{$examResult['status'] === 'pending' ? 'Gözləyir': "Tamamlanıb"}}</td>
+                                                <td>{{ date('d.m.Y H:i:s', strtotime($examResult['started_at'])) }}</td>
+                                                <td>{{ date('d.m.Y H:i:s', strtotime($examResult['finished_at'])) }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @else
+                                        <tr>
+                                        <p>Melumat yoxdur</p>
+                                        </tr>
+                                    @endif
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
