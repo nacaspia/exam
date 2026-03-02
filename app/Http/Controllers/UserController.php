@@ -57,9 +57,7 @@ class UserController extends Controller
 
     public function exam(int $userId, int $examId)
     {
-
         $examResult = $this->userService->examResult($userId, $examId);
-        dd($examResult);
         $exam = $this->userService->exam($examResult['examId']);
         return view('users.exam',compact('exam', 'examResult'));
     }
