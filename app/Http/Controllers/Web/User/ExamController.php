@@ -71,10 +71,10 @@ class ExamController extends Controller
                 'locale' => $locale,
                 'order_id' => $payment->id
             ]),
-            "error_redirect_url" => route('site.user.epoint.fail', ['locale' => $locale]),
-            "result_url" => route('site.user.epoint.callback', ['locale' => $locale]) // <-- burda callback bildirirsən
+            "error_redirect_url" => route('site.user.epoint.fail', ['locale' => $locale])
         ];
 
+        //"result_url" => route('site.user.epoint.callback', ['locale' => $locale])
         $data = base64_encode(json_encode($json));
 
         $privateKey = config('services.epoint.private_key');
