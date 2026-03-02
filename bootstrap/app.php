@@ -26,7 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
         $middleware->validateCsrfTokens(except: [
             '*/user/payment/epoint/callback',
-            'user/payment/epoint/callback',
+            '/user/payment/epoint/callback',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
