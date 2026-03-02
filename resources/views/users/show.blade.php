@@ -117,8 +117,8 @@
                                             <tr>
                                                 <td>{{$examResult['id']}}</td>
                                                 <td>{{ $examResult['exam']['title'][language()] }}</td>
-                                                <td>{{$examResult['total_score']}}</td>
-                                                <td>{{$examResult['time_spent']}}</td>
+                                                <td>{{$examResult['total_score']}} </td>
+                                                <td>{{$examResult['time_spent']}} saniye</td>
                                                 <td><span class="active-mark"><i class="fa-regular fa-check"></i></span> {{$examResult['status'] === 'pending' ? 'Gözləyir': "Tamamlanıb"}}</td>
                                                 <td>{{ date('d.m.Y H:i:s', strtotime($examResult['started_at'])) }}</td>
                                                 <td>{{ date('d.m.Y H:i:s', strtotime($examResult['finished_at'])) }}</td>
