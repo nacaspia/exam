@@ -42,7 +42,7 @@
             .header-btns{
                 justify-content: flex-end !important;
                 width: 100%;
-                margin-top: 8px;
+                margin-top: -43px;
             }
 
             .header-btns ul{
