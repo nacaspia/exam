@@ -92,6 +92,7 @@ Route::prefix('{locale?}')->middleware(['set.locale'])->group(function () {
         Route::post('/user/exam/{exam}/finish', [UserExamController::class, 'examFinish'])->name('site.user.exam.finish');
         Route::get('/user/exam/{exam}/result', [UserExamController::class, 'examResult'])->name('site.user.exam.result');
 
+        Route::get('/payments', [AccountController::class, 'payments'])->name('site.user.payments');
         // e-point redirect nəticələri
         Route::get('/user/payment/epoint/success/{order_id}', [UserExamController::class, 'epointSuccess'])->name('site.user.epoint.success');
         //Route::get('/user/payment/epoint/success',[UserExamController::class, 'epointSuccess'])->name('site.user.epoint.success');

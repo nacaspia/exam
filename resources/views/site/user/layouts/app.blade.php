@@ -16,6 +16,68 @@
     <link rel="stylesheet" href="{{ asset('site/user/assets/css/vendor/plugins.min.css') }}">
     <link rel="stylesheet" href="{{ asset('site/user/assets/css/style.min.css') }}">
     @yield('site.user.css')
+    <style>
+        /* Header hündürlüyünə görə tənzimlə (məs: 80px) */
+        #wrapper{
+            min-height: calc(100vh - 80px);
+            display: flex;
+        }
+
+        .sidebar-wrapper{
+            height: auto;        /* 100% əvəzinə */
+            min-height: calc(100vh - 80px);
+        }
+
+        .page-content-wrapper{
+            flex: 1;
+            min-height: calc(100vh - 80px);
+        }
+        /* Desktop default qalır */
+
+        /* Mobil / tablet */
+        @media (max-width: 991.98px) {
+            /* wrapper flex düzülüşü dəyişsin */
+            #wrapper{
+                display: flex;
+                flex-direction: column;
+                min-height: calc(100vh - 80px); /* header hündürlüyünə görə */
+            }
+
+            /* sidebar artıq sol panel yox, üst menyu olsun */
+            .sidebar-wrapper{
+                width: 100%;
+                height: auto;
+                min-height: auto;
+                position: relative;
+                /*padding: 14px 0;*/
+            }
+
+            /* iconlar yan-yana düzülüb mərkəzdə dursun */
+            .sidebar-wrapper .menu-list{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 18px;
+            }
+
+            .sidebar-wrapper .menu-list a{
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+                width: 54px;
+                height: 54px;
+                border-radius: 14px;
+            }
+
+            /* content soldan margin/padding almamalıdır */
+            .page-content-wrapper{
+                margin-left: 0 !important;
+                width: 100%;
+                min-height: 1px;
+                padding-top: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
 <div class="main-wrapper main-wrapper-02">
@@ -35,79 +97,12 @@
 
             <!-- Header Search Start -->
             <div class="login-header-search dropdown">
-            {{--    <button class="search-toggle" data-bs-toggle="dropdown"><i class="flaticon-loupe"></i></button>
-
-                <div class="search-input dropdown-menu">
-                    <form action="#">
-                        <input type="text" placeholder="Search here">
-                    </form>
-                </div>--}}
 
             </div>
             <!-- Header Search End -->
 
             <!-- Header Action Start -->
             <div class="login-header-action ml-auto">
-                {{--<div class="dropdown">
-                    <button class="action notification" data-bs-toggle="dropdown">
-                        <i class="flaticon-notification"></i>
-                        <span class="active"></span>
-                    </button>
-                    <div class="dropdown-menu dropdown-notification">
-                        <ul class="notification-items-list">
-                            <li class="notification-item">
-                                <span class="notify-icon bg-success text-white"><i class="icofont-ui-user"></i></span>
-                                <div class="dropdown-body">
-                                    <a href="#">
-                                        <p><strong>Martin</strong> has added a <strong>customer</strong> Successfully
-                                        </p>
-                                    </a>
-                                </div>
-                                <span class="notify-time">3:20 am</span>
-                            </li>
-                            <li class="notification-item">
-                                <span class="notify-icon bg-success text-white"><i class="icofont-shopping-cart"></i></span>
-                                <div class="dropdown-body">
-                                    <a href="#">
-                                        <p><strong>Jennifer</strong> purchased Light Dashboard 2.0.</p>
-                                    </a>
-                                </div>
-                                <span class="notify-time">3:20 am</span>
-                            </li>
-                            <li class="notification-item">
-                                <span class="notify-icon bg-danger text-white"><i class="icofont-book-mark"></i></span>
-                                <div class="dropdown-body">
-                                    <a href="#">
-                                        <p><strong>Robin</strong> marked a <strong>ticket</strong> as unsolved.
-                                        </p>
-                                    </a>
-                                </div>
-                                <span class="notify-time">3:20 am</span>
-                            </li>
-                            <li class="notification-item">
-                                <span class="notify-icon bg-success text-white"><i class="icofont-heart-alt"></i></span>
-                                <div class="dropdown-body">
-                                    <a href="#">
-                                        <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
-                                    </a>
-                                </div>
-                                <span class="notify-time">3:20 am</span>
-                            </li>
-                            <li class="notification-item">
-                                <span class="notify-icon bg-success text-white"><i class="icofont-image"></i></span>
-                                <div class="dropdown-body">
-                                    <a href="#">
-                                        <p><strong> James.</strong> has added a<strong>customer</strong> Successfully
-                                        </p>
-                                    </a>
-                                </div>
-                                <span class="notify-time">3:20 am</span>
-                            </li>
-                        </ul>
-                        <a class="all-notification" href="#">See all notifications <i class="icofont-simple-right"></i></a>
-                    </div>
-                </div>--}}
-
                 <a class="action author" href="#">
                     <img src="{{ asset('site/user/assets/images/author/admin.png') }}" alt="{{ user()->name }}">
                 </a>
@@ -140,26 +135,13 @@
             <div class="menu-list">
                 <a class="{{ request()->routeIs('site.user.account') ? 'active' : '' }}" href="{{ route('site.user.account',['locale' => app()->getLocale()]) }}"><img src="{{ asset('site/user/assets/images/menu-icon/icon-1.png') }}" alt="Icon"></a>
                 <a class="{{ request()->routeIs('site.user.settings') ? 'active' : '' }}" href="{{ route('site.user.settings',['locale' => app()->getLocale()]) }}"><i class="icofont-user"></i> </a>
+                <a class="{{ request()->routeIs('site.user.payments') ? 'active' : '' }}" href="{{ route('site.user.payments',['locale' => app()->getLocale()]) }}"><i class="icofont-pay"></i> </a>
                 <a class="{{ request()->routeIs('site.user.logout') ? 'active' : '' }}"  href="{{ route('site.user.logout', ['locale' => app()->getLocale()]) }}"><i class="icofont-logout"></i></a>
-                {{--  <a href="messages.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-2.png') }}" alt="Icon"></a>
-                <a href="overview.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-3.png') }}" alt="Icon"></a>
-                <a href="engagement.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-4.png') }}" alt="Icon"></a>
-                <a href="traffic-conversion.html"><img src="{{ asset('site/user/assets/images/menu-icon/icon-5.png') }}" alt="Icon"></a>
-            --}}</div>
+           </div>
         </div>
         <!-- Sidebar Wrapper End -->
 
         <div class="page-content-wrapper py-0">
-
-            <!-- Admin Tab Menu Start -->
-{{--            <div class="nav flex-column admin-tab-menu">--}}
-{{--                <a href="{{ route('site.user.account',['locale' => app()->getLocale()]) }}" class="{{ request()->routeIs('site.user.account') ? 'active' : '' }}">{{ __('site.account') }}</a>--}}
-                {{--<a href="">Imtahanlarim</a>
-                <a href="reviews.html">Neticeler</a>
-                <a href="engagement.html">Course Engagement</a>
-                <a href="traffic-conversion.html">Traffic & Conversion</a>--}}
-{{--            </div>--}}
-            <!-- Admin Tab Menu End -->
 
             <!-- Page Content Wrapper Start -->
             @yield('site.user.content')

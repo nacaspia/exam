@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Children;
 use App\Models\Exam;
 use App\Models\ExamResult;
+use App\Models\Payment;
 use App\Models\QuestionOption;
 use App\Models\SchoolClass;
 use App\Models\User;
@@ -39,6 +40,10 @@ class AccountController extends Controller
     public function settings() {
         $classes = SchoolClass::where(['status' => 1])->orderBy('name->'.$this->currentLang,'ASC')->get();
         return view('site.user.settings',compact('classes'));
+    }
+    public function payments() {
+        $payments = Payment::where(['user_id' => \user()->id])->orderBy('created_at','DESC')->get();
+        return view('site.user.payments',compact('payments'));
     }
 
     public function settingsUpdate(Request $request)

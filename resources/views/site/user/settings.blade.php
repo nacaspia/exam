@@ -12,7 +12,27 @@
             font-size: 13px;
             margin-top: 4px;
         }
+        .settings-wrapper .form-control{
+            height:48px;
+            border-radius:8px;
+            border:1px solid #e5e7eb;
+        }
 
+        .settings-wrapper label{
+            font-weight:500;
+            margin-bottom:6px;
+        }
+
+        .settings-wrapper .btn-success{
+            height:48px;
+            border-radius:8px;
+            padding:0 30px;
+        }
+        .settings-wrapper .card{
+            border-radius:12px;
+            border:none;
+            box-shadow:0 2px 10px rgba(0,0,0,0.05);
+        }
     </style>
 @endsection
 @section('site.user.content')
@@ -31,74 +51,60 @@
             <div class="settings-wrapper">
                 <div class="card">
                     <div class="card-body">
-
-                        <form id="settingsForm"  action="{{ route('site.user.settingsUpdate',['locale' => app()->getLocale()]) }}" method="POST">
+                        <form id="settingsForm" action="{{ route('site.user.settingsUpdate',['locale' => app()->getLocale()]) }}" method="POST">
                             @csrf
                             @method('PUT')
 
-                            <!-- Name -->
-                            <div class="form-group mb-3">
-                                <label>{{ __('site.name') }}</label>
-                                <input type="text"
-                                       name="name"
-                                       class="form-control"
-                                       value="{{ user()->name }}">
-                                <span class="text-danger error-text name_error"></span>
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">{{ __('site.name') }}</label>
+                                    <input type="text" name="name" class="form-control" value="{{ user()->name }}">
+                                    <span class="text-danger error-text name_error"></span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">{{ __('site.surname') }}</label>
+                                    <input type="text" name="surname" class="form-control" value="{{ user()->surname }}">
+                                    <span class="text-danger error-text surname_error"></span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">{{ __('site.email') }}</label>
+                                    <input type="email" name="email" class="form-control" value="{{ user()->email }}">
+                                    <span class="text-danger error-text email_error"></span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">{{ __('site.phone') }}</label>
+                                    <input type="text" name="phone" class="form-control" value="{{ user()->phone }}">
+                                    <span class="text-danger error-text phone_error"></span>
+                                </div>
+
                             </div>
 
-                            <!-- Surname -->
-                            <div class="form-group mb-3">
-                                <label>{{ __('site.surname') }}</label>
-                                <input type="text"
-                                       name="surname"
-                                       class="form-control"
-                                       value="{{ user()->surname }}">
+                            <hr class="my-4">
 
-                                <span class="text-danger error-text surname_error"></span>
+                            <h6 class="mb-3">{{ __('site.password_resert') }}</h6>
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">{{ __('site.new_password') }}</label>
+                                    <input type="password" name="password" class="form-control">
+                                </div>
+
+                                <div class="col-md-6 mb-4">
+                                    <label class="form-label">{{ __('site.password_confirmation') }}</label>
+                                    <input type="password" name="password_confirmation" class="form-control">
+                                </div>
+
                             </div>
 
-                            <!-- Email -->
-                            <div class="form-group mb-3">
-                                <label>{{ __('site.email') }}</label>
-                                <input type="email"
-                                       name="email"
-                                       class="form-control"
-                                       value="{{ user()->email }}">
-                                <span class="text-danger error-text email_error"></span>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label>{{ __('site.phone') }}</label>
-                                <input type="text"
-                                       name="phone"
-                                       class="form-control"
-                                       value="{{ user()->phone ?? null }}">
-
-                                <span class="text-danger error-text phone_error"></span>
-                            </div>
-
-                            <hr>
-
-                            <h6>{{ __('site.password_resert') }}</h6>
-
-                            <!-- Password -->
-                            <div class="form-group mb-3">
-                                <label>{{ __('site.new_password') }}</label>
-                                <input type="password"
-                                       name="password"
-                                       class="form-control">
-                            </div>
-
-                            <!-- Password confirmation -->
-                            <div class="form-group mb-4">
-                                <label>{{ __('site.password_confirmation') }}</label>
-                                <input type="password"
-                                       name="password_confirmation"
-                                       class="form-control">
-                            </div>
-
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn btn-success px-4">
                                 {{ __('site.save') }}
                             </button>
+
                         </form>
                     </div>
                 </div>
