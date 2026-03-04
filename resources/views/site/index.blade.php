@@ -15,6 +15,84 @@
     <link rel="stylesheet" href="{{ asset('site/assets/css/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('site/assets/css/default.css') }}">
     <link rel="stylesheet" href="{{ asset('site/assets/css/style.css') }}">
+    <style>
+        @media (max-width: 575.98px){
+
+            /* ümumi wrapper */
+            .dream-course-search{
+                display: flex !important;
+                flex-direction: column !important;
+                gap: 12px !important;
+                padding: 18px !important;
+                border-radius: 18px !important;
+            }
+
+            /* o böyük oval çərçivə/pseudo elementləri söndür */
+            .dream-course-search::before,
+            .dream-course-search::after,
+            .dream-course-search .input-box::before,
+            .dream-course-search .input-box::after{
+                content: none !important;
+                display: none !important;
+            }
+
+            /* input-box içində ikon kənara çıxmasın */
+            .dream-course-search .input-box{
+                position: relative !important;
+                overflow: hidden !important;
+                border-radius: 14px !important;
+            }
+
+            .dream-course-search .input-box i{
+                position: absolute !important;
+                left: 14px !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                margin: 0 !important;
+            }
+
+            .dream-course-search .input-box input{
+                height: 48px !important;
+                border-radius: 14px !important;
+                padding-left: 44px !important;
+                padding-right: 14px !important;
+            }
+
+            /* select-lər 100% + eyni hündürlük */
+            .dream-course-search .dream-course-category{
+                width: 100% !important;
+            }
+
+            /* nice-select plugin işləyirsə */
+            .dream-course-search .dream-course-category .nice-select{
+                width: 100% !important;
+                height: 48px !important;
+                line-height: 48px !important;
+                border-radius: 14px !important;
+            }
+
+            /* nice-select yoxdursa normal select */
+            .dream-course-search .dream-course-category select{
+                width: 100% !important;
+                height: 48px !important;
+                border-radius: 14px !important;
+            }
+
+            /* button */
+            .dream-course-search .dream-course-btn button{
+                width: 100% !important;
+                height: 48px !important;
+                border-radius: 14px !important;
+                transform: none !important;
+            }
+
+            /* soldakı divider xətləri varsa söndür */
+            .dream-course-search .input-box,
+            .dream-course-search .dream-course-category{
+                border-left: none !important;
+            }
+        }
+    </style>
 @endsection
 @section('site.content')
 <section class="banner-area bg_cover mt-80" style="background-image: url({{ asset('site/assets/images/banner-bg-1.jpg') }})">
@@ -57,7 +135,7 @@
                                 <i class="fal fa-search"></i>
                                 <input type="text" name="search" placeholder="{{ __('site.search') }}">
                             </div>
-                            <div class="dream-course-category d-none d-lg-inline-block">
+                            <div class="dream-course-category">
                                 <select name="class_id">
                                     <option value="">{{ __('site.classes') }}</option>
                                     @if(!empty($classes))
@@ -67,7 +145,7 @@
                                     @endif
                                 </select>
                             </div>
-                            <div class="dream-course-category  d-none d-lg-inline-block">
+                            <div class="dream-course-category">
                                 <select name="subject_id">
                                     <option value="">{{ __('site.subjects') }}</option>
                                     @if(!empty($subjects))
@@ -95,7 +173,6 @@
                     <span>Are You Ready For This Offer</span>
                     <h2 class="title">50% Offer For Very First 50 Students & Mentors.</h2>
                     <ul>
-                        <li>
                         @if(user())
                             <li><a class="main-btn" href="{{ route('site.user.account',['locale'=>app()->getLocale()]) }}"><i class="fal fa-user"></i>{{ __('site.account') }}</a></li>
                         @else

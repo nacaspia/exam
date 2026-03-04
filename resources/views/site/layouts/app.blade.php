@@ -18,6 +18,89 @@
             background: #f8f9fa;
             cursor: pointer;
         }
+
+        /* ✅ Mobil header fix */
+        @media (max-width: 991.98px) {
+
+            /* Header ümumi hündürlüyünü azaldırıq */
+            .header-top{
+                padding: 10px 0;
+            }
+
+            /* Logo + search form olan hissə */
+            .header-logo{
+                justify-content: space-between !important;
+                width: 100%;
+            }
+
+            .header-logo .logo img{
+                max-width: 150px;
+                height: auto;
+            }
+
+            /* “Hesabım/Login” linkini eyni sətirdə saxla */
+            .header-btns{
+                justify-content: flex-end !important;
+                width: 100%;
+                margin-top: 8px;
+            }
+
+            .header-btns ul{
+                display: flex;
+                gap: 8px;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header-btns ul li a{
+                padding: 6px 10px;
+                font-size: 14px;
+                line-height: 1;
+                white-space: nowrap;
+            }
+
+            /* Navbar hissəsi: hamburger + language select eyni sətirdə */
+            .header-menu .navbar{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .navbar-toggler{
+                margin-left: 0;
+            }
+
+            .language-switcher{
+                margin-left: auto !important;
+            }
+
+            .language-switcher select{
+                width: auto;
+                max-width: 180px;
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+
+            /* mobil-də sosial ikonları gizlət (yer yeməsin) */
+            .navbar-item .menu-icon{
+                display: none !important;
+            }
+
+            /* Bannerin üst boşluğu çoxdursa azaldırıq */
+            .banner-area.mt-80{
+                margin-top: 20px !important;
+            }
+        }
+    </style>
+    <style>
+
+        .language-switcher select {
+            border: 1px solid #ddd;
+            padding: 5px 8px;
+            border-radius: 6px;
+            background: #f8f9fa;
+            cursor: pointer;
+        }
         .footer-bottom {
             text-align: center;
             padding: 20px 0;
