@@ -76,49 +76,6 @@
             <div class="col-12">
                 <div class="panel">
                     <div class="panel-header">
-                        <h5>{{ __('content.questions') }}</h5>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-dashed table-hover digi-dataTable all-employee-table table-striped" id="allEmployeeTable">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>{{ __('validation.attributes.title') }}</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($questions as $data)
-                                <tr>
-                                    <td>{{$data['id']}}</td>
-                                    <td>{{$data['title'][language()]}}</td>
-                                    <td><span class="active-mark"><i class="fa-regular fa-{{$data['active']? 'check': ''}}"></i></span> {{$data['active'] ? 'Akiv': "Aktiv deyil"}}</td>
-                                    <td>
-                                        <div class="digi-dropdown dropdown d-inline-block">
-                                            <button class="btn btn-sm btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">Action <i class="fa-regular fa-angle-down"></i></button>
-                                            <ul class="digi-dropdown-menu dropdown-menu dropdown-slim dropdown-menu-sm">
-                                                <li><a href="{{ route('questions.show',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-eye"></i></span> {{ __('content.view') }}</a></li>
-
-                                                <li><a href="{{ route('questions.edit',$data['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-pen-to-square"></i></span>  {{ __('content.edit') }}</a></li>
-                                                <!-- Delete düyməsi (modal açır) -->
-
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        <div class="table-bottom-control"></div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-12">
-                <div class="panel">
-                    <div class="panel-header">
                         <h5>{{ __('content.exams') }}</h5>
                     </div>
                     <div class="panel-body">
@@ -127,6 +84,8 @@
                             <tr>
                                 <th>ID</th>
                                 <th>{{ __('validation.attributes.title') }}</th>
+                                <th>Sual sayi</th>
+                                <th>Satilma sayi</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -136,6 +95,8 @@
                                 <tr>
                                     <td>{{$data['id']}}</td>
                                     <td>{{$data['title'][language()]}}</td>
+                                    <td>{{ count($data['questions']) }}</td>
+                                    <td>{{ count($data['results']) }}</td>
                                     <td><span class="active-mark"><i class="fa-regular fa-{{$data['active']? 'check' : '' }}"></i></span> {{$data['active'] ? 'Akiv': "Aktiv deyil"}}</td>
                                     <td>
                                         <div class="digi-dropdown dropdown d-inline-block">

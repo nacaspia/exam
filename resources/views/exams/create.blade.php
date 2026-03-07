@@ -45,18 +45,25 @@
             <div class="col-12">
                 <form action="{{ route('exams.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <input type="file" id="editorImageUploader" accept="image/*" style="display:none;">
                     <div class="panel">
                         <div class="panel-body">
                             {{-- TAB NAV --}}
                             <ul class="nav nav-pills nav-justified" role="tablist">
-                                @foreach(languages() as $key => $lang)
+                                {{--@foreach(languages() as $key => $lang)
                                     <li class="nav-item waves-effect waves-light">
                                         <a class="nav-link @if($key==0) active @endif" data-bs-toggle="tab"
                                            href="#{{$lang->code}}" role="tab">
                                             <span class="d-none d-sm-block">{{$lang->code}}</span>
                                         </a>
                                     </li>
-                                @endforeach
+                                @endforeach--}}
+                                <li class="nav-item waves-effect waves-light">
+                                    <a class="nav-link active" data-bs-toggle="tab"
+                                       href="#az" role="tab">
+                                        <span class="d-none d-sm-block">Məlumat</span>
+                                    </a>
+                                </li>
                                 <li class="nav-item waves-effect waves-light">
                                     <a class="nav-link" data-bs-toggle="tab" href="#questions" role="tab">
                                         <span class="d-none d-sm-block">@lang('content.questions')</span>
@@ -72,7 +79,7 @@
                             {{-- TAB CONTENT --}}
                             <div class="tab-content p-3 text-muted">
                                 {{-- LANGUAGE TABS --}}
-                                @foreach(languages() as $key => $lang)
+                                {{--@foreach(languages() as $key => $lang)
                                     <div class="tab-pane fade @if($key==0) show active @endif" id="{{$lang['code']}}"
                                          role="tabpanel">
                                         <div class="row g-3">
@@ -88,14 +95,9 @@
                                                 <textarea id="text_{{$lang['code']}}"
                                                           class="ckeditor4 form-control"
                                                           name="text[{{$lang['code']}}]"></textarea>
-
-                                                {{--  <textarea class="ckeditor4 form-control"
-                                                            data-locale="{{ $lang['code'] }}"
-                                                            data-csrf-token="{{ csrf_token() }}"
-                                                            name="text[{{$lang['code']}}]"></textarea>--}}
                                             </div>
 
-                                            {{-- SEO --}}
+                                            --}}{{-- SEO --}}{{--
                                             <div class="col-12">
                                                 <label class="form-label">Meta title ({{$lang['code']}})</label>
                                                 <input type="text" class="form-control js-meta-title"
@@ -132,8 +134,62 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endforeach
+                                @endforeach--}}
 
+                                <div class="tab-pane fade show active" id="az"
+                                     role="tabpanel">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <label class="form-label">Imtahan başlıqı</label>
+                                            <input type="text" class="form-control js-title"
+                                                   name="title[az]" data-lang="az">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label class="form-label">İmtahan haqqda</label>
+
+                                            <textarea id="text_az"
+                                                      class="ckeditor4 form-control"
+                                                      name="text[az]"></textarea>
+                                        </div>
+
+                                        {{-- SEO --}}
+                                        <div class="col-12">
+                                            <label class="form-label">Meta title </label>
+                                            <input type="text" class="form-control js-meta-title"
+                                                   name="meta_title[az]"
+                                                   placeholder="Boş burax → title-dan auto dolacaq"
+                                                   data-lang="az">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Meta description (az)</label>
+                                            <textarea class="form-control js-meta-text"
+                                                      name="meta_text[az]" rows="3"
+                                                      placeholder="Boş burax → title-dan auto dolacaq"
+                                                      data-lang="az"></textarea>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Meta keywords (az)</label>
+                                            <input type="text" class="form-control js-meta-keyword"
+                                                   name="meta_keywords[az]"
+                                                   placeholder="keyword1, keyword2" data-lang="az">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">OG title (az)</label>
+                                            <input type="text" class="form-control js-og-title"
+                                                   name="og_title[az]"
+                                                   placeholder="Boş burax → meta title-dan götürüləcək"
+                                                   data-lang="az">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">OG description (az)</label>
+                                            <textarea class="form-control js-og-text"
+                                                      name="og_text[az]" rows="2"
+                                                      placeholder="Boş burax → meta description-dan götürüləcək"
+                                                      data-lang="az"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
                                 {{-- QUESTIONS TAB --}}
                                 <div class="tab-pane fade" id="questions" role="tabpanel">
                                     <div class="d-flex justify-content-between align-items-center mb-2">
@@ -155,7 +211,7 @@
                                             </div>
                                             <div class="card-body">
                                                 <ul class="nav nav-pills mb-3 question-tabs" role="tablist">
-                                                    @foreach(languages() as $k => $lang)
+                                                    {{--@foreach(languages() as $k => $lang)
                                                         <li class="nav-item" role="presentation">
                                                             <button
                                                                 class="nav-link @if($k==0) active @endif question-lang-tab"
@@ -163,7 +219,14 @@
                                                                 data-lang="{{ $lang->code }}"
                                                                 data-bs-target="#"> {{ strtoupper($lang->code) }} </button>
                                                         </li>
-                                                    @endforeach
+                                                    @endforeach--}}
+                                                    <li class="nav-item" role="presentation">
+                                                        <button
+                                                            class="nav-link active question-lang-tab"
+                                                            type="button" data-bs-toggle="tab"
+                                                            data-lang="az"
+                                                            data-bs-target="#"> {{ strtoupper('az') }} </button>
+                                                    </li>
                                                     <li class="nav-item" role="presentation">
                                                         <button class="nav-link question-other-tab" type="button"
                                                                 data-bs-toggle="tab" data-bs-target="#"> Digər
@@ -172,7 +235,7 @@
                                                 </ul>
 
                                                 <div class="tab-content question-tab-content">
-                                                    @foreach(languages() as $k => $lang)
+                                                    {{--@foreach(languages() as $k => $lang)
                                                         <div
                                                             class="tab-pane fade @if($k==0) show active @endif question-lang-pane"
                                                             data-lang="{{ $lang->code }}" role="tabpanel">
@@ -191,8 +254,25 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    @endforeach
-
+                                                    @endforeach--}}
+                                                    <div
+                                                        class="tab-pane fade show active question-lang-pane"
+                                                        data-lang="az" role="tabpanel">
+                                                        <div class="row g-3">
+                                                            <div class="col-12">
+                                                                <label class="form-label">Sual başlıqı
+                                                                    )</label>
+                                                                <input type="text" class="form-control q-title"
+                                                                       data-lang="az">
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <label class="form-label">Sual haqqda ətraflı mətn
+                                                                    )</label>
+                                                                <textarea class="form-control q-text ck-question-text" rows="4"
+                                                                          data-lang="az"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     {{-- OTHER --}}
                                                     <div class="tab-pane fade question-other-pane" role="tabpanel">
                                                         <div class="row g-3">
@@ -243,15 +323,21 @@
                                     {{-- OPTION TEMPLATE --}}
                                     <template id="optionTemplate">
                                         <div class="row g-2 align-items-center option-item mb-2">
-                                            @foreach(languages() as $lang)
+                                            {{--@foreach(languages() as $lang)
                                                 <div class="col-md-5">
                                                     <input type="text" class="form-control option-text"
                                                            data-lang="{{ $lang->code }}"
                                                            placeholder="Variant ({{ $lang->code }})">
                                                 </div>
-                                            @endforeach
+                                            @endforeach--}}
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control option-text"
+                                                       data-lang="az"
+                                                       placeholder="Cavabı qeyd edin">
+                                            </div>
                                             <div class="col-md-1 text-center">
                                                 <input type="radio" class="form-check-input correct-option-radio">
+                                                Düzgün cavabı qeyd edin
                                             </div>
                                             <div class="col-md-1 text-end">
                                                 <button type="button" class="btn btn-sm btn-danger remove-option">Sil
@@ -271,7 +357,7 @@
                                                 @endforeach </select>
                                         </div> {{-- LANGUAGE --}}
                                         <div class="col-md-6">
-                                            <label class="form-label">Exam Language</label>
+                                            <label class="form-label">Dil</label>
                                             <select name="language" class="form-select" required>
                                                 @foreach(languages() as $lang)
                                                     <option value="{{ $lang->code }}">{{ $lang->code }}</option>
@@ -414,7 +500,174 @@
 @section('js')
     <script src="{{ asset('assets/vendor/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const style = document.createElement('style');
+            style.innerHTML = `.cke_notification { display: none !important; }`;
+            document.head.appendChild(style);
+
+            if (!CKEDITOR.plugins.get('customimageupload')) {
+                CKEDITOR.plugins.add('customimageupload', {
+                    init: function (editor) {
+                        editor.addCommand('openImageUploader', {
+                            exec: function (editor) {
+                                const input = document.getElementById('editorImageUploader');
+                                if (!input) {
+                                    alert('editorImageUploader tapılmadı');
+                                    return;
+                                }
+
+                                input.setAttribute('data-editor-id', editor.name);
+                                input.value = '';
+                                input.click();
+                            }
+                        });
+
+                        editor.ui.addButton('CustomImageUpload', {
+                            label: 'Şəkil əlavə et',
+                            command: 'openImageUploader',
+                            toolbar: 'insert',
+                            icon: 'image'
+                        });
+                    }
+                });
+            }
+
+            window.initEditor = function (el, height = 300) {
+                if (!el) return;
+
+                if (!el.id) {
+                    el.id = 'editor_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
+                }
+
+                if (CKEDITOR.instances[el.id]) {
+                    return;
+                }
+
+                CKEDITOR.replace(el.id, {
+                    height: height,
+                    extraPlugins: 'mathjax,customimageupload',
+                    removePlugins: 'image,uploadimage,image2',
+                    mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_HTML',
+
+                    allowedContent: true,
+                    extraAllowedContent: 'img[*]{*}(*)',
+
+                    toolbar: [
+                        { name: 'document', items: ['Source'] },
+                        { name: 'clipboard', items: ['Undo', 'Redo'] },
+                        { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline'] },
+                        { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
+                        { name: 'insert', items: ['CustomImageUpload', 'Table', 'Mathjax'] },
+                        { name: 'links', items: ['Link', 'Unlink'] },
+                        { name: 'styles', items: ['Format', 'FontSize'] },
+                        { name: 'tools', items: ['Maximize'] }
+                    ],
+
+                    on: {
+                        doubleclick: function (evt) {
+                            const element = evt.data.element;
+
+                            if (element && element.is('img')) {
+                                let currentWidth = element.getStyle('width') || '';
+                                let currentHeight = element.getStyle('height') || '';
+
+                                currentWidth = currentWidth.replace('px', '');
+                                currentHeight = currentHeight.replace('px', '');
+
+                                let newWidth = prompt('Yeni en (px)', currentWidth || '400');
+                                let newHeight = prompt('Yeni hündürlük (px, boş qoysan auto olacaq)', currentHeight || '');
+
+                                if (newWidth && newWidth.trim() !== '') {
+                                    element.setStyle('width', newWidth.trim() + 'px');
+                                    element.removeStyle('max-width');
+                                } else {
+                                    element.removeStyle('width');
+                                    element.setStyle('max-width', '100%');
+                                }
+
+                                if (newHeight && newHeight.trim() !== '') {
+                                    element.setStyle('height', newHeight.trim() + 'px');
+                                } else {
+                                    element.removeStyle('height');
+                                    element.setStyle('height', 'auto');
+                                }
+                            }
+                        }
+                    }
+                });
+            };
+
+            window.initQuestionEditors = function (card, qIndex) {
+                card.querySelectorAll('.ck-question-text').forEach(el => window.initEditor(el, 200));
+                card.querySelectorAll('.ck-question-correct-answer').forEach(el => window.initEditor(el, 200));
+            };
+
+            document.querySelectorAll('.ckeditor4').forEach(el => window.initEditor(el, 300));
+
+            const uploader = document.getElementById('editorImageUploader');
+
+            if (uploader) {
+                uploader.addEventListener('change', function (e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+
+                    const editorId = e.target.getAttribute('data-editor-id');
+                    const editor = CKEDITOR.instances[editorId];
+
+                    if (!editor) {
+                        alert('Editor tapılmadı');
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    formData.append('upload', file);
+                    formData.append('_token', '{{ csrf_token() }}');
+
+                    fetch("{{ route('ckeditor.upload') }}", {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(res => res.json())
+                        .then(response => {
+                            if (response.uploaded && response.url) {
+                                let width = prompt('Şəklin eni (px)', '400');
+                                let height = prompt('Şəklin hündürlüyü (px, boş qoysan auto olacaq)', '');
+
+                                width = width ? width.trim() : '';
+                                height = height ? height.trim() : '';
+
+                                let style = 'display:block;';
+
+                                if (width) {
+                                    style += `width:${width}px;`;
+                                } else {
+                                    style += 'max-width:100%;';
+                                }
+
+                                if (height) {
+                                    style += `height:${height}px;`;
+                                } else {
+                                    style += 'height:auto;';
+                                }
+
+                                editor.focus();
+                                editor.insertHtml(`<p><img src="${response.url}" alt="" style="${style}"></p>`);
+                            } else {
+                                alert(response?.error?.message || 'Şəkil əlavə olunmadı');
+                            }
+                        })
+                        .catch(error => {
+                            console.error(error);
+                            alert('Upload zamanı xəta baş verdi');
+                        });
+                });
+            }
+        });
+    </script>
+    {{--<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -458,52 +711,7 @@
             }
 
         });
-    </script>
-
-    {{-- <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
-     <script>
-         document.addEventListener("DOMContentLoaded", function () {
-
-             document.querySelectorAll('.ckeditor4').forEach(function (el) {
-                 CKEDITOR.replace(el.id, {
-                     extraPlugins: 'mathjax,image2,uploadimage',
-                     height: 300,
-                     mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_HTML'
-                 });
-             });
-
-         });
-         function initQuestionEditors(card, qIndex) {
-
-             card.querySelectorAll('.ck-question-text').forEach(function (el) {
-
-                 // hər textarea üçün unik id
-                 if (!el.id) {
-                     el.id = `qtext_${qIndex}_${el.dataset.lang}_${Date.now()}_${Math.floor(Math.random()*1000)}`;
-                 }
-
-                 // artıq init olunubsa təkrar etmə
-                 if (CKEDITOR.instances[el.id]) {
-                     return;
-                 }
-
-                 CKEDITOR.replace(el.id, {
-                     extraPlugins: 'mathjax',
-                     height: 200,
-                     mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_HTML',
-                  /*   toolbar: [
-                         { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline' ] },
-                         { name: 'paragraph', items: [ 'NumberedList', 'BulletedList' ] },
-                         { name: 'insert', items: [ 'Image', 'Table', 'Mathjax' ] },
-                         { name: 'links', items: [ 'Link', 'Unlink' ] },
-                         { name: 'tools', items: [ 'Maximize' ] }
-                     ]*/
-                 });
-
-             });
-         }
-
-     </script>--}}
+    </script>--}}
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {

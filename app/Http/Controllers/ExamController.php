@@ -7,6 +7,8 @@ use App\Http\Requests\ExamRequest;
 use App\Models\Question;
 use App\Models\SchoolClass;
 use App\Models\Subject;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class ExamController extends Controller
 {
@@ -106,6 +108,43 @@ class ExamController extends Controller
             return redirect()->route('exams.index')->with('success', 'Imtahan silindi');
         } catch (\Throwable $e) {
             return back()->withErrors( 'Xəta baş verdi: ' . $e->getMessage());
+        }
+    }
+
+    public function upload(Request $request)
+    {
+        try {
+        if ($request->hasFile('upload')) {
+            $file = $request->file('upload');
+
+            $filename = time() . '_' . preg_replace('/\s+/', '_', $file->getClientOriginalName());
+            $path = $file->storeAs('uploads/ckeditor', $filename, 'public');
+
+            $url = asset('storage/' . $path);
+
+
+            return response()->json([
+                'uploaded' => 1,
+                'fileName' => $filename,
+                'url' => $url
+            ]);
+        }
+
+        return response()->json([
+            'uploaded' => 0,
+            'error' => [
+                'message' => 'Şəkil upload olmadı'
+            ]
+        ]);
+        } catch (\Throwable $e) {
+
+
+            return response()->json([
+                'uploaded' => 0,
+                'error' => [
+                    'message' => $e->getMessage()
+                ]
+            ], 500);
         }
     }
 }

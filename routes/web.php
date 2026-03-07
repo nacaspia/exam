@@ -38,6 +38,7 @@ Route::prefix('/admin')->middleware('check.ip')->group( function () {
         Route::resource('school-classes',SchoolClassController::class);
         Route::resource('subjects',SubjectController::class);
         Route::resource('questions',QuestionController::class);
+        Route::post('/ckeditor/upload', [ExamController::class, 'upload'])->name('ckeditor.upload');
         Route::resource('exams',ExamController::class);
         Route::resource('settings',SettingController::class);
 

@@ -6,12 +6,14 @@
     <div class="card-body">
         <ul class="nav nav-pills mb-3 question-tabs" role="tablist">
             @foreach(languages() as $k => $lang)
+                @if($lang->code === 'az')
                 <li class="nav-item" role="presentation">
                     <button class="nav-link @if($k==0) active @endif question-lang-tab"
                             type="button" data-bs-toggle="tab"
                             data-lang="{{ $lang->code }}"
                             data-bs-target="#"> {{ strtoupper($lang->code) }} </button>
                 </li>
+                @endif
             @endforeach
             <li class="nav-item" role="presentation">
                 <button class="nav-link question-other-tab" type="button" data-bs-toggle="tab" data-bs-target="#"> Digər
@@ -21,6 +23,7 @@
 
         <div class="tab-content question-tab-content">
             @foreach(languages() as $k => $lang)
+                @if($lang->code === 'az')
                 <div class="tab-pane fade @if($k==0) show active @endif question-lang-pane"
                      data-lang="{{ $lang->code }}" role="tabpanel">
                     <div class="row g-3">
@@ -34,6 +37,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             @endforeach
 
             {{-- OTHER --}}

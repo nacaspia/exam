@@ -7,6 +7,7 @@
     <div class="card-body">
         <ul class="nav nav-pills mb-3 question-tabs" role="tablist">
             @foreach(languages() as $k => $lang)
+                @if($lang->code === 'az')
                 <li class="nav-item" role="presentation">
                     <button class="nav-link @if($k==0) active @endif question-lang-tab"
                             type="button" data-bs-toggle="tab"
@@ -15,6 +16,7 @@
                         {{ strtoupper($lang->code) }}
                     </button>
                 </li>
+                @endif
             @endforeach
             <li class="nav-item" role="presentation">
                 <button class="nav-link question-other-tab" type="button"
@@ -27,25 +29,27 @@
 
         <div class="tab-content question-tab-content">
             @foreach(languages() as $k => $lang)
+                @if($lang->code === 'az')
                 <div class="tab-pane fade @if($k==0) show active @endif question-lang-pane"
                      id="q{{ $question['id'] }}_lang_{{ $lang->code }}"
                      data-lang="{{ $lang->code }}" role="tabpanel">
                     <div class="row g-3">
                         <div class="col-12">
-                            <label class="form-label">Başlıq ({{ $lang->code }})</label>
+                            <label class="form-label">Sual Başlıq ({{ $lang->code }})</label>
                             <input type="text" class="form-control q-title"
                                    data-lang="{{ $lang->code }}"
                                    name="questions[{{ $index }}][title][{{ $lang->code }}]"
                                    value="{{ $question['title'][$lang->code] ?? '' }}">
                         </div>
                         <div class="col-12">
-                            <label class="form-label">Mətn ({{ $lang->code }})</label>
-                            <textarea class="form-control q-text" rows="4"
+                            <label class="form-label">Sual haqqda Mətn ({{ $lang->code }})</label>
+                            <textarea class="ckeditor4 form-control q-text" rows="4"
                                       data-lang="{{ $lang->code }}"
                                       name="questions[{{ $index }}][text][{{ $lang->code }}]">{{ $question['text'][$lang->code] ?? '' }}</textarea>
                         </div>
                     </div>
                 </div>
+                @endif
             @endforeach
 
             {{-- OTHER --}}
@@ -81,6 +85,7 @@
                                 @foreach($question['options'] as $optIndex => $opt)
                                     <div class="row g-2 align-items-center option-item mb-2">
                                         @foreach(languages() as $lang)
+                                            @if($lang->code === 'az')
                                             <div class="col-md-3">
                                                 <input type="text" class="form-control option-text"
                                                        data-lang="{{ $lang->code }}"
@@ -88,11 +93,13 @@
                                                        value="{{ $opt['option'][$lang->code] ?? '' }}"
                                                        placeholder="Variant ({{ $lang->code }})">
                                             </div>
+                                            @endif
                                         @endforeach
                                         <div class="col-md-1 text-center">
                                             <input type="radio" class="form-check-input correct-option-radio"
                                                    name="questions[{{ $index }}][correct_option]"
                                                    value="{{ $optIndex }}" @if($opt['is_correct']) checked @endif>
+                                            Düzgün cavab
                                         </div>
                                         <div class="col-md-1 text-end">
                                             <button type="button" class="btn btn-sm btn-danger remove-option">Sil</button>
