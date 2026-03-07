@@ -30,6 +30,7 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <p><strong>{{ __('site.total_score') }}:</strong> {{ $examResult['total_score'] }}</p>
+                                <p><strong>{{ __('site.total_score') }} % :</strong> {{ $examResult['total_score'] }} {{ count($examResult['student_answers']) }}</p>
                                 <p><strong>{{ __('site.time') }}:</strong> {{ $examResult['time_spent'] }} {{ __('site.seconds') }}</p>
 
                                 @if($exam['show_result'])
