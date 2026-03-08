@@ -106,7 +106,6 @@
         </div>
 
         @include('errors.messages')
-
         <div class="row">
             <div class="col-12">
                 <div class="panel">

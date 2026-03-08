@@ -130,7 +130,7 @@
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label">Imtahan haqqda</label>
-                                            <textarea class="ckeditor4  form-control" name="text[az]" rows="3">{{ old('text.az', $exam['text']['az'] ?? '') }}</textarea>
+                                            <textarea class="ckeditor4  form-control" name="text[az]" rows="3">{!! old('text.az', $exam['text']['az'] ?? '') !!}</textarea>
                                         </div>
                                         {{-- SEO --}}
 {{--                                        <div class="col-12">--}}

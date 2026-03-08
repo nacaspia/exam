@@ -45,7 +45,7 @@
                             <label class="form-label">Sual haqqda Mətn ({{ $lang->code }})</label>
                             <textarea class="ckeditor4 form-control q-text" rows="4"
                                       data-lang="{{ $lang->code }}"
-                                      name="questions[{{ $index }}][text][{{ $lang->code }}]">{{ $question['text'][$lang->code] ?? '' }}</textarea>
+                                      name="questions[{{ $index }}][text][{{ $lang->code }}]">{!! $question['text'][$lang->code] ?? '' !!}</textarea>
                         </div>
                     </div>
                 </div>
@@ -123,7 +123,7 @@
                                   data-lang="{{ $lang->code }}"
                                   name="questions[{{ $index }}][options][{{ $optIndex }}][{{ $lang->code }}]"
                                   rows="3"
-                                  placeholder="Cavabı qeyd edin">{{ $opt['option'][$lang->code] ?? '' }}</textarea>
+                                  placeholder="Cavabı qeyd edin">{!! $opt['option'][$lang->code] ?? '' !!}</textarea>
                                                 </div>
                                             @endif
                                         @endforeach
@@ -154,7 +154,7 @@
                         <label class="form-label">Doğru cavab</label>
                         <textarea class="form-control correct-answer ck-question-correct-answer"
                                   name="questions[{{ $index }}][correct_answer]"
-                                  rows="3">{{ $question['short_answer']['correct_answer'] ?? '' }}</textarea>
+                                  rows="3">{!! $question['short_answer']['correct_answer'] ?? '' !!}</textarea>
                         {{--<input type="text" class="form-control correct-answer"
                                name="questions[{{ $index }}][correct_answer]"
                                value="{{ $question['short_answer']['correct_answer'] ?? ''}}">--}}
