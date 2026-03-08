@@ -399,7 +399,6 @@
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-
             const style = document.createElement('style');
             style.innerHTML = `.cke_notification { display: none !important; }`;
             document.head.appendChild(style);
@@ -410,6 +409,7 @@
                         editor.addCommand('openImageUploader', {
                             exec: function (editor) {
                                 const input = document.getElementById('editorImageUploader');
+
                                 if (!input) {
                                     alert('editorImageUploader tapılmadı');
                                     return;
@@ -431,24 +431,6 @@
                 });
             }
 
-            function wrapLatexForEditor(html) {
-                if (!html) return html;
-
-                html = html.replace(/(<span class="math-tex">[\s\S]*?<\/span>)/g, '%%MATH_WIDGET%%$1%%END_MATH_WIDGET%%');
-
-                html = html.replace(/\\\(([\s\S]*?)\\\)/g, function (match) {
-                    return '<span class="math-tex">' + match + '</span>';
-                });
-
-                html = html.replace(/\\\[([\s\S]*?)\\\]/g, function (match) {
-                    return '<span class="math-tex">' + match + '</span>';
-                });
-
-                html = html.replace(/%%MATH_WIDGET%%([\s\S]*?)%%END_MATH_WIDGET%%/g, '$1');
-
-                return html;
-            }
-
             window.initEditor = function (el, height = 300) {
                 if (!el) return;
 
@@ -466,7 +448,7 @@
                     removePlugins: 'image,uploadimage,image2',
                     mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_HTML',
                     allowedContent: true,
-                    extraAllowedContent: 'img[*]{*}(*) span(math-tex)',
+                    extraAllowedContent: 'img[*]{*}(*) span[*]{*}(*)',
 
                     toolbar: [
                         { name: 'document', items: ['Source'] },
@@ -480,24 +462,6 @@
                     ],
 
                     on: {
-                        instanceReady: function (evt) {
-                            const editor = evt.editor;
-                            const originalData = editor.getData();
-                            const convertedData = wrapLatexForEditor(originalData);
-
-                            if (originalData !== convertedData) {
-                                editor.setData(convertedData, function () {
-                                    if (editor.widgets && editor.widgets.checkWidgets) {
-                                        editor.widgets.checkWidgets();
-                                    }
-                                });
-                            } else {
-                                if (editor.widgets && editor.widgets.checkWidgets) {
-                                    editor.widgets.checkWidgets();
-                                }
-                            }
-                        },
-
                         doubleclick: function (evt) {
                             const element = evt.data.element;
 
