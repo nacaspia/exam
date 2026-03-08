@@ -430,7 +430,40 @@
                     }
                 });
             }
+            function wrapLatexForEditor(html) {
+                if (!html) return html;
 
+                html = html.replace(/(<span class="math-tex">[\s\S]*?<\/span>)/g, '%%MATH_WIDGET%%$1%%END_MATH_WIDGET%%');
+
+                html = html.replace(/\\\(([\s\S]*?)\\\)/g, function (match) {
+                    return '<span class="math-tex">' + match + '</span>';
+                });
+
+                html = html.replace(/\\\[([\s\S]*?)\\\]/g, function (match) {
+                    return '<span class="math-tex">' + match + '</span>';
+                });
+
+                html = html.replace(/%%MATH_WIDGET%%([\s\S]*?)%%END_MATH_WIDGET%%/g, '$1');
+
+                return html;
+            }
+            instanceReady: function (evt) {
+                const editor = evt.editor;
+                const originalData = editor.getData();
+                const convertedData = wrapLatexForEditor(originalData);
+
+                if (originalData !== convertedData) {
+                    editor.setData(convertedData, function () {
+                        if (editor.widgets && editor.widgets.checkWidgets) {
+                            editor.widgets.checkWidgets();
+                        }
+                    });
+                } else {
+                    if (editor.widgets && editor.widgets.checkWidgets) {
+                        editor.widgets.checkWidgets();
+                    }
+                }
+            },
             window.initEditor = function (el, height = 300) {
                 if (!el) return;
 
@@ -463,6 +496,29 @@
                     ],
 
                     on: {
+                        instanceReady: function (evt) {
+                            const editor = evt.editor;
+                            let data = editor.getData();
+
+                            // raw inline latex: \( ... \)
+                            data = data.replace(/\\\(([\s\S]*?)\\\)/g, function(match) {
+                                if (match.includes('math-tex')) return match;
+                                return '<span class="math-tex">' + match + '</span>';
+                            });
+
+                            // raw block latex: \[ ... \]
+                            data = data.replace(/\\\[([\s\S]*?)\\\]/g, function(match) {
+                                if (match.includes('math-tex')) return match;
+                                return '<span class="math-tex">' + match + '</span>';
+                            });
+
+                            editor.setData(data, function () {
+                                if (editor.widgets && editor.widgets.checkWidgets) {
+                                    editor.widgets.checkWidgets();
+                                }
+                            });
+                        },
+
                         doubleclick: function (evt) {
                             const element = evt.data.element;
 
