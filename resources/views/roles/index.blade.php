@@ -41,14 +41,20 @@
                                         <div class="digi-dropdown dropdown d-inline-block">
                                             <button class="btn btn-sm btn-outline-primary" data-bs-toggle="dropdown" aria-expanded="false">{{ __('content.choose') }} <i class="fa-regular fa-angle-down"></i></button>
                                             <ul class="digi-dropdown-menu dropdown-menu dropdown-slim dropdown-menu-sm">
+                                                @if(cms_user()->hasPermission('role-index'))
                                                 <li><a href="{{ route('roles.show',$role['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-eye"></i></span> {{ __('content.view') }}</a></li>
+                                                @endif
+                                                @if(cms_user()->hasPermission('role-edit'))
                                                 <li><a href="{{ route('roles.edit',$role['id']) }}" class="dropdown-item"><span class="dropdown-icon"><i class="fa-light fa-pen-to-square"></i></span>  {{ __('content.edit') }}</a></li>
+                                                @endif
                                                 <!-- Delete düyməsi (modal açır) -->
+                                                @if(cms_user()->hasPermission('role-delete'))
                                                 <li>
                                                     <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $role['id'] }}">
                                                         <span class="dropdown-icon"><i class="fa-light fa-trash-can"></i></span> {{ __('content.delete') }}
                                                     </button>
                                                 </li>
+                                                @endif
 
                                             </ul>
                                         </div>
