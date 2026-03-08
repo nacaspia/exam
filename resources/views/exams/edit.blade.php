@@ -523,49 +523,13 @@
                 });
             };
 
-            function renderMathPreview(textarea) {
-                const wrapper = textarea.closest('.col-md-7, .col-12, .col-md-12') || textarea.parentElement;
-                const preview = wrapper.querySelector('.math-preview');
-                if (!preview) return;
-
-                let value = textarea.value || '';
-
-                value = value.trim();
-
-                if (!value) {
-                    preview.innerHTML = '<span style="color:#999;">Preview görünəcək</span>';
-                    return;
-                }
-
-                preview.innerHTML = value;
-
-                if (window.MathJax && window.MathJax.typesetPromise) {
-                    MathJax.typesetClear([preview]);
-                    MathJax.typesetPromise([preview]).catch(err => console.error(err));
-                }
-            }
-
-            function bindMathPreview(container = document) {
-                container.querySelectorAll('.math-input').forEach(textarea => {
-                    if (textarea.dataset.previewBound === '1') return;
-
-                    textarea.dataset.previewBound = '1';
-
-                    textarea.addEventListener('input', function () {
-                        renderMathPreview(this);
-                    });
-
-                    renderMathPreview(textarea);
-                });
-            }
-
             window.initQuestionEditors = function (card, qIndex) {
                 card.querySelectorAll('.ck-question-text').forEach(el => window.initEditor(el, 200));
                 card.querySelectorAll('.ck-question-correct-answer').forEach(el => window.initEditor(el, 150));
+                card.querySelectorAll('.ck-option-text').forEach(el => window.initEditor(el, 150));
             };
 
             document.querySelectorAll('.ckeditor4').forEach(el => window.initEditor(el, 300));
-            bindMathPreview(document);
 
             const uploader = document.getElementById('editorImageUploader');
 
@@ -710,34 +674,17 @@
                 card.querySelector(".correct-answer").name = `questions[${qIndex}][correct_answer]`;
                 refreshOptionNames(card, qIndex);
             }
-
-
-
-            function bindMathPreview(container = document) {
-                container.querySelectorAll('.math-input').forEach(textarea => {
-                    if (textarea.dataset.previewBound === '1') return;
-
-                    textarea.dataset.previewBound = '1';
-
-                    textarea.addEventListener('input', function () {
-                        renderMathPreview(this);
-                    });
-
-                    renderMathPreview(textarea);
-                });
-            }
             function addOption(card, qIndex){
                 const node = optionTemplate.content.cloneNode(true);
                 card.querySelector(".options-wrapper").appendChild(node);
 
                 const addedOption = card.querySelector(".options-wrapper .option-item:last-child");
                 if (addedOption) {
-                    bindMathPreview(addedOption);
+                    addedOption.querySelectorAll('.ck-option-text').forEach(el => window.initEditor(el, 150));
                 }
 
                 refreshOptionNames(card, qIndex);
             }
-
             function reIndexAllQuestions(){
                 questionsWrapper.querySelectorAll(".question-item").forEach((card, index)=>{
                     card.querySelector(".question-head").innerText = `Sual #${index+1}`;
@@ -829,7 +776,6 @@
                 window.initQuestionEditors(card, qIndex);
                 toggleBlocks(card);
                 refreshNames(card, qIndex);
-                bindMathPreview(card);
 
                 typeSelect.addEventListener("change", function(){
                     toggleBlocks(card);

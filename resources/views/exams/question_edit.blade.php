@@ -120,13 +120,11 @@
                                         @foreach(languages() as $lang)
                                             @if($lang->code === 'az')
                                                 <div class="col-md-7">
-                                                    <textarea class="form-control option-text math-input"
+                                                    <textarea class="form-control option-text ck-option-text"
                                                               data-lang="{{ $lang->code }}"
                                                               name="questions[{{ $index }}][options][{{ $optIndex }}][{{ $lang->code }}]"
                                                               rows="3"
-                                                              placeholder="Cavabı qeyd edin">{{ trim(strip_tags($opt['option'][$lang->code] ?? '')) }}</textarea>
-
-                                                    <div class="math-preview mt-2 p-2 border rounded bg-light"></div>
+                                                              placeholder="Cavabı qeyd edin">{!! $opt['option'][$lang->code] ?? '' !!}</textarea>
                                                 </div>
                                             @endif
                                         @endforeach
