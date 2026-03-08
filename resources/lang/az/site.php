@@ -75,5 +75,6 @@ return [
     'register_success' => 'Qeydiyyat uğurla tamamlandlı zəhmət olmasa hesabı təsdiq üçün e-poçtunuzu yoxlayın.',
     'register_errorr' => 'Sistem xəttası!',
     'enter_email' => 'E-poçt ünvanınızı qeyd edin',
-    'send' => 'Göndər'
+    'send' => 'Göndər',
+    'start_exam' => 'İmtahan başla'
 ];

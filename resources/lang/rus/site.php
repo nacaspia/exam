@@ -70,5 +70,6 @@ return [
     'total_score' => 'Общий балл',
     'seconds' => 'секунды',
     'result_is_available' => 'Результат доступен',
-    'result_will_be_checked' => 'Результат будет проверен учителем'
+    'result_will_be_checked' => 'Результат будет проверен учителем',
+    'start_exam' => 'Start exam'
 ];

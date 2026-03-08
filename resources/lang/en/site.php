@@ -70,5 +70,6 @@ return [
     'total_score' => 'Total Score',
     'seconds' => 'seconds',
     'result_is_available' => 'Result is available',
-    'result_will_be_checked' => 'Result will be checked by the teacher'
+    'result_will_be_checked' => 'Result will be checked by the teacher',
+    'start_exam' => 'Start exam'
 ];

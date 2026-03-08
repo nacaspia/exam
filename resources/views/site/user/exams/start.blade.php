@@ -24,7 +24,9 @@
             <div class="card mt-3">
                 <div class="card-body">
                     <p><strong>{{ __('site.price') }}:</strong> {{ $exam->price }} AZN</p>
+                    @if($exam->duration)
                     <p><strong>{{ __('site.time') }}:</strong> {{ $exam->duration }} {{ __('site.minute') }}</p>
+                    @endif
                     <p><strong>{{ __('site.question_count') }}:</strong> {{ $exam->question_count }} {{ __('site.question') }}</p>
                     @if($exam->is_paid)
                         <form action="{{ route('site.user.exams.pay', [ app()->getLocale(),  $exam->id]) }}" method="POST">

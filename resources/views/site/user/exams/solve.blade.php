@@ -23,8 +23,6 @@
                 ⏳ {{ __('site.time_remaining') }}:
                 @if($exam->duration_type === 'timed')
                     <span id="timer"></span>
-                @else
-                    {{ __('site.unlimited_time') }}
                 @endif
             </div>
 
@@ -87,6 +85,18 @@
 </div>
 @endsection
 @section('site.user.js')
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
     @if($exam->duration_type === 'timed')
         <script>
             let seconds = {{ $exam->duration * 60 }};
