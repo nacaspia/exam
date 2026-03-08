@@ -119,6 +119,18 @@
     <!-- main content end -->
 @endsection
 @section('js')
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
     <script src="{{ asset('assets/vendor/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/jquery.overlayScrollbars.min.js') }}"></script>
