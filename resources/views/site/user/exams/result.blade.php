@@ -97,7 +97,7 @@
                             {{ __('site.correct_answer') }}:
 
                             @if($answer->question->type === 'multiple_choice')
-                                @dd($answer->question->option)
+                                @dd($answer->question->options)
                                 @php
                                     $correctData = correctOptionData($answer->question->options ?? []);
                                 @endphp
