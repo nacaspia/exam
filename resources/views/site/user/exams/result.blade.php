@@ -103,7 +103,7 @@
 
                                 @if($correctData)
                                     <strong>{{ $correctData['letter'] }})</strong>
-                                    {!! optionTextByLocale($correctData['option'], app()->getLocale()) !!}
+                                    {!! optionTextByLocale($correctData, app()->getLocale()) !!}
                                 @endif
                             @else
                                 {!! $answer->question->answer->answer ?? '' !!}
