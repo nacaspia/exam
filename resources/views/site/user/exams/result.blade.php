@@ -8,6 +8,7 @@
         <div class="card mb-3">
             <div class="card-body">
                 <p><strong>{{ __('site.total_score') }}:</strong> {{ $result->total_score }}</p>
+                <p><strong>{{ __('site.total_score') }} % :</strong> {{ count($result->studentAnswers) > 0 ? round(($examResult['total_score'] / count($result->studentAnswers)) * 100, 2) : 0 }}%</p>
                 <p><strong>{{ __('site.time') }}:</strong> {{ $result->time_spent }} {{ __('site.seconds') }}</p>
 
                 @if($exam->show_result)
