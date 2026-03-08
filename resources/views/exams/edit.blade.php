@@ -528,10 +528,19 @@
                 const preview = wrapper.querySelector('.math-preview');
                 if (!preview) return;
 
-                const value = textarea.value || '';
-                preview.innerHTML = value.trim() ? value : '<span style="color:#999;">Preview görünəcək</span>';
+                let value = textarea.value || '';
+
+                value = value.trim();
+
+                if (!value) {
+                    preview.innerHTML = '<span style="color:#999;">Preview görünəcək</span>';
+                    return;
+                }
+
+                preview.innerHTML = value;
 
                 if (window.MathJax && window.MathJax.typesetPromise) {
+                    MathJax.typesetClear([preview]);
                     MathJax.typesetPromise([preview]).catch(err => console.error(err));
                 }
             }
@@ -702,18 +711,7 @@
                 refreshOptionNames(card, qIndex);
             }
 
-            function renderMathPreview(textarea) {
-                const wrapper = textarea.closest('.col-md-7, .col-12, .col-md-12') || textarea.parentElement;
-                const preview = wrapper.querySelector('.math-preview');
-                if (!preview) return;
 
-                const value = textarea.value || '';
-                preview.innerHTML = value.trim() ? value : '<span style="color:#999;">Preview görünəcək</span>';
-
-                if (window.MathJax && window.MathJax.typesetPromise) {
-                    MathJax.typesetPromise([preview]).catch(err => console.error(err));
-                }
-            }
 
             function bindMathPreview(container = document) {
                 container.querySelectorAll('.math-input').forEach(textarea => {
@@ -831,6 +829,7 @@
                 window.initQuestionEditors(card, qIndex);
                 toggleBlocks(card);
                 refreshNames(card, qIndex);
+                bindMathPreview(card);
 
                 typeSelect.addEventListener("change", function(){
                     toggleBlocks(card);
@@ -840,7 +839,6 @@
                     }
                 });
             });
-
             addQuestionBtn.addEventListener("click", ()=>addQuestion());
 
         });
