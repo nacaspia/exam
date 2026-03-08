@@ -46,6 +46,7 @@
                             <textarea class="ckeditor4 form-control q-text" rows="4"
                                       data-lang="{{ $lang->code }}"
                                       name="questions[{{ $index }}][text][{{ $lang->code }}]">{!! $question['text'][$lang->code] ?? '' !!}</textarea>
+
                         </div>
                     </div>
                 </div>
@@ -119,11 +120,15 @@
                                         @foreach(languages() as $lang)
                                             @if($lang->code === 'az')
                                                 <div class="col-md-7">
-                        <textarea class="form-control option-text ck-option-text"
+                        <textarea class="form-control option-text math-input"
                                   data-lang="{{ $lang->code }}"
                                   name="questions[{{ $index }}][options][{{ $optIndex }}][{{ $lang->code }}]"
                                   rows="3"
-                                  placeholder="Cavabı qeyd edin">{!! $opt['option'][$lang->code] ?? '' !!}</textarea>
+                                  placeholder="Cavabı qeyd edin">{{ $opt['option'][$lang->code] ?? '' }}</textarea>
+
+                                                    <div class="math-preview mt-2 p-2 border rounded bg-light">
+                                                        {!! $opt['option'][$lang->code] ?? '' !!}
+                                                    </div>
                                                 </div>
                                             @endif
                                         @endforeach

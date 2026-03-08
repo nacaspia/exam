@@ -16,6 +16,18 @@
     <style>
         .input-group-text { cursor: pointer; }
         .input-group-text i { font-size: 1.2rem; }
+
+        .math-preview {
+            min-height: 48px;
+            color: #333;
+            background: #f8f9fa;
+            overflow-x: auto;
+        }
+
+        .math-preview img {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 @endsection
 
@@ -393,12 +405,28 @@
             }
         });
     </script>
+
     <script src="{{ asset('assets/vendor/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
+
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
+
             const style = document.createElement('style');
             style.innerHTML = `.cke_notification { display: none !important; }`;
             document.head.appendChild(style);
@@ -495,13 +523,40 @@
                 });
             };
 
+            function renderMathPreview(textarea) {
+                const wrapper = textarea.closest('.col-md-7, .col-12, .col-md-12') || textarea.parentElement;
+                const preview = wrapper.querySelector('.math-preview');
+                if (!preview) return;
+
+                const value = textarea.value || '';
+                preview.innerHTML = value.trim() ? value : '<span style="color:#999;">Preview görünəcək</span>';
+
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    MathJax.typesetPromise([preview]).catch(err => console.error(err));
+                }
+            }
+
+            function bindMathPreview(container = document) {
+                container.querySelectorAll('.math-input').forEach(textarea => {
+                    if (textarea.dataset.previewBound === '1') return;
+
+                    textarea.dataset.previewBound = '1';
+
+                    textarea.addEventListener('input', function () {
+                        renderMathPreview(this);
+                    });
+
+                    renderMathPreview(textarea);
+                });
+            }
+
             window.initQuestionEditors = function (card, qIndex) {
                 card.querySelectorAll('.ck-question-text').forEach(el => window.initEditor(el, 200));
                 card.querySelectorAll('.ck-question-correct-answer').forEach(el => window.initEditor(el, 150));
-                card.querySelectorAll('.ck-option-text').forEach(el => window.initEditor(el, 120));
             };
 
             document.querySelectorAll('.ckeditor4').forEach(el => window.initEditor(el, 300));
+            bindMathPreview(document);
 
             const uploader = document.getElementById('editorImageUploader');
 
@@ -563,6 +618,7 @@
             }
         });
     </script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
 
@@ -646,13 +702,39 @@
                 refreshOptionNames(card, qIndex);
             }
 
+            function renderMathPreview(textarea) {
+                const wrapper = textarea.closest('.col-md-7, .col-12, .col-md-12') || textarea.parentElement;
+                const preview = wrapper.querySelector('.math-preview');
+                if (!preview) return;
+
+                const value = textarea.value || '';
+                preview.innerHTML = value.trim() ? value : '<span style="color:#999;">Preview görünəcək</span>';
+
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    MathJax.typesetPromise([preview]).catch(err => console.error(err));
+                }
+            }
+
+            function bindMathPreview(container = document) {
+                container.querySelectorAll('.math-input').forEach(textarea => {
+                    if (textarea.dataset.previewBound === '1') return;
+
+                    textarea.dataset.previewBound = '1';
+
+                    textarea.addEventListener('input', function () {
+                        renderMathPreview(this);
+                    });
+
+                    renderMathPreview(textarea);
+                });
+            }
             function addOption(card, qIndex){
                 const node = optionTemplate.content.cloneNode(true);
                 card.querySelector(".options-wrapper").appendChild(node);
 
                 const addedOption = card.querySelector(".options-wrapper .option-item:last-child");
                 if (addedOption) {
-                    addedOption.querySelectorAll('.ck-option-text').forEach(el => window.initEditor(el, 120));
+                    bindMathPreview(addedOption);
                 }
 
                 refreshOptionNames(card, qIndex);

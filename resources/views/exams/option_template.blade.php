@@ -4,10 +4,12 @@
     </div>
 
     <div class="col-md-7">
-        <textarea class="form-control option-text ck-option-text"
+        <textarea class="form-control option-text math-input"
                   data-lang="az"
                   rows="3"
                   placeholder="Cavabı qeyd edin"></textarea>
+
+        <div class="math-preview mt-2 p-2 border rounded bg-light"></div>
     </div>
 
     <div class="col-md-3">
