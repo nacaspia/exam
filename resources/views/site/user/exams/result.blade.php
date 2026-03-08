@@ -1,28 +1,66 @@
 @extends('site.user.layouts.app')
 
 @section('site.user.css')
+    <style>
+        .exam-result-card .question-title {
+            font-weight: 700;
+            font-size: 28px;
+            margin-bottom: 14px;
+        }
+
+        .exam-answer-block {
+            margin-top: 14px;
+        }
+
+        .exam-answer-line {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .exam-option-letter {
+            display: inline-block;
+            min-width: 32px;
+            font-weight: 700;
+        }
+
+        .exam-option-text {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .exam-correct-answer-box {
+            margin-top: 14px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+
+        .exam-question-text {
+            margin-top: 12px;
+        }
+
+        .exam-question-text img,
+        .exam-option-text img,
+        .exam-correct-answer-box img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 @endsection
 
 @php
-    function optionLetterByOptions($options, $optionId) {
+    function getOptionLetter($index) {
+        return chr(65 + $index);
+    }
+
+    function findSelectedOptionData($options, $optionId) {
         foreach (($options ?? []) as $index => $opt) {
             $optId = is_array($opt) ? ($opt['id'] ?? null) : ($opt->id ?? null);
 
             if ($optId == $optionId) {
-                return chr(65 + $index);
-            }
-        }
-        return null;
-    }
-
-    function correctOptionData($options) {
-        foreach (($options ?? []) as $index => $opt) {
-
-            $isCorrect = is_array($opt) ? ($opt['is_correct'] ?? 0) : ($opt->is_correct ?? 0);
-            if ($isCorrect == 1) {
                 return [
-                    'letter' => chr(65 + $index),
-                    'option' => $opt['option'],
+                    'letter' => getOptionLetter($index),
+                    'option' => $opt,
                 ];
             }
         }
@@ -30,17 +68,33 @@
         return null;
     }
 
-    function optionTextByLocale($option, $locale) {
-        if (!$option) return '';
+    function findCorrectOptionData($options) {
+        foreach (($options ?? []) as $index => $opt) {
+            $isCorrect = is_array($opt) ? ($opt['is_correct'] ?? 0) : ($opt->is_correct ?? 0);
+
+            if ((int)$isCorrect === 1) {
+                return [
+                    'letter' => getOptionLetter($index),
+                    'option' => $opt,
+                ];
+            }
+        }
+
+        return null;
+    }
+
+    function getLocalizedOptionText($option, $locale) {
+        if (!$option) {
+            return '';
+        }
 
         $optionText = is_array($option) ? ($option['option'] ?? []) : ($option->option ?? []);
-
         return $optionText[$locale] ?? '';
     }
 @endphp
 
 @section('site.user.content')
-    <div class="container mt-3">
+    <div class="container mt-3 exam-result-card">
         <h2>{{ __('site.result') }}: {{ $exam->title[app()->getLocale()] ?? '' }}</h2>
 
         <div class="card mb-3">
@@ -53,9 +107,9 @@
                 <p><strong>{{ __('site.time') }}:</strong> {{ $result->time_spent }} {{ __('site.seconds') }}</p>
 
                 @if($exam->show_result)
-                    <p class="text-success">{{ __('site.result_is_available') }}</p>
+                    <p class="text-success mb-0">{{ __('site.result_is_available') }}</p>
                 @else
-                    <p class="text-warning">{{ __('site.result_will_be_checked') }}</p>
+                    <p class="text-warning mb-0">{{ __('site.result_will_be_checked') }}</p>
                 @endif
             </div>
         </div>
@@ -63,53 +117,79 @@
         <h4>{{ __('site.questions_and_answers') }}</h4>
 
         @foreach($result->studentAnswers as $answer)
-            <div class="card mb-2">
+            @php
+                $locale = app()->getLocale();
+                $question = $answer->question;
+                $options = $question->options ?? [];
+                $selectedData = $question->type === 'multiple_choice'
+                    ? findSelectedOptionData($options, $answer->question_option_id)
+                    : null;
+                $correctData = $question->type === 'multiple_choice'
+                    ? findCorrectOptionData($options)
+                    : null;
+            @endphp
+
+            <div class="card mb-3">
                 <div class="card-body">
-                    <strong>
-                        {{ $loop->iteration }}.
-                        {{ $answer->question->title[app()->getLocale()] ?? 'No Title' }}
-                    </strong>
+                    <div class="question-title">
+                        {{ $loop->iteration }}. {{ $question->title[$locale] ?? 'No Title' }}
+                    </div>
 
-                    <p>
-                        {{ __('site.your_answer') }}:
+                    @if(!empty($question->text[$locale]))
+                        <div class="exam-question-text">
+                            {!! $question->text[$locale] !!}
+                        </div>
+                    @endif
 
-                        @if($answer->question->type === 'multiple_choice')
-                            @php
-                                $selectedLetter = optionLetterByOptions($answer->question->options ?? [], $answer->question_option_id);
-                            @endphp
+                    <div class="exam-answer-block">
+                        <div class="exam-answer-line">
+                            <strong>{{ __('site.your_answer') }}:</strong>
 
-                            @if($selectedLetter)
-                                <strong>{{ $selectedLetter }})</strong>
-                            @endif
-{{--                        @dd($answer)--}}
-                            {!! optionTextByLocale($answer->questionOption, app()->getLocale()) !!}
-                        @else
-                            {!! $answer->answer_text ?? '' !!}
-                        @endif
-                    </p>
-
-                    @if($answer->is_correct)
-                        <p class="text-success">✅ {{ __('site.true') }}</p>
-                    @else
-                        <p class="text-danger">❌ {{ __('site.false') }}</p>
-
-                        <p>
-                            {{ __('site.correct_answer') }}:
-
-                            @if($answer->question->type === 'multiple_choice')
-                                @php
-                                    $correctData = correctOptionData($answer->question->options ?? []);
-                                @endphp
-
-                                @if($correctData)
-                                    <strong>{{ $correctData['letter'] }})</strong>
-                                    {!! optionTextByLocale($correctData, app()->getLocale()) !!}
+                            @if($question->type === 'multiple_choice')
+                                @if($selectedData)
+                                    <span class="exam-option-letter">{{ $selectedData['letter'] }})</span>
+                                    <span class="exam-option-text">
+                                        {!! getLocalizedOptionText($selectedData['option'], $locale) !!}
+                                    </span>
+                                @else
+                                    <span>-</span>
                                 @endif
                             @else
-                                {!! $answer->question->answer->answer ?? '' !!}
+                                {!! $answer->answer_text ?? '-' !!}
                             @endif
-                        </p>
-                    @endif
+                        </div>
+
+                        @if($answer->is_correct)
+                            <div class="exam-answer-line text-success">
+                                ✅ {{ __('site.true') }}
+                            </div>
+                        @else
+                            <div class="exam-answer-line text-danger">
+                                ❌ {{ __('site.false') }}
+                            </div>
+
+                            <div class="exam-correct-answer-box">
+                                <strong>{{ __('site.correct_answer') }}:</strong>
+
+                                @if($question->type === 'multiple_choice')
+                                    @if($correctData)
+                                        <div class="mt-2">
+                                            <span class="exam-option-letter">{{ $correctData['letter'] }})</span>
+                                            <span class="exam-option-text">
+                                                {!! getLocalizedOptionText($correctData['option'], $locale) !!}
+                                            </span>
+                                        </div>
+                                    @else
+                                        <div class="mt-2">-</div>
+                                    @endif
+                                @else
+                                    <div class="mt-2">
+                                        {!! $question->answer->answer ?? '-' !!}
+                                    </div>
+                                @endif
+                            </div>
+                        @endif
+                    </div>
                 </div>
             </div>
         @endforeach
