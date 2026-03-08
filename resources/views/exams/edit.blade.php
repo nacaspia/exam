@@ -133,39 +133,39 @@
                                             <textarea class="ckeditor4  form-control" name="text[az]" rows="3">{{ old('text.az', $exam['text']['az'] ?? '') }}</textarea>
                                         </div>
                                         {{-- SEO --}}
-                                        <div class="col-12">
-                                            <label class="form-label">Meta title </label>
-                                            <input type="text" class="form-control js-meta-title"
-                                                   name="meta_title[az]"
-                                                   value="{{ old('meta_title.az', $exam['seo']['meta_title']['az'] ?? '') }}"
-                                                   placeholder="Boş burax → title-dan auto dolacaq">
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="form-label">Meta description</label>
-                                            <textarea class="form-control js-meta-text"
-                                                      name="meta_text[az]" rows="3"
-                                                      placeholder="Boş burax → title-dan auto dolacaq">{{ old('meta_text.az', $exam['seo']['meta_text']['az'] ?? '') }}</textarea>
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="form-label">Meta keywords </label>
-                                            <input type="text" class="form-control js-meta-keyword"
-                                                   name="meta_keywords[az]"
-                                                   value="{{ old('meta_keywords.az', $exam['seo']['meta_keywords']['az'] ?? '') }}"
-                                                   placeholder="keyword1, keyword2">
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="form-label">OG title</label>
-                                            <input type="text" class="form-control js-og-title"
-                                                   name="og_title[az]"
-                                                   value="{{ old('og_title.az', $exam['seo']['og_title']['az'] ?? '') }}"
-                                                   placeholder="Boş burax → meta title-dan götürüləcək">
-                                        </div>
-                                        <div class="col-12">
-                                            <label class="form-label">OG description</label>
-                                            <textarea class="form-control js-og-text"
-                                                      name="og_text[az]" rows="2"
-                                                      placeholder="Boş burax → meta description-dan götürüləcək">{{ old('og_text.az', $exam['seo']['og_text']['az'] ?? '') }}</textarea>
-                                        </div>
+{{--                                        <div class="col-12">--}}
+{{--                                            <label class="form-label">Meta title </label>--}}
+{{--                                            <input type="text" class="form-control js-meta-title"--}}
+{{--                                                   name="meta_title[az]"--}}
+{{--                                                   value="{{ old('meta_title.az', $exam['seo']['meta_title']['az'] ?? '') }}"--}}
+{{--                                                   placeholder="Boş burax → title-dan auto dolacaq">--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-12">--}}
+{{--                                            <label class="form-label">Meta description</label>--}}
+{{--                                            <textarea class="form-control js-meta-text"--}}
+{{--                                                      name="meta_text[az]" rows="3"--}}
+{{--                                                      placeholder="Boş burax → title-dan auto dolacaq">{{ old('meta_text.az', $exam['seo']['meta_text']['az'] ?? '') }}</textarea>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-12">--}}
+{{--                                            <label class="form-label">Meta keywords </label>--}}
+{{--                                            <input type="text" class="form-control js-meta-keyword"--}}
+{{--                                                   name="meta_keywords[az]"--}}
+{{--                                                   value="{{ old('meta_keywords.az', $exam['seo']['meta_keywords']['az'] ?? '') }}"--}}
+{{--                                                   placeholder="keyword1, keyword2">--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-12">--}}
+{{--                                            <label class="form-label">OG title</label>--}}
+{{--                                            <input type="text" class="form-control js-og-title"--}}
+{{--                                                   name="og_title[az]"--}}
+{{--                                                   value="{{ old('og_title.az', $exam['seo']['og_title']['az'] ?? '') }}"--}}
+{{--                                                   placeholder="Boş burax → meta title-dan götürüləcək">--}}
+{{--                                        </div>--}}
+{{--                                        <div class="col-12">--}}
+{{--                                            <label class="form-label">OG description</label>--}}
+{{--                                            <textarea class="form-control js-og-text"--}}
+{{--                                                      name="og_text[az]" rows="2"--}}
+{{--                                                      placeholder="Boş burax → meta description-dan götürüləcək">{{ old('og_text.az', $exam['seo']['og_text']['az'] ?? '') }}</textarea>--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
 
