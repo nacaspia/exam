@@ -18,11 +18,11 @@
     function correctOptionData($options) {
         foreach (($options ?? []) as $index => $opt) {
             $isCorrect = is_array($opt) ? ($opt['is_correct'] ?? 0) : ($opt->is_correct ?? 0);
-
+            dd($isCorrect);
             if ($isCorrect == 1) {
                 return [
                     'letter' => chr(65 + $index),
-                    'option' => $opt,
+                    'option' => $opt['option'],
                 ];
             }
         }
@@ -97,7 +97,6 @@
                             {{ __('site.correct_answer') }}:
 
                             @if($answer->question->type === 'multiple_choice')
-                                @dd($answer->question->options)
                                 @php
                                     $correctData = correctOptionData($answer->question->options ?? []);
                                 @endphp
