@@ -26,6 +26,7 @@
                 <a href="{{ route('exams.index') }}" class="sidebar-link">{{ __('content.exams') }}</a>
             </li>
             @endif
+            @if(cms_user()->hasPermission('users-index'))
             <li class="sidebar-item">
                 <a role="button" class="sidebar-link-group-title has-sub">{{ __('content.user_abouts') }}</a>
                 <ul class="sidebar-link-group">
@@ -36,6 +37,8 @@
                     @endif
                 </ul>
             </li>
+            @endif
+            @if(cms_user()->hasPermission('cms-user-index') || cms_user()->hasPermission('role-index'))
             <li class="sidebar-item">
                 <a role="button" class="sidebar-link-group-title has-sub">{{ __('content.cms_users') }}</a>
                 <ul class="sidebar-link-group">
@@ -51,6 +54,8 @@
                     @endif
                 </ul>
             </li>
+            @endif
+            @if(cms_user()->hasPermission('languages-index') || cms_user()->hasPermission('settings-index'))
             <li class="sidebar-item">
                 <a role="button" class="sidebar-link-group-title has-sub">{{ __('content.settings') }}</a>
                 <ul class="sidebar-link-group">
@@ -66,6 +71,7 @@
                     @endif
                 </ul>
             </li>
+            @endif
         </ul>
     </div>
 </div>
