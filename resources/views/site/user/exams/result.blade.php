@@ -16,7 +16,6 @@
     }
 
     function correctOptionData($options) {
-        dd($options);
         foreach (($options ?? []) as $index => $opt) {
 
             $isCorrect = is_array($opt) ? ($opt['is_correct'] ?? 0) : ($opt->is_correct ?? 0);
