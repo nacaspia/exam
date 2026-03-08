@@ -81,8 +81,8 @@
                             @if($selectedLetter)
                                 <strong>{{ $selectedLetter }})</strong>
                             @endif
-                        @dd($answer)
-                            {!! optionTextByLocale($answer->question_option, app()->getLocale()) !!}
+{{--                        @dd($answer)--}}
+                            {!! optionTextByLocale($answer->questionOption, app()->getLocale()) !!}
                         @else
                             {!! $answer->answer_text ?? '' !!}
                         @endif
