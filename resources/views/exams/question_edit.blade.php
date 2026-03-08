@@ -120,13 +120,13 @@
                                         @foreach(languages() as $lang)
                                             @if($lang->code === 'az')
                                                 <div class="col-md-7">
-                                                    <textarea class="ckeditor4  form-control option-text math-input"
+                                                    <textarea class="form-control option-text math-input"
                                                               data-lang="{{ $lang->code }}"
                                                               name="questions[{{ $index }}][options][{{ $optIndex }}][{{ $lang->code }}]"
                                                               rows="3"
                                                               placeholder="Cavabı qeyd edin">{{ trim(strip_tags($opt['option'][$lang->code] ?? '')) }}</textarea>
 
-{{--                                                    <div class="math-preview mt-2 p-2 border rounded bg-light"></div>--}}
+                                                    <div class="math-preview mt-2 p-2 border rounded bg-light"></div>
                                                 </div>
                                             @endif
                                         @endforeach
