@@ -39,13 +39,16 @@
                             @endif
                             {{-- Multiple Choice --}}
                             @if($question->type === 'multiple_choice')
-                                @foreach($question->options as $option)
-                                    <div class="form-check">
+                                @foreach($question->options as $optIndex => $option)
+                                    <div class="form-check mb-2">
                                         <input class="form-check-input"
                                                type="radio"
                                                name="answers[{{ $question->id }}]"
+                                               id="question_{{ $question->id }}_option_{{ $option->id }}"
                                                value="{{ $option->id }}">
-                                        <label class="form-check-label">
+
+                                        <label class="form-check-label" for="question_{{ $question->id }}_option_{{ $option->id }}">
+                                            <strong>{{ chr(65 + $optIndex) }})</strong>
                                             {!! $option->option[app()->getLocale()] ?? 'No Option' !!}
                                         </label>
                                     </div>
