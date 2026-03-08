@@ -21,7 +21,7 @@ class ExamService implements IExamService
     public function getAll(): array
     {
         $cmsUser =  cms_user();
-        if ($cmsUser->roles[0]->name == 'teacher')
+        if ($cmsUser->roles[0]->name == 'Teacher')
         {
             $data = Exam::where(['user_id' => $cmsUser['id']])->orderBy('id', 'DESC')->get()->toArray();
         } else {
