@@ -20,6 +20,8 @@ class ExamService implements IExamService
 
     public function getAll(): array
     {
+        $cmsUser =  cms_user();
+        dd($cmsUser);
         $data = Exam::orderBy('id', 'DESC')->get()->toArray();
         return $data;
     }
