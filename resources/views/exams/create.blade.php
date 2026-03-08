@@ -311,7 +311,7 @@
                                                             <div class="col-12 short-text-block" style="display:none">
                                                                 <label class="form-label">Doğru cavab</label>
 
-                                                                <textarea class="form-control  correct-answer ck-question-correct-answer" rows="4"></textarea>
+                                                                <textarea class="ckeditor4 form-control  correct-answer ck-question-correct-answer" rows="4"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -322,15 +322,43 @@
 
                                     {{-- OPTION TEMPLATE --}}
                                     <template id="optionTemplate">
+                                        <div class="row g-2 align-items-start option-item mb-3">
+                                            <div class="col-md-1">
+                                                <label class="form-label fw-bold option-label">A)</label>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                <textarea class="form-control option-text ck-option-text"
+                                                          data-lang="az"
+                                                          rows="3"
+                                                          placeholder="Cavabı qeyd edin"></textarea>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <div class="form-check" style="margin-top: 10px;">
+                                                    <input type="radio" class="form-check-input correct-option-radio">
+                                                    <label class="form-check-label">Düzgün cavab</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-1 text-end">
+                                                <button type="button" class="btn btn-sm btn-danger remove-option" style="margin-top: 5px;">
+                                                    Sil
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </template>
+                                   {{-- <template id="optionTemplate">
                                         <div class="row g-2 align-items-center option-item mb-2">
-                                            {{--@foreach(languages() as $lang)
+                                            --}}{{--@foreach(languages() as $lang)
                                                 <div class="col-md-5">
                                                     <input type="text" class="form-control option-text"
                                                            data-lang="{{ $lang->code }}"
                                                            placeholder="Variant ({{ $lang->code }})">
                                                 </div>
-                                            @endforeach--}}
+                                            @endforeach--}}{{--
                                             <div class="col-md-5">
+
                                                 <input type="text" class="form-control option-text"
                                                        data-lang="az"
                                                        placeholder="Cavabı qeyd edin">
@@ -344,7 +372,7 @@
                                                 </button>
                                             </div>
                                         </div>
-                                    </template>
+                                    </template>--}}
                                 </div>
 
                                 <div class="tab-pane" id="other" role="tabpanel">
@@ -498,6 +526,13 @@
 @endsection
 
 @section('js')
+    <script>
+        document.querySelector('form').addEventListener('submit', function () {
+            for (let instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
+        });
+    </script>
     <script src="{{ asset('assets/vendor/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
@@ -603,6 +638,7 @@
             window.initQuestionEditors = function (card, qIndex) {
                 card.querySelectorAll('.ck-question-text').forEach(el => window.initEditor(el, 200));
                 card.querySelectorAll('.ck-question-correct-answer').forEach(el => window.initEditor(el, 200));
+                card.querySelectorAll('.ck-option-text').forEach(el => window.initEditor(el, 120));
             };
 
             document.querySelectorAll('.ckeditor4').forEach(el => window.initEditor(el, 300));
@@ -667,51 +703,6 @@
             }
         });
     </script>
-    {{--<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-
-            /* CKEditor notification gizlətmək üçün CSS əlavə et */
-            const style = document.createElement('style');
-            style.innerHTML = `.cke_notification { display: none !important; }`;
-            document.head.appendChild(style);
-
-            /* Hər textarea üçün CKEditor initialize funksiyası */
-            function initEditor(el, height = 200, extraPlugins = 'mathjax,image2,uploadimage') {
-                if (!el.id) {
-                    el.id = 'editor_' + Date.now() + '_' + Math.floor(Math.random() * 1000);
-                }
-
-                if (CKEDITOR.instances[el.id]) {
-                    return;
-                }
-
-                CKEDITOR.replace(el.id, {
-                    extraPlugins: extraPlugins,
-                    height: height,
-                    mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_HTML'
-                });
-            }
-
-            /* PAGE LOAD: əsas dil tab-larındakı editorlar */
-            document.querySelectorAll('.ckeditor4').forEach(el => initEditor(el, 300));
-
-            /* FUNCTION: sual editorlarını initialize etmək */
-            window.initQuestionEditors = function(card, qIndex) {
-
-                // Sual mətni
-                card.querySelectorAll('.ck-question-text').forEach(el => initEditor(el, 200, 'mathjax'));
-
-                // Doğru cavab
-                card.querySelectorAll('.ck-question-correct-answer').forEach(el => initEditor(el, 200, 'mathjax'));
-
-                // Variantlar üçün əlavə textarea varsa, buraya da əlavə et
-                // card.querySelectorAll('.option-textarea').forEach(el => initEditor(el, 100, 'mathjax'));
-            }
-
-        });
-    </script>--}}
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -771,14 +762,23 @@
                 card.querySelector(".multiple-choice-block").style.display = type === "multiple_choice" ? "block" : "none";
                 card.querySelector(".short-text-block").style.display = type === "short_text" ? "block" : "none";
             }
-
+            function getOptionLetter(index) {
+                return String.fromCharCode(65 + index); // 0 -> A, 1 -> B, 2 -> C
+            }
             function refreshOptionNames(card, qIndex) {
                 const options = card.querySelectorAll(".option-item");
+
                 options.forEach((opt, optIndex) => {
+                    const label = opt.querySelector(".option-label");
+                    if (label) {
+                        label.innerText = getOptionLetter(optIndex) + ")";
+                    }
+
                     opt.querySelectorAll(".option-text").forEach(input => {
                         const lang = input.dataset.lang;
                         input.name = `questions[${qIndex}][options][${optIndex}][${lang}]`;
                     });
+
                     const radio = opt.querySelector(".correct-option-radio");
                     radio.name = `questions[${qIndex}][correct_option]`;
                     radio.value = optIndex;
@@ -797,6 +797,12 @@
             function addOption(card, qIndex) {
                 const node = optionTemplate.content.cloneNode(true);
                 card.querySelector(".options-wrapper").appendChild(node);
+
+                const addedOption = card.querySelector(".options-wrapper .option-item:last-child");
+                if (addedOption) {
+                    addedOption.querySelectorAll('.ck-option-text').forEach(el => window.initEditor(el, 120));
+                }
+
                 refreshOptionNames(card, qIndex);
             }
 
@@ -859,7 +865,15 @@
 
                 card.addEventListener("click", function (e) {
                     if (e.target.classList.contains("remove-option")) {
-                        e.target.closest(".option-item").remove();
+                        const optionItem = e.target.closest(".option-item");
+
+                        optionItem.querySelectorAll('textarea').forEach(textarea => {
+                            if (textarea.id && CKEDITOR.instances[textarea.id]) {
+                                CKEDITOR.instances[textarea.id].destroy(true);
+                            }
+                        });
+
+                        optionItem.remove();
                         reIndexAllQuestions();
                     }
                 });

@@ -11,6 +11,29 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" id="primaryColor" href="{{ asset('assets/css/blue-color.css') }}">
 @endsection
+@php
+    function optionLetterByOptions($options, $optionId) {
+        foreach (($options ?? []) as $index => $opt) {
+            if (($opt['id'] ?? null) == $optionId) {
+                return chr(65 + $index);
+            }
+        }
+        return null;
+    }
+
+    function correctOptionData($options) {
+        foreach (($options ?? []) as $index => $opt) {
+            if (($opt['is_correct'] ?? 0) == 1) {
+                return [
+                    'letter' => chr(65 + $index),
+                    'option' => $opt,
+                ];
+            }
+        }
+
+        return null;
+    }
+@endphp
 @section('content')
     <!-- main content start -->
     <div class="main-content">
@@ -51,9 +74,17 @@
                                     <p>
                                         {{ __('site.your_answer') }}:
                                         @if($answer['question_option_id'])
-                                            {{ $answer['question_option']['option'][language()] ?? '' }}
+                                            @php
+                                                $selectedLetter = optionLetterByOptions($answer['question']['options'] ?? [], $answer['question_option_id']);
+                                            @endphp
+
+                                            @if($selectedLetter)
+                                                <strong>{{ $selectedLetter }})</strong>
+                                            @endif
+
+                                            {!! $answer['question_option']['option'][language()] ?? '' !!}
                                         @else
-                                            {{ $answer['answer_text'] ?? '' }}
+                                            {!! $answer['answer_text'] ?? '' !!}
                                         @endif
                                     </p>
 
@@ -61,15 +92,19 @@
                                         <p class="text-success">✅ {{ __('site.true') }}</p>
                                     @else
                                         <p class="text-danger">❌ {{ __('site.false') }}</p>
-                                        <p>{{ __('site.correct_answer') }}:
+                                        <p>
+                                            {{ __('site.correct_answer') }}:
                                             @if($answer['question']['type'] === 'multiple_choice')
-                                                {{
-                                                    collect($answer['question']['options'])
-                                                        ->where('is_correct', 1)
-                                                        ->first()['option'][language()] ?? ''
-                                                }}
+                                                @php
+                                                    $correctData = correctOptionData($answer['question']['options'] ?? []);
+                                                @endphp
+
+                                                @if($correctData)
+                                                    <strong>{{ $correctData['letter'] }})</strong>
+                                                    {!! $correctData['option']['option'][language()] ?? '' !!}
+                                                @endif
                                             @else
-                                                {{ $answer['question']['answer']['answer'] ?? '' }}
+                                                {!! $answer['question']['answer']['answer'] ?? '' !!}
                                             @endif
                                         </p>
                                     @endif

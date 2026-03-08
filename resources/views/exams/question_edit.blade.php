@@ -81,7 +81,7 @@
                         <hr>
                         <h6>Variantlar</h6>
                         <div class="options-wrapper">
-                            @if($question['type'] === 'multiple_choice')
+                          {{--  @if($question['type'] === 'multiple_choice')
                                 @foreach($question['options'] as $optIndex => $opt)
                                     <div class="row g-2 align-items-center option-item mb-2">
                                         @foreach(languages() as $lang)
@@ -106,6 +106,44 @@
                                         </div>
                                     </div>
                                 @endforeach
+                            @endif--}}
+                            @if($question['type'] === 'multiple_choice')
+                                @foreach($question['options'] as $optIndex => $opt)
+                                    <div class="row g-2 align-items-start option-item mb-3">
+                                        <div class="col-md-1">
+                                            <label class="form-label fw-bold option-label">
+                                                {{ chr(65 + $optIndex) }})
+                                            </label>
+                                        </div>
+
+                                        @foreach(languages() as $lang)
+                                            @if($lang->code === 'az')
+                                                <div class="col-md-7">
+                        <textarea class="form-control option-text ck-option-text"
+                                  data-lang="{{ $lang->code }}"
+                                  name="questions[{{ $index }}][options][{{ $optIndex }}][{{ $lang->code }}]"
+                                  rows="3"
+                                  placeholder="Cavabı qeyd edin">{{ $opt['option'][$lang->code] ?? '' }}</textarea>
+                                                </div>
+                                            @endif
+                                        @endforeach
+
+                                        <div class="col-md-3">
+                                            <div class="form-check" style="margin-top:10px;">
+                                                <input type="radio" class="form-check-input correct-option-radio"
+                                                       name="questions[{{ $index }}][correct_option]"
+                                                       value="{{ $optIndex }}" @if($opt['is_correct']) checked @endif>
+                                                <label class="form-check-label">Düzgün cavab</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-1 text-end">
+                                            <button type="button" class="btn btn-sm btn-danger remove-option" style="margin-top:5px;">
+                                                Sil
+                                            </button>
+                                        </div>
+                                    </div>
+                                @endforeach
                             @endif
                         </div>
                         <button type="button" class="btn btn-sm btn-outline-success add-option">+ Variant əlavə et</button>
@@ -114,10 +152,12 @@
                     {{-- SHORT TEXT --}}
                     <div class="col-12 short-text-block" style="display: {{ $question['type'] === 'short_text' ? 'block' : 'none' }}">
                         <label class="form-label">Doğru cavab</label>
-
-                        <input type="text" class="form-control correct-answer"
+                        <textarea class="form-control correct-answer ck-question-correct-answer"
+                                  name="questions[{{ $index }}][correct_answer]"
+                                  rows="3">{{ $question['short_answer']['correct_answer'] ?? '' }}</textarea>
+                        {{--<input type="text" class="form-control correct-answer"
                                name="questions[{{ $index }}][correct_answer]"
-                               value="{{ $question['short_answer']['correct_answer'] ?? ''}}">
+                               value="{{ $question['short_answer']['correct_answer'] ?? ''}}">--}}
                     </div>
                 </div>
             </div>

@@ -386,9 +386,16 @@
 @endsection
 
 @section('js')
+    <script>
+        document.querySelector('form').addEventListener('submit', function () {
+            for (let instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
+        });
+    </script>
     <script src="{{ asset('assets/vendor/js/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -491,7 +498,8 @@
 
             window.initQuestionEditors = function (card, qIndex) {
                 card.querySelectorAll('.ck-question-text').forEach(el => window.initEditor(el, 200));
-                card.querySelectorAll('.ck-question-correct-answer').forEach(el => window.initEditor(el, 200));
+                card.querySelectorAll('.ck-question-correct-answer').forEach(el => window.initEditor(el, 150));
+                card.querySelectorAll('.ck-option-text').forEach(el => window.initEditor(el, 120));
             };
 
             document.querySelectorAll('.ckeditor4').forEach(el => window.initEditor(el, 300));
@@ -608,12 +616,22 @@
                 card.querySelector(".short-text-block").style.display = type === "short_text" ? "block" : "none";
             }
 
+            function getOptionLetter(index) {
+                return String.fromCharCode(65 + index);
+            }
+
             function refreshOptionNames(card, qIndex){
                 card.querySelectorAll(".option-item").forEach((opt, optIndex)=>{
+                    const label = opt.querySelector(".option-label");
+                    if (label) {
+                        label.innerText = getOptionLetter(optIndex) + ")";
+                    }
+
                     opt.querySelectorAll(".option-text").forEach(input=>{
                         const lang = input.dataset.lang;
                         input.name = `questions[${qIndex}][options][${optIndex}][${lang}]`;
                     });
+
                     const radio = opt.querySelector(".correct-option-radio");
                     radio.name = `questions[${qIndex}][correct_option]`;
                     radio.value = optIndex;
@@ -632,6 +650,12 @@
             function addOption(card, qIndex){
                 const node = optionTemplate.content.cloneNode(true);
                 card.querySelector(".options-wrapper").appendChild(node);
+
+                const addedOption = card.querySelector(".options-wrapper .option-item:last-child");
+                if (addedOption) {
+                    addedOption.querySelectorAll('.ck-option-text').forEach(el => window.initEditor(el, 120));
+                }
+
                 refreshOptionNames(card, qIndex);
             }
 
@@ -648,10 +672,11 @@
                 const card = node.querySelector(".question-item");
                 questionsWrapper.appendChild(card);
 
+                window.initQuestionEditors(card, questionIndex);
+
                 const uniqueId = "qtab_" + Date.now() + "_" + Math.floor(Math.random()*1000);
                 const langButtons = card.querySelectorAll(".question-lang-tab");
                 const otherButton = card.querySelector(".question-other-tab");
-                const langPanes = card.querySelectorAll(".question-lang-pane");
                 const otherPane = card.querySelector(".question-other-pane");
 
                 langButtons.forEach(btn=>{
@@ -676,6 +701,7 @@
                 card.querySelector(".type-select").addEventListener("change", function(){
                     toggleBlocks(card);
                     const qIndex = Array.from(questionsWrapper.querySelectorAll(".question-item")).indexOf(card);
+
                     if(this.value === "multiple_choice" && card.querySelectorAll(".option-item").length===0){
                         for(let i=0;i<4;i++) addOption(card, qIndex);
                     }
@@ -687,13 +713,27 @@
                 });
 
                 card.querySelector(".remove-question").addEventListener("click", function(){
+                    card.querySelectorAll('textarea').forEach(textarea => {
+                        if (textarea.id && CKEDITOR.instances[textarea.id]) {
+                            CKEDITOR.instances[textarea.id].destroy(true);
+                        }
+                    });
+
                     card.remove();
                     reIndexAllQuestions();
                 });
 
                 card.addEventListener("click", function(e){
                     if(e.target.classList.contains("remove-option")){
-                        e.target.closest(".option-item").remove();
+                        const optionItem = e.target.closest(".option-item");
+
+                        optionItem.querySelectorAll('textarea').forEach(textarea => {
+                            if (textarea.id && CKEDITOR.instances[textarea.id]) {
+                                CKEDITOR.instances[textarea.id].destroy(true);
+                            }
+                        });
+
+                        optionItem.remove();
                         reIndexAllQuestions();
                     }
                 });
@@ -706,8 +746,18 @@
             document.querySelectorAll("#questionsWrapper .question-item").forEach(card=>{
                 const qIndex = Array.from(questionsWrapper.querySelectorAll(".question-item")).indexOf(card);
                 const typeSelect = card.querySelector(".type-select");
+
+                window.initQuestionEditors(card, qIndex);
                 toggleBlocks(card);
-                typeSelect.addEventListener("change", function(){ toggleBlocks(card); });
+                refreshNames(card, qIndex);
+
+                typeSelect.addEventListener("change", function(){
+                    toggleBlocks(card);
+
+                    if(this.value === "multiple_choice" && card.querySelectorAll(".option-item").length === 0){
+                        for(let i = 0; i < 4; i++) addOption(card, qIndex);
+                    }
+                });
             });
 
             addQuestionBtn.addEventListener("click", ()=>addQuestion());
