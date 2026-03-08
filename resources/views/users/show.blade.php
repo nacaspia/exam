@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/jquery-ui.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/OverlayScrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" id="primaryColor" href="{{ asset('assets/css/blue-color.css') }}">
@@ -98,7 +99,7 @@
                                 </table>
                             </div>
                             <div class="tab-pane" id="exam" role="tabpanel">
-                                <table class="table table-dashed table-hover digi-dataTable all-employee-table table-striped">
+                                <table class="table table-dashed table-hover digi-dataTable all-employee-table table-striped"  id="allEmployeeTable">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
@@ -139,6 +140,7 @@
                                     @endif
                                     </tbody>
                                 </table>
+                                <div class="table-bottom-control"></div>
                             </div>
                         </div>
                     </div>
@@ -153,6 +155,7 @@
     <script src="{{ asset('assets/vendor/js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/jquery.overlayScrollbars.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/select2-init.js') }}"></script>
