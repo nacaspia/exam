@@ -35,7 +35,7 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <strong>{{ $index+1 }}. {{ $question->title[app()->getLocale()] ?? '' }}</strong>
-                            <p>- {{ $question->text[app()->getLocale()] ?? ''}}</p>
+                            <p>- {!! $question->text[app()->getLocale()] ?? '' !!}</p>
                             @if($question['image'])
                                 <img src="{{ asset('storage/'.$question['image']) }}">
                             @endif
@@ -48,7 +48,7 @@
                                                name="answers[{{ $question->id }}]"
                                                value="{{ $option->id }}">
                                         <label class="form-check-label">
-                                            {{ $option->option[app()->getLocale()] ?? 'No Option' }}
+                                            {!! $option->option[app()->getLocale()] ?? 'No Option' !!}
                                         </label>
                                     </div>
                                 @endforeach

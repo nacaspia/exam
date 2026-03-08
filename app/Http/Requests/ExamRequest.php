@@ -33,7 +33,7 @@ class ExamRequest extends FormRequest
 
             // Translations
             'title' => 'required|array',
-            'title.*' => 'required|string|max:200',
+            'title.*' => 'required|string',
             'text' => 'nullable|array',
             'text.*' => 'nullable|string',
 
@@ -47,14 +47,14 @@ class ExamRequest extends FormRequest
             // Questions (dynamic)
             'questions' => 'required|array|min:1',
             'questions.*.title' => 'required|array',
-            'questions.*.title.*' => 'required|string|max:200',
+            'questions.*.title.*' => 'required|string',
             'questions.*.text' => 'nullable|array',
             'questions.*.text.*' => 'nullable|string',
             'questions.*.type' => 'required|in:multiple_choice,short_text',
             'questions.*.subject_id' => 'required|integer|exists:subjects,id',
             'questions.*.correct_answer' => 'nullable|string', // short_text üçün
             'questions.*.options' => 'nullable|array', // multiple_choice üçün
-            'questions.*.options.*.*' => 'required_with:questions.*.options|string|max:200',
+            'questions.*.options.*.*' => 'required_with:questions.*.options|string',
             'questions.*.correct_option' => 'nullable|integer', // multiple_choice üçün
         ];
     }
