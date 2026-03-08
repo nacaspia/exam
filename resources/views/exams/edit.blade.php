@@ -430,6 +430,7 @@
                     }
                 });
             }
+
             function wrapLatexForEditor(html) {
                 if (!html) return html;
 
@@ -447,23 +448,7 @@
 
                 return html;
             }
-            instanceReady: function (evt) {
-                const editor = evt.editor;
-                const originalData = editor.getData();
-                const convertedData = wrapLatexForEditor(originalData);
 
-                if (originalData !== convertedData) {
-                    editor.setData(convertedData, function () {
-                        if (editor.widgets && editor.widgets.checkWidgets) {
-                            editor.widgets.checkWidgets();
-                        }
-                    });
-                } else {
-                    if (editor.widgets && editor.widgets.checkWidgets) {
-                        editor.widgets.checkWidgets();
-                    }
-                }
-            },
             window.initEditor = function (el, height = 300) {
                 if (!el) return;
 
@@ -480,9 +465,8 @@
                     extraPlugins: 'mathjax,customimageupload',
                     removePlugins: 'image,uploadimage,image2',
                     mathJaxLib: 'https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS_HTML',
-
                     allowedContent: true,
-                    extraAllowedContent: 'img[*]{*}(*)',
+                    extraAllowedContent: 'img[*]{*}(*) span(math-tex)',
 
                     toolbar: [
                         { name: 'document', items: ['Source'] },
@@ -498,25 +482,20 @@
                     on: {
                         instanceReady: function (evt) {
                             const editor = evt.editor;
-                            let data = editor.getData();
+                            const originalData = editor.getData();
+                            const convertedData = wrapLatexForEditor(originalData);
 
-                            // raw inline latex: \( ... \)
-                            data = data.replace(/\\\(([\s\S]*?)\\\)/g, function(match) {
-                                if (match.includes('math-tex')) return match;
-                                return '<span class="math-tex">' + match + '</span>';
-                            });
-
-                            // raw block latex: \[ ... \]
-                            data = data.replace(/\\\[([\s\S]*?)\\\]/g, function(match) {
-                                if (match.includes('math-tex')) return match;
-                                return '<span class="math-tex">' + match + '</span>';
-                            });
-
-                            editor.setData(data, function () {
+                            if (originalData !== convertedData) {
+                                editor.setData(convertedData, function () {
+                                    if (editor.widgets && editor.widgets.checkWidgets) {
+                                        editor.widgets.checkWidgets();
+                                    }
+                                });
+                            } else {
                                 if (editor.widgets && editor.widgets.checkWidgets) {
                                     editor.widgets.checkWidgets();
                                 }
-                            });
+                            }
                         },
 
                         doubleclick: function (evt) {
