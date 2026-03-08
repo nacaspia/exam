@@ -100,8 +100,8 @@
         <div class="row">
             <div class="col-lg-7">
                 <div class="banner-content">
-                    <span>eDus Digital Institute</span>
-                    <h1 class="title">The New Way To Learn.</h1>
+                    <span>Öyrən. Özünü Yoxla. İnkişaf Et</span>
+                    <h1 class="title">Müxtəlif fənlər üzrə onlayn testlər və tədris materialları</h1>
                     <ul>
                         @if(user())
                             <li><a class="main-btn" href="{{ route('site.user.account',['locale'=>app()->getLocale()]) }}"><span>+</span> {{ __('site.account') }}</a></li>
@@ -170,8 +170,8 @@
         <div class="row justify-content-center">
             <div class="col-lg-11">
                 <div class="offer-content text-center">
-                    <span>Are You Ready For This Offer</span>
-                    <h2 class="title">50% Offer For Very First 50 Students & Mentors.</h2>
+                    <span>Biliklərini Sına, Uğura Bir Addım Yaxınlaş</span>
+                    <h2 class="title">Müəllim və şagirdlər üçün hazırlanmış onlayn test platforması.</h2>
                     <ul>
                         @if(user())
                             <li><a class="main-btn" href="{{ route('site.user.account',['locale'=>app()->getLocale()]) }}"><i class="fal fa-user"></i>{{ __('site.account') }}</a></li>
