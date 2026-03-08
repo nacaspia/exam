@@ -75,7 +75,7 @@
 
                         @if($answer->question->type === 'multiple_choice')
                             @php
-                                $selectedLetter = optionLetterByOptions($answer->question->options ?? [], $answer->question_option_id);
+                                $selectedLetter = optionLetterByOptions($answer->question->option ?? [], $answer->question_option_id);
                             @endphp
 
                             @if($selectedLetter)
