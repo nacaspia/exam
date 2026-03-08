@@ -75,14 +75,14 @@
 
                         @if($answer->question->type === 'multiple_choice')
                             @php
-                                $selectedLetter = optionLetterByOptions($answer->question->option ?? [], $answer->question_option_id);
+                                $selectedLetter = optionLetterByOptions($answer->question->options ?? [], $answer->question_option_id);
                             @endphp
 
                             @if($selectedLetter)
                                 <strong>{{ $selectedLetter }})</strong>
                             @endif
-
-                            {!! optionTextByLocale($answer->question->options, app()->getLocale()) !!}
+                        @dd($answer)
+                            {!! optionTextByLocale($answer->question_option, app()->getLocale()) !!}
                         @else
                             {!! $answer->answer_text ?? '' !!}
                         @endif
