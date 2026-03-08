@@ -55,7 +55,7 @@ class Question extends Model
     // VARIANTLI SUALLAR üçün
     public function options()
     {
-        return $this->hasMany(QuestionOption::class)->orderBy('id');
+        return $this->hasMany(QuestionOption::class);
     }
 
     // QISA YAZI (short_text) sualları üçün

@@ -82,7 +82,7 @@
                                 <strong>{{ $selectedLetter }})</strong>
                             @endif
 
-                            {!! optionTextByLocale($answer->question_option, app()->getLocale()) !!}
+                            {!! optionTextByLocale($answer->question->options, app()->getLocale()) !!}
                         @else
                             {!! $answer->answer_text ?? '' !!}
                         @endif
