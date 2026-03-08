@@ -437,7 +437,7 @@
                                                 <label class="form-check-label">Nəticəni göstər</label>
                                             </div>
                                         </div>
-                                        @if(cms_user()->hasPermission('exams-index'))
+                                        @if(cms_user()->hasPermission('exams-active'))
                                             <div class="col-md-4">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="active"

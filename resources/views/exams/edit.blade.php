@@ -302,7 +302,7 @@
                                         </div>
 
                                         {{-- ACTIVE + SEO SETTINGS --}}
-                                        @if(cms_user()->hasPermission('exams-index'))
+                                        @if(cms_user()->hasPermission('exams-active'))
 
                                             <div class="col-md-4">
                                                 <div class="form-check">
