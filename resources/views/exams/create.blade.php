@@ -142,7 +142,7 @@
                                         <div class="col-12">
                                             <label class="form-label">Imtahan başlıqı</label>
                                             <input type="text" class="form-control js-title"
-                                                   name="title[az]" data-lang="az">
+                                                   name="title[az]" data-lang="az" value="{{ old('title.az') }}">
                                         </div>
 
                                         <div class="col-12">
@@ -150,7 +150,7 @@
 
                                             <textarea id="text_az"
                                                       class="ckeditor4 form-control"
-                                                      name="text[az]"></textarea>
+                                                      name="text[az]">{{ old('text.az') }}</textarea>
                                         </div>
 
                                         {{-- SEO --}}
@@ -159,25 +159,25 @@
                                             <input type="text" class="form-control js-meta-title"
                                                    name="meta_title[az]"
                                                    placeholder="Boş burax → title-dan auto dolacaq"
-                                                   data-lang="az">
+                                                   data-lang="az" value="{{ old('meta_title.az') }}">
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label">Meta description (az)</label>
                                             <textarea class="form-control js-meta-text"
                                                       name="meta_text[az]" rows="3"
                                                       placeholder="Boş burax → title-dan auto dolacaq"
-                                                      data-lang="az"></textarea>
+                                                      data-lang="az">{{ old('meta_text.az') }}</textarea>
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label">Meta keywords (az)</label>
                                             <input type="text" class="form-control js-meta-keyword"
                                                    name="meta_keywords[az]"
-                                                   placeholder="keyword1, keyword2" data-lang="az">
+                                                   placeholder="keyword1, keyword2" data-lang="az" value="{{ old('meta_keywords.az') }}">
                                         </div>
                                         <div class="col-12">
                                             <label class="form-label">OG title (az)</label>
                                             <input type="text" class="form-control js-og-title"
-                                                   name="og_title[az]"
+                                                   name="og_title[az]"  value="{{ old('og_title.az') }}"
                                                    placeholder="Boş burax → meta title-dan götürüləcək"
                                                    data-lang="az">
                                         </div>
@@ -186,7 +186,7 @@
                                             <textarea class="form-control js-og-text"
                                                       name="og_text[az]" rows="2"
                                                       placeholder="Boş burax → meta description-dan götürüləcək"
-                                                      data-lang="az"></textarea>
+                                                      data-lang="az">{{ old('og_text.az') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -381,14 +381,14 @@
                                             <select name="class_id" class="form-select" required>
                                                 @foreach($schoolClasses as $class)
                                                     <option
-                                                        value="{{ $class['id'] }}">{{ $class['name'][language()] }}</option>
+                                                        value="{{ $class['id'] }}" @if($class['id'] == old('class_id')) selected="selected" @endif>{{ $class['name'][language()] }}</option>
                                                 @endforeach </select>
                                         </div> {{-- LANGUAGE --}}
                                         <div class="col-md-6">
                                             <label class="form-label">Dil</label>
                                             <select name="language" class="form-select" required>
                                                 @foreach(languages() as $lang)
-                                                    <option value="{{ $lang->code }}">{{ $lang->code }}</option>
+                                                    <option value="{{ $lang->code }}"  @if($lang->code == old('language')) selected="selected" @endif>{{ $lang->code }}</option>
                                                 @endforeach
                                             </select>
                                         </div> {{-- PRICE --}}
@@ -398,7 +398,7 @@
                                                 <label class="form-label">Qiymət növü (Pullu)</label>
                                                 <div class="form-check">
                                                     <input class="form-check-input price-type" type="radio"
-                                                           name="price_type" value="paid" id="pricePaid" checked>
+                                                           name="price_type" value="paid" id="pricePaid"  @if(old('price_type') == 'paid') checked="checked" @endif>
                                                     <label class="form-check-label" for="pricePaid">Pullu</label>
                                                 </div>
                                             </div>
@@ -406,7 +406,7 @@
                                                 <label class="form-label">Qiymət növü (Pulsuz)</label>
                                                 <div class="form-check">
                                                     <input class="form-check-input price-type" type="radio"
-                                                           name="price_type" value="free" id="priceFree">
+                                                           name="price_type" value="free" id="priceFree" @if(old('price_type') == 'free') checked="checked" @endif>
                                                     <label class="form-check-label" for="priceFree">Pulsuz</label>
                                                 </div>
                                             </div>
@@ -415,7 +415,7 @@
                                             <div class="col-md-6">
                                                 <label class="form-label">Qiymət</label>
                                                 <input type="number" name="price" class="form-control price-input"
-                                                       min="0" step="0.01">
+                                                       min="0" step="0.01" value="{{ old('price') }}">
                                             </div>
 
                                             {{-- DURATION TYPE --}}
@@ -423,8 +423,7 @@
                                                 <label class="form-label">Müddət növü (Müddətli)</label>
                                                 <div class="form-check">
                                                     <input class="form-check-input duration-type" type="radio"
-                                                           name="duration_type" value="timed" id="durationTimed"
-                                                           checked>
+                                                           name="duration_type" value="timed" id="durationTimed" @if(old('duration_type') == 'timed') checked="checked" @endif>
                                                     <label class="form-check-label" for="durationTimed">Müddətli</label>
                                                 </div>
                                             </div>
@@ -432,7 +431,7 @@
                                                 <label class="form-label">Müddət növü (Müddətsiz)</label>
                                                 <div class="form-check">
                                                     <input class="form-check-input duration-type" type="radio"
-                                                           name="duration_type" value="untimed" id="durationUntimed">
+                                                           name="duration_type" value="untimed" id="durationUntimed"  @if(old('duration_type') == 'untimed') checked="checked" @endif>
                                                     <label class="form-check-label"
                                                            for="durationUntimed">Müddətsiz</label>
                                                 </div>
@@ -441,27 +440,27 @@
                                             {{-- DURATION --}}
                                             <div class="col-md-6 duration-field">
                                                 <label class="form-label">Müddət (dəq)</label>
-                                                <input type="number" name="duration" class="form-control" min="1">
+                                                <input type="number" name="duration" class="form-control" min="1" value="{{ old('duration') }}">
                                             </div>
 
                                             {{-- START TIME --}}
                                             <div class="col-md-6 start-time-field">
                                                 <label class="form-label">Başlama vaxtı</label>
-                                                <input type="text" name="start_time"
+                                                <input type="text" name="start_time"  value="{{ old('start_time') }}"
                                                        class="form-control datetimepicker">
                                             </div>
 
                                             {{-- END TIME --}}
                                             <div class="col-md-6 end-time-field">
                                                 <label class="form-label">Bitmə vaxtı</label>
-                                                <input type="text" name="end_time" class="form-control datetimepicker">
+                                                <input type="text" name="end_time" class="form-control datetimepicker"   value="{{ old('end_time') }}">
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="show_result"
-                                                       value="1">
+                                                       value="1" @if(old('show_result') == 1) checked="checked" @endif>
                                                 <label class="form-check-label">Nəticəni göstər</label>
                                             </div>
                                         </div>
@@ -469,26 +468,26 @@
                                             <div class="col-md-4">
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="active"
-                                                           value="1">
+                                                           value="1"  @if(old('active') == 1) checked="checked" @endif>
                                                     <label class="form-check-label">Aktiv</label>
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <label class="form-label">Canonical URL</label>
                                                 <input type="text" class="form-control" name="canonical_url"
-                                                       placeholder="https://site.az/az/questions">
+                                                       placeholder="https://site.az/az/questions" value="{{ old('canonical_url') }}">
                                             </div> {{-- INDEX --}}
                                             <div class="col-12">
-                                                <input type="hidden" name="index" value="0">
+                                                <input type="hidden" name="index" value="0" @if(old('index') == 0) checked="checked" @endif>
                                                 <div class="form-check">
                                                     <input class="form-check-input" type="checkbox" name="index"
-                                                           value="1">
+                                                           value="1" @if(old('index') == 1) checked="checked" @endif>
                                                     <label class="form-check-label"> Index </label>
                                                 </div>
                                             </div> {{-- FOLLOW --}}
                                             <div class="col-12"><input type="hidden" name="follow" value="0">
                                                 <div class="form-check"><input class="form-check-input" type="checkbox"
-                                                                               name="follow" value="1"> <label
+                                                                               name="follow" value="1" @if(old('follow') == 1) checked="checked" @endif> <label
                                                         class="form-check-label"> Follow </label></div>
                                             </div>
                                         @endif {{-- DESCRIPTION --}}
@@ -526,6 +525,9 @@
 @endsection
 
 @section('js')
+    <script>
+        window.oldQuestions = @json(old('questions', []));
+    </script>
     <script>
         document.querySelector('form').addEventListener('submit', function () {
             for (let instance in CKEDITOR.instances) {
@@ -745,11 +747,258 @@
             });
 
             // Səhifə yüklənəndə ilkin vəziyyət
-            document.querySelector('input[name="price_type"]:checked').dispatchEvent(new Event('change'));
-            document.querySelector('input[name="duration_type"]:checked').dispatchEvent(new Event('change'));
-        });
+            const checkedPrice = document.querySelector('input[name="price_type"]:checked');
+            const checkedDuration = document.querySelector('input[name="duration_type"]:checked');
 
+            if (checkedPrice) {
+                checkedPrice.dispatchEvent(new Event('change'));
+            }
+
+            if (checkedDuration) {
+                checkedDuration.dispatchEvent(new Event('change'));
+            }
+            // document.querySelector('input[name="price_type"]:checked').dispatchEvent(new Event('change'));
+            // document.querySelector('input[name="duration_type"]:checked').dispatchEvent(new Event('change'));
+        });
         document.addEventListener("DOMContentLoaded", function () {
+
+            let questionIndex = 0;
+            const questionsWrapper = document.getElementById("questionsWrapper");
+            const addQuestionBtn = document.getElementById("addQuestionBtn");
+            const questionTemplate = document.getElementById("questionTemplate");
+            const optionTemplate = document.getElementById("optionTemplate");
+
+            function toggleBlocks(card) {
+                const type = card.querySelector(".type-select").value;
+                card.querySelector(".multiple-choice-block").style.display = type === "multiple_choice" ? "block" : "none";
+                card.querySelector(".short-text-block").style.display = type === "short_text" ? "block" : "none";
+            }
+
+            function getOptionLetter(index) {
+                return String.fromCharCode(65 + index);
+            }
+
+            function refreshOptionNames(card, qIndex) {
+                const options = card.querySelectorAll(".option-item");
+
+                options.forEach((opt, optIndex) => {
+                    const label = opt.querySelector(".option-label");
+                    if (label) {
+                        label.innerText = getOptionLetter(optIndex) + ")";
+                    }
+
+                    opt.querySelectorAll(".option-text").forEach(input => {
+                        const lang = input.dataset.lang;
+                        input.name = `questions[${qIndex}][options][${optIndex}][${lang}]`;
+                    });
+
+                    const radio = opt.querySelector(".correct-option-radio");
+                    radio.name = `questions[${qIndex}][correct_option]`;
+                    radio.value = optIndex;
+                });
+            }
+
+            function refreshNames(card, qIndex) {
+                card.querySelector(".subject-select").name = `questions[${qIndex}][subject_id]`;
+                card.querySelector(".type-select").name = `questions[${qIndex}][type]`;
+
+                card.querySelectorAll(".q-title").forEach(input => {
+                    input.name = `questions[${qIndex}][title][${input.dataset.lang}]`;
+                });
+
+                card.querySelectorAll(".q-text").forEach(input => {
+                    input.name = `questions[${qIndex}][text][${input.dataset.lang}]`;
+                });
+
+                card.querySelector(".correct-answer").name = `questions[${qIndex}][correct_answer]`;
+
+                refreshOptionNames(card, qIndex);
+            }
+
+            function setEditorDataWhenReady(textarea, value, retry = 0) {
+                if (!textarea) return;
+
+                const maxRetry = 50;
+
+                if (textarea.id && CKEDITOR.instances[textarea.id]) {
+                    CKEDITOR.instances[textarea.id].setData(value ?? '');
+                    return;
+                }
+
+                textarea.value = value ?? '';
+
+                if (retry < maxRetry) {
+                    setTimeout(() => {
+                        setEditorDataWhenReady(textarea, value, retry + 1);
+                    }, 100);
+                }
+            }
+
+            function addOption(card, qIndex, optionData = null, isCorrect = false) {
+                const node = optionTemplate.content.cloneNode(true);
+                card.querySelector(".options-wrapper").appendChild(node);
+
+                const addedOption = card.querySelector(".options-wrapper .option-item:last-child");
+
+                if (addedOption) {
+                    const textarea = addedOption.querySelector('.option-text[data-lang="az"]');
+                    const radio = addedOption.querySelector('.correct-option-radio');
+
+                    if (radio && isCorrect) {
+                        radio.checked = true;
+                    }
+
+                    addedOption.querySelectorAll('.ck-option-text').forEach(el => window.initEditor(el, 120));
+
+                    setEditorDataWhenReady(textarea, optionData?.az ?? '');
+                }
+
+                refreshOptionNames(card, qIndex);
+            }
+
+            function reIndexAllQuestions() {
+                const allCards = questionsWrapper.querySelectorAll(".question-item");
+
+                allCards.forEach((card, index) => {
+                    card.querySelector(".question-head").innerText = `Sual #${index + 1}`;
+                    refreshNames(card, index);
+                });
+
+                questionIndex = allCards.length;
+            }
+
+            function addQuestion(questionData = null) {
+                const currentIndex = questionIndex;
+                const node = questionTemplate.content.cloneNode(true);
+                const card = node.querySelector(".question-item");
+                questionsWrapper.appendChild(card);
+
+                initQuestionEditors(card, currentIndex);
+
+                const uniqueId = "qtab_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
+                const langButtons = card.querySelectorAll(".question-lang-tab");
+                const otherButton = card.querySelector(".question-other-tab");
+                const otherPane = card.querySelector(".question-other-pane");
+
+                langButtons.forEach(btn => {
+                    const lang = btn.dataset.lang;
+                    const paneId = `${uniqueId}_lang_${lang}`;
+                    btn.setAttribute("data-bs-target", `#${paneId}`);
+                    const pane = card.querySelector(`.question-lang-pane[data-lang="${lang}"]`);
+                    if (pane) {
+                        pane.id = paneId;
+                    }
+                });
+
+                const otherPaneId = `${uniqueId}_other`;
+                otherButton.setAttribute("data-bs-target", `#${otherPaneId}`);
+                otherPane.id = otherPaneId;
+
+                refreshNames(card, currentIndex);
+
+                if (questionData) {
+                    const qTitle = card.querySelector('.q-title[data-lang="az"]');
+                    if (qTitle) {
+                        qTitle.value = questionData?.title?.az ?? '';
+                    }
+
+                    const subjectSelect = card.querySelector('.subject-select');
+                    if (subjectSelect) {
+                        subjectSelect.value = questionData?.subject_id ?? '';
+                    }
+
+                    const typeSelect = card.querySelector('.type-select');
+                    if (typeSelect) {
+                        typeSelect.value = questionData?.type ?? '';
+                    }
+                }
+
+                toggleBlocks(card);
+
+                if (questionData) {
+                    const qText = card.querySelector('.q-text[data-lang="az"]');
+                    setEditorDataWhenReady(qText, questionData?.text?.az ?? '');
+
+                    const correctAnswer = card.querySelector('.correct-answer');
+                    setEditorDataWhenReady(correctAnswer, questionData?.correct_answer ?? '');
+
+                    if (questionData?.type === 'multiple_choice' && questionData?.options) {
+                        const optionsWrapper = card.querySelector(".options-wrapper");
+                        optionsWrapper.innerHTML = '';
+
+                        Object.entries(questionData.options).forEach(([optIndex, optionValue]) => {
+                            addOption(
+                                card,
+                                currentIndex,
+                                optionValue,
+                                String(questionData.correct_option) === String(optIndex)
+                            );
+                        });
+                    } else if (questionData?.type === 'multiple_choice') {
+                        for (let i = 0; i < 4; i++) {
+                            addOption(card, currentIndex);
+                        }
+                    }
+                }
+
+                card.querySelector(".type-select").addEventListener("change", function () {
+                    toggleBlocks(card);
+
+                    const qIndex = Array.from(questionsWrapper.querySelectorAll(".question-item")).indexOf(card);
+
+                    if (this.value === "multiple_choice" && card.querySelectorAll(".option-item").length === 0) {
+                        for (let i = 0; i < 4; i++) {
+                            addOption(card, qIndex);
+                        }
+                    }
+                });
+
+                card.querySelector(".add-option").addEventListener("click", function () {
+                    const qIndex = Array.from(questionsWrapper.querySelectorAll(".question-item")).indexOf(card);
+                    addOption(card, qIndex);
+                });
+
+                card.querySelector(".remove-question").addEventListener("click", function () {
+                    card.querySelectorAll('textarea').forEach(textarea => {
+                        if (textarea.id && CKEDITOR.instances[textarea.id]) {
+                            CKEDITOR.instances[textarea.id].destroy(true);
+                        }
+                    });
+
+                    card.remove();
+                    reIndexAllQuestions();
+                });
+
+                card.addEventListener("click", function (e) {
+                    if (e.target.classList.contains("remove-option")) {
+                        const optionItem = e.target.closest(".option-item");
+
+                        optionItem.querySelectorAll('textarea').forEach(textarea => {
+                            if (textarea.id && CKEDITOR.instances[textarea.id]) {
+                                CKEDITOR.instances[textarea.id].destroy(true);
+                            }
+                        });
+
+                        optionItem.remove();
+                        reIndexAllQuestions();
+                    }
+                });
+
+                questionIndex++;
+                reIndexAllQuestions();
+            }
+
+            addQuestionBtn.addEventListener("click", function () {
+                addQuestion();
+            });
+
+            if (window.oldQuestions && window.oldQuestions.length > 0) {
+                window.oldQuestions.forEach(question => addQuestion(question));
+            } else {
+                addQuestion();
+            }
+        });
+        /*document.addEventListener("DOMContentLoaded", function () {
 
             let questionIndex = 0;
             const questionsWrapper = document.getElementById("questionsWrapper");
@@ -884,6 +1133,6 @@
 
             addQuestionBtn.addEventListener("click", addQuestion);
             addQuestion();
-        });
+        });*/
     </script>
 @endsection
